@@ -1,0 +1,16 @@
+select
+	sub_order_id,
+	sea_type_id,
+	biz_unit,
+	delivered_time,
+	done_time,
+	order_amt,
+	pay_time,
+	province_name
+from
+	dw.sale_sub_order
+where
+	dt>='-time3'
+	and dt<'-time2'
+	and pay_time>='-time1'
+	and pay_time<'-time2'
