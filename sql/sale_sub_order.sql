@@ -1,7 +1,7 @@
 select
 	sub_order_id,
 	sea_type_id,
-	biz_unit,
+	biz_unit biz_unit_id,
 	delivered_time,
 	done_time,
 	order_amt,
