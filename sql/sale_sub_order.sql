@@ -1,9 +1,9 @@
 select
 	sub_order_id,
+	sub_order_code,
 	sea_type_id,
 	biz_unit biz_unit_id,
 	delivered_time,
-	done_time,
 	order_amt,
 	pay_time,
 	province_name
