@@ -9,5 +9,6 @@ select
 from
 	ods.so_reject_info
 where
-	(create_time>='-time1' and create_time<'-time2')
-	or (cs_audit_time>='-time1' and cs_audit_time<'-time2')
+	reject_type=0
+	and ((create_time>='-time1' and create_time<'-time2')
+	or (cs_audit_time>='-time1' and cs_audit_time<'-time2'))
