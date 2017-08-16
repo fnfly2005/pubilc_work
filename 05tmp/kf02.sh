@@ -58,7 +58,7 @@ with sri as (
 				'${t1% *}' dt,
 				count(distinct order_no) no_48
 			 from
-				sri
+				sri join ssi using(supplier_id)
 			where
 				create_time>='${t3% *}'
 		   ),
@@ -67,7 +67,7 @@ with sri as (
 				'${t1% *}' dt,
 				count(distinct order_no) no_24
 			 from
-				sri
+				sri join ssi using(supplier_id)
 			where
 				create_time>='${t1% *}'
 		   ),
