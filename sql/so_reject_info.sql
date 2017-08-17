@@ -1,7 +1,7 @@
 /*退货单表*/
 select
 	reject_no,
-	order_no,
+	order_no sub_order_code,
 	supplier_id,
 	reject_status,
 	audit_status,

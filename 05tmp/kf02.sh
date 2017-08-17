@@ -48,7 +48,7 @@ with sri as (
 	 s2 as (
 			select
 				'${t1% *}' dt,
-				count(distinct order_no) jiufen_no
+				count(distinct sub_order_code) jiufen_no
 			from
 				sri join ssi using(supplier_id)
 				join srs on sri.reject_no=srs.reject_no
@@ -56,7 +56,7 @@ with sri as (
 	 s3 as (
 			 select
 				'${t1% *}' dt,
-				count(distinct order_no) no_48
+				count(distinct sub_order_code) no_48
 			 from
 				sri join ssi using(supplier_id)
 			where
@@ -65,7 +65,7 @@ with sri as (
 	 s4 as (
 			 select
 				'${t1% *}' dt,
-				count(distinct order_no) no_24
+				count(distinct sub_order_code) no_24
 			 from
 				sri join ssi using(supplier_id)
 			where
@@ -89,6 +89,7 @@ temp as (select 1)
 name=(
 	zhanggang
 	duyanhua
+	cs-wanglei
 	 )
 script="${path}bin/mail.sh"
 topic="﻿仲裁数据日报"
