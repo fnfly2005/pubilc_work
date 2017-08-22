@@ -1,0 +1,189 @@
+------------------------------------------------------------
+/usr/local/bin/pip run on Thu Jun 15 18:14:40 2017
+Downloading/unpacking jieba
+
+  Getting page https://pypi.python.org/simple/jieba/
+  URLs to search for versions for jieba:
+  * https://pypi.python.org/simple/jieba/
+  Analyzing links from page https://pypi.python.org/simple/jieba/
+    Found link https://pypi.python.org/packages/00/c2/b59a2fa3419ae1b02bd22f1958168ae4196013690d6e5713a054e8e98baf/jieba-0.35.zip#md5=1b5da9e17cd3545998adb0d0a54b50e7 (from https://pypi.python.org/simple/jieba/), version: 0.35
+    Found link https://pypi.python.org/packages/03/96/a21286e799f1ed72171b05ab02890c704a3475281d2dea07427d2fb0d75a/jieba-0.31.zip#md5=c28bde28064d575d9d272238fa391abd (from https://pypi.python.org/simple/jieba/), version: 0.31
+    Found link https://pypi.python.org/packages/0b/45/e846d5575e2546b30205e73c1de807ec73293f15ab8ce0c34772e7b737fd/jieba-0.27.zip#md5=712b64f9b37d245e345e3b02cc103958 (from https://pypi.python.org/simple/jieba/), version: 0.27
+    Found link https://pypi.python.org/packages/0b/95/69ce20590cbd4935291c6bfa6a4ce345a671de20274d40f5311bec6e7d45/jieba-0.29.1.zip#md5=fc93c3217a5ec4a1644012423d81223f (from https://pypi.python.org/simple/jieba/), version: 0.29.1
+    Found link https://pypi.python.org/packages/17/e2/15a2ea4ed72a6023efc78628b6f269265d1878aa03be74d5361560292386/jieba-0.29.zip#md5=0930fc00d11ecaeb2e7c79987ac83e44 (from https://pypi.python.org/simple/jieba/), version: 0.29
+    Found link https://pypi.python.org/packages/3b/57/c236050156ed44a5db3b2705ccfa5d354e1d4caa2215c066d7fa428dcc30/jieba-0.34.zip#md5=b6f6496afcf6917a71e082c2559bd106 (from https://pypi.python.org/simple/jieba/), version: 0.34
+    Found link https://pypi.python.org/packages/3c/98/5ad5edffa6cf81e01bb5fca54c4cbfc0f44084b556633d5e5dccd8a931a5/jieba-0.32.zip#md5=0699f84b86d07b940ea973e30b412b92 (from https://pypi.python.org/simple/jieba/), version: 0.32
+    Found link https://pypi.python.org/packages/3f/10/b3bb85a1e0ca0cc8acf041da3526d8616ff9cae88e78cbfc58c7183a2be9/jieba-0.30.zip#md5=ab79a208cb78144e1fd87721109731b7 (from https://pypi.python.org/simple/jieba/), version: 0.30
+    Found link https://pypi.python.org/packages/44/a7/43a1df93f6ab4cf1fe3a58ae1b6afcdf86f9fe6b87f5928099d309229190/jieba-0.25.zip#md5=9b950ebce91035b60119a6b7b8a25542 (from https://pypi.python.org/simple/jieba/), version: 0.25
+    Found link https://pypi.python.org/packages/49/66/6c6903f9a927342480e4460c0d48051cc533f3ac0de94ee340aa9a2e4ef3/jieba-0.26.1.zip#md5=ec515051661708aa83cebcffa7e0a297 (from https://pypi.python.org/simple/jieba/), version: 0.26.1
+    Found link https://pypi.python.org/packages/4b/ad/ae0e2a8c3bde481e3e1f49ba747accdfd7b96a6cd2ae189d5d7df81930be/jieba-0.37.zip#md5=c2cd6a9db7397dd4c190d91ea35e6210 (from https://pypi.python.org/simple/jieba/), version: 0.37
+    Found link https://pypi.python.org/packages/57/70/3ee209e39d76726ed020bc0c7b94a4888bd065e034402b24021fbf34f974/jieba-0.21.zip#md5=c6edde600905b12bd4b3a712dcef4944 (from https://pypi.python.org/simple/jieba/), version: 0.21
+    Found link https://pypi.python.org/packages/5a/4c/7968169d69fe5341b6a7b3f447a4d2a80014be0f1ff3b3d5b391b7d7a74d/jieba-0.26.zip#md5=e227c052c7254e95e3038dae6b426ba2 (from https://pypi.python.org/simple/jieba/), version: 0.26
+    Found link https://pypi.python.org/packages/5b/f7/63f26d9404a89e7b33fe89071e1d0f26bdf140e7e568b92c559a5602eb58/jieba-0.22.zip#md5=cde580ae44206480d2b39d39d610b809 (from https://pypi.python.org/simple/jieba/), version: 0.22
+    Found link https://pypi.python.org/packages/5e/71/e03d189915a48ae084d3c067125129e6248b5268db510eada2c63d766943/jieba-0.36.zip#md5=54027df62edb824e3bc22cf0e01fc479 (from https://pypi.python.org/simple/jieba/), version: 0.36
+    Found link https://pypi.python.org/packages/64/93/fcd702914bb108cbd4e6d9348a9572d13769c7258604151dfaeec440eb65/jieba-0.28.zip#md5=1537ab8194be42ca293c5ea825c5c779 (from https://pypi.python.org/simple/jieba/), version: 0.28
+    Found link https://pypi.python.org/packages/6d/8d/ab58f5f21128cfb92bd9a64449d2ad8ae5ebc7f4d46c695283b6e7a18dbd/jieba-0.20.zip#md5=b30fb329eb0e9c82a9c0868e6580ab98 (from https://pypi.python.org/simple/jieba/), version: 0.20
+    Found link https://pypi.python.org/packages/8c/58/b0cd8aa1d63db2fc88fcea3800a1241bb9a5ae44eaddb4e6e0b7ce85d81d/jieba-0.36.2.zip#md5=321b2071f39799389c349034813c816f (from https://pypi.python.org/simple/jieba/), version: 0.36.2
+    Found link https://pypi.python.org/packages/ad/89/000ac8aa83e1af1b6cd0f58f4086d3fbf24065b47abf012bffc585b67ebf/jieba-0.33.zip#md5=3ce957a09307a8f97b2f13e2ca65d355 (from https://pypi.python.org/simple/jieba/), version: 0.33
+    Found link https://pypi.python.org/packages/c0/6c/a5d5a0517a3228c18c6a7f35cf7ae2a77bbdeff708762cf0474b7803532d/jieba-0.28.2.zip#md5=2d3d97dbe07fd20e9299e953b37c4fb4 (from https://pypi.python.org/simple/jieba/), version: 0.28.2
+    Found link https://pypi.python.org/packages/c6/75/e348f182bd798cb908c0e795892415f38d5771e31cea46a88a5246aee87c/jieba-0.24.zip#md5=31d4568f08b23aa4ba043733461e49e4 (from https://pypi.python.org/simple/jieba/), version: 0.24
+    Found link https://pypi.python.org/packages/cb/78/01da1714b674af599607cd7f4b2fb4e34a1ff869e6498c56898433725a67/jieba-0.28.4.zip#md5=56233b1ae2f4d310485218f1ca120483 (from https://pypi.python.org/simple/jieba/), version: 0.28.4
+    Found link https://pypi.python.org/packages/e8/99/ddc8caadcc7be8156547068cb3aad5321c0d3adcd9b4006492aeb24eadba/jieba-0.28.1.zip#md5=b7db7bc928d8b0aaa3d94b3ae2be263e (from https://pypi.python.org/simple/jieba/), version: 0.28.1
+    Found link https://pypi.python.org/packages/f5/47/825a612924f1c17c8d2d507ee62267aa88569882ff452e93b973d1dfd1c4/jieba-0.23.zip#md5=426b5f0f49033840217c24c80c7bad6d (from https://pypi.python.org/simple/jieba/), version: 0.23
+    Found link https://pypi.python.org/packages/f6/86/9e721cc52075a07b7d07eb12bcb5dde771d35332a3dae1e14ae4290a197a/jieba-0.38.zip#md5=c4b5f25631218caec249837870ed067a (from https://pypi.python.org/simple/jieba/), version: 0.38
+    Found link https://pypi.python.org/packages/f9/5f/e1080c15d21de413b654bffee734c75610d1fc40098af0150d1acbd7869d/jieba-0.28.3.zip#md5=ac8ac689f5ea4559e9368f008c9a5f3e (from https://pypi.python.org/simple/jieba/), version: 0.28.3
+  Using version 0.38 (newest of versions: 0.38, 0.37, 0.36.2, 0.36, 0.35, 0.34, 0.33, 0.32, 0.31, 0.30, 0.29.1, 0.29, 0.28.4, 0.28.3, 0.28.2, 0.28.1, 0.28, 0.27, 0.26.1, 0.26, 0.25, 0.24, 0.23, 0.22, 0.21, 0.20)
+  Downloading from URL https://pypi.python.org/packages/f6/86/9e721cc52075a07b7d07eb12bcb5dde771d35332a3dae1e14ae4290a197a/jieba-0.38.zip#md5=c4b5f25631218caec249837870ed067a (from https://pypi.python.org/simple/jieba/)
+  Running setup.py egg_info for package jieba
+
+    running egg_info
+    creating pip-egg-info/jieba.egg-info
+    writing pip-egg-info/jieba.egg-info/PKG-INFO
+    writing top-level names to pip-egg-info/jieba.egg-info/top_level.txt
+    writing dependency_links to pip-egg-info/jieba.egg-info/dependency_links.txt
+    writing manifest file 'pip-egg-info/jieba.egg-info/SOURCES.txt'
+    reading manifest file 'pip-egg-info/jieba.egg-info/SOURCES.txt'
+    writing manifest file 'pip-egg-info/jieba.egg-info/SOURCES.txt'
+  Source in /tmp/pip-build-fannian/jieba has version 0.38, which satisfies requirement jieba
+Installing collected packages: jieba
+
+  Running setup.py install for jieba
+
+    Running command /usr/bin/python -c "import setuptools;__file__='/tmp/pip-build-fannian/jieba/setup.py';exec(compile(open(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-sZxgIb-record/install-record.txt --single-version-externally-managed
+    running install
+    running build
+    running build_py
+    creating build
+    creating build/lib
+    creating build/lib/jieba
+    copying jieba/__main__.py -> build/lib/jieba
+    copying jieba/__init__.py -> build/lib/jieba
+    copying jieba/_compat.py -> build/lib/jieba
+    copying jieba/dict.txt -> build/lib/jieba
+    creating build/lib/jieba/finalseg
+    copying jieba/finalseg/prob_emit.p -> build/lib/jieba/finalseg
+    copying jieba/finalseg/prob_emit.py -> build/lib/jieba/finalseg
+    copying jieba/finalseg/__init__.py -> build/lib/jieba/finalseg
+    copying jieba/finalseg/prob_trans.p -> build/lib/jieba/finalseg
+    copying jieba/finalseg/prob_start.py -> build/lib/jieba/finalseg
+    copying jieba/finalseg/prob_start.p -> build/lib/jieba/finalseg
+    copying jieba/finalseg/prob_trans.py -> build/lib/jieba/finalseg
+    creating build/lib/jieba/analyse
+    copying jieba/analyse/__init__.py -> build/lib/jieba/analyse
+    copying jieba/analyse/tfidf.py -> build/lib/jieba/analyse
+    copying jieba/analyse/analyzer.py -> build/lib/jieba/analyse
+    copying jieba/analyse/textrank.py -> build/lib/jieba/analyse
+    copying jieba/analyse/idf.txt -> build/lib/jieba/analyse
+    creating build/lib/jieba/posseg
+    copying jieba/posseg/prob_emit.p -> build/lib/jieba/posseg
+    copying jieba/posseg/prob_emit.py -> build/lib/jieba/posseg
+    copying jieba/posseg/char_state_tab.py -> build/lib/jieba/posseg
+    copying jieba/posseg/__init__.py -> build/lib/jieba/posseg
+    copying jieba/posseg/prob_trans.p -> build/lib/jieba/posseg
+    copying jieba/posseg/prob_start.py -> build/lib/jieba/posseg
+    copying jieba/posseg/viterbi.py -> build/lib/jieba/posseg
+    copying jieba/posseg/prob_start.p -> build/lib/jieba/posseg
+    copying jieba/posseg/char_state_tab.p -> build/lib/jieba/posseg
+    copying jieba/posseg/prob_trans.py -> build/lib/jieba/posseg
+    running install_lib
+    creating /usr/local/lib/python2.7/site-packages/jieba
+    error: could not create '/usr/local/lib/python2.7/site-packages/jieba': Permission denied
+
+    Complete output from command /usr/bin/python -c "import setuptools;__file__='/tmp/pip-build-fannian/jieba/setup.py';exec(compile(open(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-sZxgIb-record/install-record.txt --single-version-externally-managed:
+
+    running install
+
+running build
+
+running build_py
+
+creating build
+
+creating build/lib
+
+creating build/lib/jieba
+
+copying jieba/__main__.py -> build/lib/jieba
+
+copying jieba/__init__.py -> build/lib/jieba
+
+copying jieba/_compat.py -> build/lib/jieba
+
+copying jieba/dict.txt -> build/lib/jieba
+
+creating build/lib/jieba/finalseg
+
+copying jieba/finalseg/prob_emit.p -> build/lib/jieba/finalseg
+
+copying jieba/finalseg/prob_emit.py -> build/lib/jieba/finalseg
+
+copying jieba/finalseg/__init__.py -> build/lib/jieba/finalseg
+
+copying jieba/finalseg/prob_trans.p -> build/lib/jieba/finalseg
+
+copying jieba/finalseg/prob_start.py -> build/lib/jieba/finalseg
+
+copying jieba/finalseg/prob_start.p -> build/lib/jieba/finalseg
+
+copying jieba/finalseg/prob_trans.py -> build/lib/jieba/finalseg
+
+creating build/lib/jieba/analyse
+
+copying jieba/analyse/__init__.py -> build/lib/jieba/analyse
+
+copying jieba/analyse/tfidf.py -> build/lib/jieba/analyse
+
+copying jieba/analyse/analyzer.py -> build/lib/jieba/analyse
+
+copying jieba/analyse/textrank.py -> build/lib/jieba/analyse
+
+copying jieba/analyse/idf.txt -> build/lib/jieba/analyse
+
+creating build/lib/jieba/posseg
+
+copying jieba/posseg/prob_emit.p -> build/lib/jieba/posseg
+
+copying jieba/posseg/prob_emit.py -> build/lib/jieba/posseg
+
+copying jieba/posseg/char_state_tab.py -> build/lib/jieba/posseg
+
+copying jieba/posseg/__init__.py -> build/lib/jieba/posseg
+
+copying jieba/posseg/prob_trans.p -> build/lib/jieba/posseg
+
+copying jieba/posseg/prob_start.py -> build/lib/jieba/posseg
+
+copying jieba/posseg/viterbi.py -> build/lib/jieba/posseg
+
+copying jieba/posseg/prob_start.p -> build/lib/jieba/posseg
+
+copying jieba/posseg/char_state_tab.p -> build/lib/jieba/posseg
+
+copying jieba/posseg/prob_trans.py -> build/lib/jieba/posseg
+
+running install_lib
+
+creating /usr/local/lib/python2.7/site-packages/jieba
+
+error: could not create '/usr/local/lib/python2.7/site-packages/jieba': Permission denied
+
+----------------------------------------
+
+Cleaning up...
+
+  Removing temporary dir /tmp/pip-build-fannian...
+Command /usr/bin/python -c "import setuptools;__file__='/tmp/pip-build-fannian/jieba/setup.py';exec(compile(open(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-sZxgIb-record/install-record.txt --single-version-externally-managed failed with error code 1 in /tmp/pip-build-fannian/jieba
+
+Exception information:
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/pip-1.4-py2.7.egg/pip/basecommand.py", line 134, in main
+    status = self.run(options, args)
+  File "/usr/local/lib/python2.7/site-packages/pip-1.4-py2.7.egg/pip/commands/install.py", line 241, in run
+    requirement_set.install(install_options, global_options, root=options.root_path)
+  File "/usr/local/lib/python2.7/site-packages/pip-1.4-py2.7.egg/pip/req.py", line 1277, in install
+    requirement.install(install_options, global_options, *args, **kwargs)
+  File "/usr/local/lib/python2.7/site-packages/pip-1.4-py2.7.egg/pip/req.py", line 622, in install
+    cwd=self.source_dir, filter_stdout=self._filter_install, show_stdout=False)
+  File "/usr/local/lib/python2.7/site-packages/pip-1.4-py2.7.egg/pip/util.py", line 670, in call_subprocess
+    % (command_desc, proc.returncode, cwd))
+InstallationError: Command /usr/bin/python -c "import setuptools;__file__='/tmp/pip-build-fannian/jieba/setup.py';exec(compile(open(__file__).read().replace('\r\n', '\n'), __file__, 'exec'))" install --record /tmp/pip-sZxgIb-record/install-record.txt --single-version-externally-managed failed with error code 1 in /tmp/pip-build-fannian/jieba

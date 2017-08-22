@@ -1,0 +1,119 @@
+CREATE TABLE tmp.sku_20160520(
+  brand_id int(11) COMMENT 'brand_id',
+  sku string COMMENT 'SKU')
+ROW FORMAT DELIMITED 
+CREATE TABLE tmp.fannian_001(
+id int COMMENT 'id')
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY '|';
+CREATE TABLE tmp.fannian_001(
+id int COMMENT 'id')
+ROW FORMAT DELIMITED 
+CREATE TABLE test.campaign_topic_miandan(
+dt string COMMENT 'dt',
+topic_id int COMMENT 'topic_id')
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY '|';
+load data local inpath 'topic.txt' into table test.campaign_topic_miandan;
+select * from test.campaign_topic_miandan;
+drop table test.campaign_topic_miandan;
+CREATE TABLE test.campaign_topic_miandan(
+dt string COMMENT 'dt',
+topic_id int COMMENT 'topic_id')
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY ',';
+load data local inpath 'topic.txt' into table test.campaign_topic_miandan;
+select * from test.campaign_topic_miandan;
+select * from test.campaign_topic_miandan where dt='2016-09-22';
+ eixt
+CREATE TABLE test.campaign_miandan(
+dt string comment '日期',
+hour bigint comment '整点',
+id string comment 'UID',
+nick_name string comment '昵称',
+order_time string comment '下单时间',
+pay_time string comment '支付时间',
+topic_id bigint comment '活动专区',
+top bigint comment '免单排名',
+)
+ROW FORMAT DELIMITED 
+show databases;
+select 1;
+which
+exit
+;
+exit;
+use hive;
+show database;
+show databases;
+use meitun_dw;
+show tables;
+desc sale_cust_first_order;
+select count(1) from sale_cust_first_order where first_pay_order_date_id='2016-11-26';
+select count(1) from sale_cust_first_order where first_pay_order_date_id='2016-11-25';
+;
+desc sale_order_pay_detail;
+desc meitun_dw.sale_order_pay_detail;
+show tables;
+exit;
+use meitun_dw;
+desc sale_order_pay_detail;
+exit;
+select
+babytree_enc_user_id id
+from
+meitun_dw.sale_order_promotion
+where
+dt>='2016-11-10'
+and dt<'2016-10-13'
+limit 50;
+select
+*
+from
+meitun_dw.sale_order_promotion
+where
+dt>='2016-11-10'
+and dt<'2016-10-13'
+limit 50\G;
+select
+*
+from
+meitun_dw.sale_order_promotion
+where
+dt>='2016-11-10'
+and dt<'2016-10-13'
+limit 50;
+select dt,count(1)
+from
+meitun_dw.sale_order_promotion
+where
+dt>='2016-11-10'
+and dt<='2016-10-18';
+select dt,count(1)
+from
+meitun_dw.sale_order_promotion
+where
+dt>='2016-11-10'
+and dt<='2016-10-18'
+group by dt;
+select dt
+from
+meitun_dw.sale_order_promotion
+limit 50;
+select distinct dt
+from
+meitun_dw.sale_order_promotion
+where
+dt>='2016-11-10';
+select distinct dt
+from
+meitun_dw.sale_order_promotion
+where
+dt>='2016-11-10'
+and dt<'2016-11-13';
+desc meitun_ods.so_sub_order;
+exit;
+select * from test.coupon_uid where date_id='2016-12-11' limit 10;
+exit
+;
+select max(pay_time) from meitun_dw.sale_order_pay_detail where dt='2016-12-18';
