@@ -70,7 +70,7 @@ temp as (select 1)
 "|grep -iv "SET"
 fi
 
-if [ 1 = 1 ]
+if [ 2 = 1 ]
 then
 ${presto_e}"
 ${se}
@@ -96,6 +96,37 @@ temp as (select 1)
 		supplier_id,
 		avg(so) so,
 		avg(sc) sc
+	from
+		sd
+	group by
+		1
+"|grep -iv "SET">${attach}
+fi
+
+if [ 1 = 1 ]
+then
+${presto_e}"
+${se}
+with sopd as (
+		${sopd}
+		),
+	 ds as (
+			 ${ds}
+		   ),
+	 sd as (
+			select
+				substr(dt,1,7) mt,
+				sku_code,
+				sum(sku_num) sku_num
+			from
+				sopd join ds using(sku_id)
+			group by
+				1,2
+		   ),
+temp as (select 1)
+	select
+		sku_code,
+		avg(sku_num) sku_num
 	from
 		sd
 	group by
