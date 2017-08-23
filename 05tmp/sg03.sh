@@ -23,33 +23,41 @@ with ci as (
 				substr(dt,1,7) mt,
 				supplier_id,
 				babytree_enc_user_id,
+				mark,
+				service_mark,
+				transport_mark,
 				comment_id,
 				row_number() over(partition by 
 					substr(dt,1,7),
 					supplier_id,
-					babytree_enc_user_id,
+					babytree_enc_user_id
 					order by comment_id) rank
 			from
 				ci
 			),
 	 c as (
 		select
-			babytree_enc_user_id,
-			sum(comment) sum_ct,
-			round(avg(comment),0) avg_ct
+			supplier_id,
+			mark,
+			service_mark,
+			transport_mark,
+			count(comment_id) number
 		from
 			cm
+		where
+			rank<=3
 		group by
-			1
+			1,2,3,4
 		  ),
 temp as (select 1)
 	select
-		case when avg_ct<4 then 'u3'
-		else 'o3' end type,
-		sum(avg_ct) user
+		supplier_id,
+		sum(mark*number),
+		sum(service_mark*number),
+		sum(transport_mark*number),
+		sum(number)
 	from
 		c
 	group by
 		1
-"|grep -iv "SET"
-#>${attach}
+"|grep -iv "SET">${attach}

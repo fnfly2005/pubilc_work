@@ -10,7 +10,7 @@ ag=`fun appcontentclicklog_gz`
 aeg=`fun appcontentclicklog_exps_gz` 
 tp="tmp.yunyu_fannian_tcode"
 
-file="cw01"
+file="djk01"
 attach="${path}00output/${file}.csv"
 presto_e="/opt/presto/bin/presto --server hc:9980 --catalog hive --execute "
 se="set session optimize_hash_generation=true;"
