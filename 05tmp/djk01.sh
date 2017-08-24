@@ -68,7 +68,7 @@ name=(
 script="${path}bin/mail.sh"
 topic="﻿大健康开讲曝光导流日报${t1% *}"
 content="﻿数据从${t1% *} 0点至${t2% *} 0点，目前曝光表无法完全匹配到点击表，所以曝光数据有缺失，等待下次改版解决，邮件由系统发出，有问题请联系樊年"
-address="wangyu1@babytree-inc.com, liumingming@babytree-inc.com"
+address="wangyu1@babytree-inc.com, liumingming@babytree-inc.com, huangjing@babytree-inc.com, zhangyanling@babytree-inc.com"
 for i in "${name[@]}"
 do 
 	address="${address}, ${i}@meitunmama.com"

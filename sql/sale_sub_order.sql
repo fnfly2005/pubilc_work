@@ -8,6 +8,7 @@ select
 	biz_unit biz_unit_id,
 	order_status,
 	pay_time,
+	done_time,
 	delivered_time,
 	cast(approve_time as varchar) approve_time,
 	cast(express_time as varchar) express_time,

@@ -1,3 +1,4 @@
+/*评论表*/
 select
 	dt,
 	comment_id,
