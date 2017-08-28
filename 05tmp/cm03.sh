@@ -18,16 +18,16 @@ ${se}
 with msg as (
 		${msg}
 		and (trackercode='item' or url='item')
-		and regexp_extract(href,'pid=([v_0-9]+)',1)='03180300210101'
+		and regexp_extract(href,'pid=([v_0-9]+)',1)='${3}'
 		),
 temp as (select 1)
 select
 	dt,
+	'${3}',
 	count(1) pv,
 	count(distinct uuid) uv
 from
 	msg
 group by
 	1
-"|grep -iv "SET">${attach}
-
+"|grep -iv "SET">>${attach}
