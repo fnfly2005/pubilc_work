@@ -26,16 +26,21 @@ temp as (select 1)
 model=${attach/00output/model}
 cp ${model} ${attach}
 
-name=(
-	fannian
-	 )
 script="${path}bin/mail.sh"
 topic="﻿${file}数据报表"
 content="﻿数据从${t1% *} 0点至${t2% *} 0点，邮件由系统发出，有问题请联系樊年"
 address="fannian@meitunmama.com"
-for i in "${name[@]}"
+mt_name=(
+	 )
+bb_name=(
+	)
+for i in "${mt_name[@]}"
 do 
 	address="${address}, ${i}@meitunmama.com"
+done
+for i in "${bb_name[@]}"
+do 
+	address="${address}, ${i}@babytree-inc.com"
 done
 bash ${script} "${topic}" "${content}" "${attach}" "${address}"
 

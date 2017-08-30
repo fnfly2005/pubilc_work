@@ -23,11 +23,11 @@ with msg as (
 temp as (select 1)
 select
 	dt,
-	'${3}',
+	'${3}' sku,
 	count(1) pv,
 	count(distinct uuid) uv
 from
 	msg
 group by
 	1
-"|grep -iv "SET">>${attach}
+"|grep -iv "SET">${attach}
