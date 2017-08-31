@@ -1,6 +1,7 @@
 /*孕期维度表*/
 select
 	distance,
+	pregnancy_week,
 	case when pregnancy_static1='无年龄' then pregnancy_static1 
 	else '有年龄' end pregnancy1,
 	case when pregnancy_static1<>'无年龄' then pregnancy_static1 

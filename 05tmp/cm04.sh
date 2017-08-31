@@ -62,7 +62,7 @@ with p as (
 				pregnancy3,
 				babytree_enc_user_id
 			from
-				p
+				p1
 				join dpd using(distance)
 			)
 	select
