@@ -24,11 +24,13 @@ with sosd as (
 			 ${ds}
 		   ),
 	 d1 as (
-			 select distinct
+			 select 
 				supplier_id,
-				supplier_name
+				max(supplier_name) supplier_name
 			 from
 				ds
+			group by 
+				1
 		   ),
 temp as (select 1)
 	select
