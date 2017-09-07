@@ -1,5 +1,6 @@
 select
 	sku_id,
+	spu_id,
 	sku_code,
 	barcode,
 	spu_name,
@@ -12,7 +13,8 @@ select
 	supplier_name,
 	category_lvl1_name,
 	category_lvl2_name,
-	category_lvl3_name
+	category_lvl3_name,
+	modify_time
 from
 	dw.dim_sku ds
 	join dw.dim_sea_type dst using(sea_type_id)
