@@ -34,16 +34,16 @@ with rpa as (
 	dsk as (
 			${dsk}
 		   ),
-	dsp as (
-			${dsp}
-		   ),
-	ds as (
-			select distinct
-				spu_code,
-				biz_unit
+	pd as (
+			select
+				promotion_id,
+				biz_unit,
+				avg(activity_price) activity_price
 			from
-				dsp
-				join dsk using(spu_id)
+				pai
+				join dsk using(sku_code)
+			group by
+				1,2
 		  ),
 temp as (select 1)
 	select
@@ -56,8 +56,7 @@ temp as (select 1)
 	from
 		rpa
 		left join pab using(promotion_id)
-		left join pai on pai.promotion_id=rpa.promotion_id
-		left join ds on ds.spu_code=rpa.spu_code
+		left join pd on pd.promotion_id=rpa.promotion_id
 "|grep -iv "SET">>${attach}
 
 
@@ -70,6 +69,7 @@ mt_name=(
 		duyanhua
 	 )
 bb_name=(
+		lijiaqing
 	)
 for i in "${mt_name[@]}"
 do 
