@@ -3,6 +3,7 @@ select
 	dt,
 	sub_order_id,
 	sub_order_code,
+	supplier_id,
 	warehouse_id,
 	sea_type_id,
 	biz_unit biz_unit_id,
