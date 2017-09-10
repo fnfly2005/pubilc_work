@@ -14,6 +14,8 @@ attach="${path}00output/${file}.csv"
 presto_e="/opt/presto/bin/presto --server hc:9980 --catalog hive --execute "
 se="set session optimize_hash_generation=true;"
 
+if [ 1 = 2 ]
+then
 ${presto_e}"
 ${se}
 with ci as (
@@ -40,8 +42,7 @@ with ci as (
 				sopd.babytree_enc_user_id
 			 from
 				ci
-				join sopd on ci.babytree_enc_user_id=sopd.babytree_enc_user_id
-				and ci.sub_order_id=sopd.sub_order_id
+				join sopd on ci.sub_order_id=sopd.sub_order_id
 		   ),
 temp as (select 1)
 	select
@@ -58,3 +59,53 @@ temp as (select 1)
 	group by
 		1,2,3,4
 "|grep -iv "SET">${attach}
+fi
+
+if [ 1 = 1 ]
+then
+${presto_e}"
+${se}
+with ci as (
+		${ci}
+		),
+	 sopd as (
+			 ${sopd}
+			 ),
+	 s1 as (
+			 select
+				babytree_enc_user_id,
+				count(distinct dt) sdt
+			 from
+				sopd
+			group by
+				1
+		   ),
+	 cs as (
+			 select
+				sopd.babytree_enc_user_id,
+				count(distinct ci.dt) cdt
+			 from
+				ci
+				join sopd using(sub_order_id)
+			group by
+				1
+		   ),
+temp as (select 1)
+	select
+		cdt,
+		count(distinct case when sdt>1 then cs.babytree_enc_user_id end) suv,
+		count(distinct cs.babytree_enc_user_id) uv
+	from
+		cs
+		left join s1 using(babytree_enc_user_id)
+	group by
+		1
+	union all
+	select
+		0 cdt,
+		count(distinct case when sdt>1 then s1.babytree_enc_user_id end) suv,
+		count(distinct s1.babytree_enc_user_id) uv
+	from
+		s1
+"|grep -iv "SET">${attach}
+fi
