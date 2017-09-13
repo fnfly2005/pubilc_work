@@ -7,6 +7,7 @@ echo `cat ${path}sql/${1}.sql | sed "s/-time1/${2:-${t1% *}}/g;
 s/-time2/${3:-${t2% *}}/g;s/-time3/${4:-${t3% *}}/g"`
 }
 ci=`fun comment_item` 
+cir=`fun com_item_review`
 sopd=`fun sale_order_pay_detail`
 
 file="i02"
@@ -67,7 +68,13 @@ ${presto_e}"
 ${se}
 with ci as (
 		${ci}
+		and mark=5
+		and service_mark=5
+		and transport_mark=5
 		),
+	 cir as (
+			 ${cir}
+			),
 	 sopd as (
 			 ${sopd}
 			 ),
@@ -83,29 +90,26 @@ with ci as (
 	 cs as (
 			 select
 				sopd.babytree_enc_user_id,
-				count(distinct ci.dt) cdt
+				max(has_img) has_img
 			 from
 				ci
 				join sopd using(sub_order_id)
+				join cir on ci.comment_id=cir.comment_id
 			group by
 				1
+			having
+				count(distinct ci.dt)=1
 		   ),
 temp as (select 1)
 	select
-		cdt,
+		has_img,
 		count(distinct case when sdt>1 then cs.babytree_enc_user_id end) suv,
 		count(distinct cs.babytree_enc_user_id) uv
 	from
 		cs
-		left join s1 using(babytree_enc_user_id)
+		join s1 using(babytree_enc_user_id)
 	group by
 		1
-	union all
-	select
-		0 cdt,
-		count(distinct case when sdt>1 then s1.babytree_enc_user_id end) suv,
-		count(distinct s1.babytree_enc_user_id) uv
-	from
-		s1
-"|grep -iv "SET">${attach}
+"|grep -iv "SET"
+#>${attach}
 fi

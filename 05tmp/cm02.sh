@@ -18,6 +18,7 @@ ${presto_e}"
 ${se}
 with ds as (
 		${ds}
+		and category_lvl3_name in ('孕期牙膏/牙粉','孕期牙刷','孕期漱口水','待产包')
 		),
 sopd as (
 		${sopd}
@@ -25,30 +26,36 @@ sopd as (
 dss as (
 select
 	substr(dt,1,7) mt,
-	category_lvl1_name,
+	category_lvl3_name,
 	brand_name,
+	sku_code,
 	prod_name,
 	sum(sku_num) sku_num,
 	sum(order_amt) order_amt
 from
 	ds join sopd using(sku_id)
 group by
-	1,2,3,4
+	1,2,3,4,5
 	   ),
 	d1 as (
 	select
 		*,
-		'销售数量排序' rank_type,
-		row_number() over (partition by mt order by sku_num desc) rank
+		row_number() over (partition by mt,category_lvl3_name order by sku_num desc) rank
 	from
 		dss
-	union all
-	select
-		*,
-		'销售金额排序' rank_type,
-		row_number() over (partition by mt order by order_amt desc) rank
-	from
-		dss
+		  ),
+	d2 as (
+			select
+				category_lvl3_name,
+				brand_name,
+				sku_code,
+				prod_name,
+				sum(sku_num) sku_num,
+				sum(order_amt) order_amt
+			from
+				dss
+			group by
+				1,2,3,4
 		  ),
 temp as (select 1)
 	select
@@ -56,9 +63,12 @@ temp as (select 1)
 	from
 		d1
 	where
-		rank<=300
-	order by
-		rank_type,
-		mt,
-		rank
+		rank<=10
+	union all
+	select
+		'all' mt,
+		*,
+		row_number() over (partition by category_lvl3_name order by sku_num desc) rank
+	from
+		d2
 "|grep -iv "SET">${attach}

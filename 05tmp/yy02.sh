@@ -70,6 +70,8 @@ mt_name=(
 	 )
 bb_name=(
 		lijiaqing
+		zhangjie
+		baiyi
 	)
 for i in "${mt_name[@]}"
 do 
