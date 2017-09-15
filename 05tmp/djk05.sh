@@ -138,6 +138,10 @@ mt_name=(
 	 )
 bb_name=(
 		yanzhenlong
+		liumingming
+		haoxiaolin
+		tianmingzhu
+		fulei
 	)
 for i in "${mt_name[@]}"
 do 

@@ -13,6 +13,8 @@ where
 	and trackercode not like '%dsp%'
 	and trackercode not like 'djk-%' 
 	and url not like 'djk-%' 
+	and url not like 'qd%' 
+	and trackercode not like 'qd%'
 	and tcode not like '%djk_kj%'
 	and trackercode not like '%djk_kwys%' 
 	and url not like '%djk_kwys%' 

@@ -18,6 +18,8 @@ where
 	and trackercode not like '%dsp%'
 	and trackercode not like '%djk%' 
 	and url not like '%djk%' 
+	and url not like 'qd%' 
+	and trackercode not like 'qd%'
 	and tcode not like '%djk%'
 	and logevent<>'3'
 	and ((logevent in ('1','2') and sourcetype in ('btm-android','android','btm-ios','ios','1','0')) or sourcetype in ('m','pc') or logevent is null or length(logevent)=0)
