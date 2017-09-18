@@ -11,6 +11,9 @@ where
 	dt>='-time1'
 	and dt<'-time2'
 	and sourcetype in ('btm-android', 'btm-ios')
-	and (trackercode like '%djk%' 
-	or url like '%djk%' 
-	or tcode like '%djk%')
+	and (trackercode like 'djk-%' 
+	or url like 'djk-%' 
+	or tcode not like '%djk_kj%'
+	or trackercode not like '%djk_kwys%' 
+	or url not like '%djk_kwys%' 
+	or tcode not like '%djk_kwys%')
