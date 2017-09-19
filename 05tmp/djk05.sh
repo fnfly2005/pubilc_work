@@ -19,7 +19,7 @@ tp="test.djk_js_uuid_fn_test"
 
 model=${attach/00output/model}
 
-if [ 2 = 1 ]
+if [ 1 = 1 ]
 then
 ${presto_e}"
 ${se}

@@ -1,6 +1,6 @@
 /*单品活动表*/
 select
-	single_activity_id promotion_id,
+	/*promotion_price_id*/single_activity_id promotion_id,
 	single_activity_name topic_name
 from
 	dw.dim_single_activity

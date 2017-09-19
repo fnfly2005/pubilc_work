@@ -12,6 +12,7 @@ dsa=`fun dim_single_activity`
 dtt=`fun dim_topic_type`
 dt=`fun dim_topic`
 sopd=`fun sale_order_pay_detail`
+ds=`fun dim_sku`
 
 file="mh01"
 attach="${path}00output/${file}.csv"
@@ -32,19 +33,24 @@ with dsa as (
 	 dtt as (
 			 ${dtt}
 			),
+	 ds as (
+			 ${ds}
+		   ),
 temp as (select 1)
 	select
-		case when dt.topic_id is null then '长期在线'
+		case when parent_order_type=5 then '拼团'
+		when dt.topic_id is null then '长期在线'
 		when dsa.promotion_id is null then topic_type
-		else '单品团' end,
+		when topic_type='单品团' then dsa.topic_name
+		else topic_type end,
+		prod_name,
 		sum(order_amt) order_amt
 	from
 		sopd
-		left join dsa using(promotion_id)
+		join ds using(sku_id)
+		left join dsa on sopd.promotion_id=dsa.promotion_id
 		left join dt on dt.topic_id=sopd.topic_id
 		left join dtt on dt.topic_type_id=dtt.topic_type_id
 	group by
-		1
-"|grep -iv "SET"
-#>${attach}
-
+		1,2
+"|grep -iv "SET">${attach}
