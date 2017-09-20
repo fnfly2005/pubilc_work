@@ -18,7 +18,7 @@ se="set session optimize_hash_generation=true;"
 model=${attach/00output/model}
 cp ${model} ${attach}
 
-if [ 1 = 2 ]
+if [ 1 = 1 ]
 then
 ${presto_e}"
 ${se}
@@ -98,4 +98,4 @@ for i in "${bb_name[@]}"
 do 
 	address="${address}, ${i}@babytree-inc.com"
 done
-#bash ${script} "${topic}" "${content}" "${attach}" "${address}"
+bash ${script} "${topic}" "${content}" "${attach}" "${address}"

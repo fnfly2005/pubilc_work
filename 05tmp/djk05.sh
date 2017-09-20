@@ -135,13 +135,13 @@ content="﻿数据从${t1% *} 0点至${t2% *} 0点，邮件由系统发出，有
 address="fannian@meitunmama.com"
 mt_name=(
 		duyanhua
+		fulei
 	 )
 bb_name=(
 		yanzhenlong
 		liumingming
 		haoxiaolin
 		tianmingzhu
-		fulei
 	)
 for i in "${mt_name[@]}"
 do 
