@@ -6,6 +6,7 @@ select
 	spu_name,
 	prod_name,
 	basic_price,
+	brand_id,
 	brand_name,
 	sea_type_name sea_type,
 	biz_unit_name biz_unit,
