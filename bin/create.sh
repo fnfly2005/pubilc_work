@@ -14,8 +14,9 @@ elif [ "c" = ${1} ]
 then
 ${hive_e}"
 create table ${table}(
-		brand string COMMENT 'null',
-		sub_brand string COMMENT 'null',
+		brand bigint COMMENT 'null',
+		sub_brand bigint COMMENT 'null',
+		is_vsku bigint COMMENT 'null',
 		sku_code string COMMENT 'null'
 		)
 ROW FORMAT DELIMITED 

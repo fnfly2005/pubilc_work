@@ -30,8 +30,8 @@ with w as (
 			 select
 				sso.supplier_id,
 				supplier_name,
-				warehouse_type,
-				sea_type_id,
+				case when sea_type_id=0 then '国内'
+				else warehouse_type end stype,
 				sub_order_id,
 				approve_time,
 				case when delivered_time is null then '${t2}'
@@ -49,8 +49,7 @@ with w as (
 			select
 				supplier_id,
 				supplier_name,
-				warehouse_type,
-				sea_type_id,
+				stype,
 				sub_order_id,
 				date_parse(approve_time,'%Y%m%d%H%i%S') approve_time,
 				date_parse(delivered_time,'%Y-%m-%d %H:%i:%S') delivered_time,
@@ -62,8 +61,7 @@ with w as (
 			select
 				supplier_id,
 				supplier_name,
-				warehouse_type,
-				sea_type_id,
+				stype,
 				sub_order_id,
 				case when delivered_time is null then null 
 				else date_diff('hour',approve_time,delivered_time) end ad,
@@ -77,10 +75,28 @@ temp as (select 1)
 		'${t1% *}' dt,
 		supplier_id,
 		supplier_name,
-		supplier_name,
-		warehouse_type,
+		stype,
 		count(distinct sub_order_id) all_sub,
 		count(distinct case when ad<24 then sub_order_id end) ad24_sub,
+		count(distinct case when ad<48 then sub_order_id end) ad48_sub,
+		count(distinct case when ae<24 then sub_order_id end) ae24_sub,
+		count(distinct case when ae<48 then sub_order_id end) ae48_sub,
+		count(distinct case when ae<72 then sub_order_id end) ae72_sub,
+		count(distinct case when ae>=72 then sub_order_id end) ae72o_sub,
+		count(distinct case when ae is null or ad is null then sub_order_id end) aenull_sub
+	from
+		s1
+	group by
+		1,2,3,4
+	union all
+	select
+		'${t1% *}' dt,
+		-99 supplier_id,
+		'all' supplier_name,
+		stype,
+		count(distinct sub_order_id) all_sub,
+		count(distinct case when ad<24 then sub_order_id end) ad24_sub,
+		count(distinct case when ad<48 then sub_order_id end) ad48_sub,
 		count(distinct case when ae<24 then sub_order_id end) ae24_sub,
 		count(distinct case when ae<48 then sub_order_id end) ae48_sub,
 		count(distinct case when ae<72 then sub_order_id end) ae72_sub,

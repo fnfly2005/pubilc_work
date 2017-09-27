@@ -12,12 +12,99 @@ ds=`fun dim_sku`
 sopd=`fun sale_order_pay_detail`
 mc=`fun meitun_cart`
 tnpd=`fun tfc_navpage_path_detail`
-tp="tmp.t_251638"
+tp="tmp.t_272016"
+bd="(118,134,83,9828,126,1573,116,227,9754,82,503,1812,1747,1617,8470,1539,1740,8713,504,1739)"
 
 file="dk01"
 attach="${path}00output/${file}.csv"
 presto_e="/opt/presto/bin/presto --server hc:9980 --catalog hive --execute "
 se="set session optimize_hash_generation=true;"
+
+if [ 1 = 2 ]
+then 
+#筛选指定sku
+${presto_e}"
+${se}
+with ds as (
+		${ds}
+		and category_lvl1_name='奶粉'
+		and brand_id in ${bd}
+		),
+temp as (select 1)
+	select distinct
+		category_lvl1_name,
+		category_lvl2_name,
+		category_lvl3_name,
+		brand_id,
+		sku_code,
+		prod_name
+	from
+		ds
+"|grep -iv "SET">${attach}
+fi
+
+if [ 1 = 1 ]
+then 
+#销量销售
+${presto_e}"
+${se}
+with sopd as (
+		${sopd}
+		),
+	 ds as (
+			 ${ds}
+		   ),
+	 dp as (
+			 select
+				brand,
+				sub_brand,
+				sku_id
+			 from
+				ds
+				join ${tp} t using(sku_code)
+			where
+				t.is_vsku=0
+		   ),
+temp as (select 1)
+	select
+		-99 brand,
+		0 sub_brand,
+		count(distinct babytree_enc_user_id) suv,
+		sum(sku_num) sku_num,
+		sum(order_amt) order_amt
+	from
+		sopd s
+		join dp using(sku_id)
+	group by
+		1,2
+	union all
+	select
+		brand,
+		0 sub_brand,
+		count(distinct babytree_enc_user_id) suv,
+		sum(sku_num) sku_num,
+		sum(order_amt) order_amt
+	from
+		sopd s
+		join dp using(sku_id)
+	group by
+		1,2
+	union all
+	select
+		brand,
+		sub_brand,
+		count(distinct babytree_enc_user_id) suv,
+		sum(sku_num) sku_num,
+		sum(order_amt) order_amt
+	from
+		sopd s
+		join dp using(sku_id)
+	where
+		sub_brand<>0
+	group by
+		1,2
+"|grep -iv "SET">${attach}
+fi
 
 if [ 2 = 1 ]
 then 
@@ -237,7 +324,7 @@ temp as (select 1)
 "|grep -iv "SET">${attach}
 fi
 
-if [ 1 = 1 ]
+if [ 2 = 1 ]
 then 
 #漏斗
 ${presto_e}"
