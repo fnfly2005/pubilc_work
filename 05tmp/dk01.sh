@@ -12,7 +12,7 @@ ds=`fun dim_sku`
 sopd=`fun sale_order_pay_detail`
 mc=`fun meitun_cart`
 tnpd=`fun tfc_navpage_path_detail`
-tp="tmp.t_272016"
+tp="tmp.t_281843"
 bd="(118,134,83,9828,126,1573,116,227,9754,82,503,1812,1747,1617,8470,1539,1740,8713,504,1739)"
 
 file="dk01"
@@ -70,6 +70,7 @@ temp as (select 1)
 		-99 brand,
 		0 sub_brand,
 		count(distinct babytree_enc_user_id) suv,
+		count(distinct parent_order_id) so,
 		sum(sku_num) sku_num,
 		sum(order_amt) order_amt
 	from
@@ -82,6 +83,7 @@ temp as (select 1)
 		brand,
 		0 sub_brand,
 		count(distinct babytree_enc_user_id) suv,
+		count(distinct parent_order_id) so,
 		sum(sku_num) sku_num,
 		sum(order_amt) order_amt
 	from
@@ -94,6 +96,7 @@ temp as (select 1)
 		brand,
 		sub_brand,
 		count(distinct babytree_enc_user_id) suv,
+		count(distinct parent_order_id) so,
 		sum(sku_num) sku_num,
 		sum(order_amt) order_amt
 	from
