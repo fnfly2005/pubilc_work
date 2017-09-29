@@ -14,10 +14,8 @@ elif [ "c" = ${1} ]
 then
 ${hive_e}"
 create table ${table}(
-		brand bigint COMMENT 'null',
-		sub_brand bigint COMMENT 'null',
-		is_vsku bigint COMMENT 'null',
-		sku_code string COMMENT 'null'
+		id bigint COMMENT 'null',
+		brand bigint COMMENT 'null'
 		)
 ROW FORMAT DELIMITED 
 FIELDS TERMINATED BY ','

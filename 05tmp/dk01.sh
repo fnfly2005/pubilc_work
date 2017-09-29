@@ -13,6 +13,7 @@ sopd=`fun sale_order_pay_detail`
 mc=`fun meitun_cart`
 tnpd=`fun tfc_navpage_path_detail`
 siha=`fun sword_imp_hard_adv_brand_mt_relation`
+tp2="tmp.t_292324"
 tp="tmp.t_281843"
 bd="(118,134,83,9828,126,1573,116,227,9754,82,503,1812,1747,1617,8470,1539,1740,8713,504,1739)"
 
@@ -52,11 +53,16 @@ ${se}
 with siha as (
 		${siha}
 		),
-temp as (select 1)
-	select 
-		*
+	 st as (
+	select
+		brand,
+		adv_brand_name,
+		meitun_brand_name
 	from
 		siha
+			join ${tp2} using(id)
+		),
+temp as (select 1)
 "|grep -iv "SET">${attach}
 fi
 

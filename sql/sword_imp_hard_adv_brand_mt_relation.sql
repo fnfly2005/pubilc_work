@@ -1,5 +1,6 @@
 /*社区品牌对照表*/
-select distinct
+select 
+	id,
 	adv_brand_name,
 	meitun_brand_name
 from
