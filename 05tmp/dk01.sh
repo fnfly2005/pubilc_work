@@ -12,6 +12,7 @@ ds=`fun dim_sku`
 sopd=`fun sale_order_pay_detail`
 mc=`fun meitun_cart`
 tnpd=`fun tfc_navpage_path_detail`
+siha=`fun sword_imp_hard_adv_brand_mt_relation`
 tp="tmp.t_281843"
 bd="(118,134,83,9828,126,1573,116,227,9754,82,503,1812,1747,1617,8470,1539,1740,8713,504,1739)"
 
@@ -44,6 +45,22 @@ temp as (select 1)
 fi
 
 if [ 1 = 1 ]
+then 
+#曝光品牌
+${presto_e}"
+${se}
+with siha as (
+		${siha}
+		),
+temp as (select 1)
+	select 
+		*
+	from
+		siha
+"|grep -iv "SET">${attach}
+fi
+
+if [ 2 = 1 ]
 then 
 #销量销售
 ${presto_e}"
