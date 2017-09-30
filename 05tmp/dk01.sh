@@ -13,6 +13,8 @@ sopd=`fun sale_order_pay_detail`
 mc=`fun meitun_cart`
 tnpd=`fun tfc_navpage_path_detail`
 siha=`fun sword_imp_hard_adv_brand_mt_relation`
+ox=`fun ox`
+al=`fun ad_log`
 tp2="tmp.t_292324"
 tp="tmp.t_281843"
 bd="(118,134,83,9828,126,1573,116,227,9754,82,503,1812,1747,1617,8470,1539,1740,8713,504,1739)"
@@ -53,17 +55,34 @@ ${se}
 with siha as (
 		${siha}
 		),
-	 st as (
-	select
-		brand,
-		adv_brand_name,
-		meitun_brand_name
-	from
-		siha
-			join ${tp2} using(id)
+	 ox as (
+			 ${ox}
+		   ),
+	 al as (
+			 ${al}
+		   ),
+	 sx as (
+			select distinct
+				brand,
+				ad_id
+			from
+				siha
+				join ${tp2} using(id)
+				join ox on ox.adv_brand_name=siha.adv_brand_name
 		),
 temp as (select 1)
-"|grep -iv "SET">${attach}
+	select
+		'${t1% *}' dt,
+		brand,
+		count(distinct case when EVENT in ('1','2') THEN equ_uuid else null end) advertise_uv,
+		count(case WHEN EVENT='2' THEN equ_uuid else null end) click_count,
+		sum(case when event='1' then impressions else 0 end) expose_count
+	from
+		al
+		join sx on al.ad_id=cast(sx.ad_id as varchar)
+	group by
+		1,2
+"|grep -iv "SET">>${attach}
 fi
 
 if [ 2 = 1 ]
