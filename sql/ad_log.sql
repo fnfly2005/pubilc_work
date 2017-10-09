@@ -5,10 +5,8 @@ select
 		when client_type in ('android', 'android?') then imei
 		when client_type in ('ios', 'ios?') then mac
 	else uniqueid end equ_uuid,
-	case when regexp_like(impressions,'[a-zA-Z%]') then 1
-		when length(impressions)>0 and impressions is not null 
-		then cast(split_part(impressions,'.',1) as bigint) 
-	else 0 end impressions,
+	case when regexp_like(impressions,'^[0-9]*$') then cast(impressions as bigint)
+	else 1 end impressions,
 	ad_id        
 from 
 	baby_ods.trfc_yad_log
