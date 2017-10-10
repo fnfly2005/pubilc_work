@@ -8,14 +8,15 @@ select
 	warehouse_id,
 	sea_type_id,
 	biz_unit biz_unit_id,
+	province_name,
+	city_name,
 	order_status,
 	pay_time,
 	done_time,
 	delivered_time,
 	cast(approve_time as varchar) approve_time,
 	cast(express_time as varchar) express_time,
-	order_amt,
-	province_name
+	order_amt
 from
 	dw.sale_sub_order
 where
