@@ -35,14 +35,14 @@ temp as (select 1)
 #>${attach}
 fi
 
-if [ 1 = 2 ]
+if [ 1 = 1 ]
 then
 ${presto_e}"
 ${se}
 with upi as (
 		${up}
 		),
-	 u1 as (
+temp as (select 1)
 			select
 				babytree_enc_user_id,
 				sum(point) point
@@ -50,15 +50,7 @@ with upi as (
 				upi
 			group by
 				1
-		   ),
-temp as (select 1)
-	select
-		count(distinct babytree_enc_user_id),
-		sum(point)
-	from
-		u1
-	where
-		point>0
-"|grep -iv "SET"
-#>${attach}
+			having
+				sum(point)>0
+"|grep -iv "SET">${attach}
 fi

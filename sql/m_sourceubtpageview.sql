@@ -1,4 +1,4 @@
-/*大健康流量表*/
+/*美囤流量表排除大健康和签到*/
 select
 	case when 
 		uuid is not null 
