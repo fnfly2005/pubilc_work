@@ -1,6 +1,6 @@
 #!/bin/bash
-t1=${1:-`date -d "yesterday ${clock}" +"%Y-%m-%d %T"`}
-t2=${2:-`date -d "${t1% *} 1days ${clock}" +"%Y-%m-%d %T"`}
+t1=${1:-`date -d "yesterday -5days" +"%Y-%m-%d %T"`}
+t2=${2:-`date -d "${t1% *} 1days" +"%Y-%m-%d %T"`}
 path="/data/fannian/"
 fun() {
 echo `cat ${path}sql/${1}.sql | sed "s/-time1/${2:-${t1% *}}/g;
@@ -13,6 +13,9 @@ file="sg04"
 attach="${path}00output/${file}.csv"
 presto_e="/opt/presto/bin/presto --server hc:9980 --catalog hive --execute "
 se="set session optimize_hash_generation=true;"
+
+model=${attach/00output/model}
+cp ${model} ${attach}
 
 ${presto_e}"
 ${se}
@@ -45,4 +48,25 @@ temp as (select 1)
 	from
 		sosd
 		join d1 using(supplier_id)
-"|grep -iv "SET">${attach}
+"|grep -iv "SET">>${attach}
+
+script="${path}bin/mail.sh"
+topic="﻿海淘物流时效日报"
+content="﻿数据从${t1% *} 0点至${t2% *} 0点，邮件由系统发出，有问题请联系樊年"
+address="fannian@meitunmama.com"
+mt_name=(
+		jitiandong
+		zhaoyue2
+		duyanhua
+	 )
+bb_name=(
+	)
+for i in "${mt_name[@]}"
+do 
+	address="${address}, ${i}@meitunmama.com"
+done
+for i in "${bb_name[@]}"
+do 
+	address="${address}, ${i}@babytree-inc.com"
+done
+bash ${script} "${topic}" "${content}" "${attach}" "${address}"

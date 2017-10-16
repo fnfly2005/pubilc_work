@@ -1,10 +1,10 @@
 select
 	dt,
 	supplier_id,
-	case when logistics_type=1 then '国内订单'
-	when logistics_type=2 then '海淘直邮'
-	when logistics_type=3 then '海淘保税仓'
-	else '其他' end logistics_type,
+	case when logistics_type=1 then 'guonei'
+	when logistics_type=2 then 'zhiyou'
+	when logistics_type=3 then 'baoshui'
+	else 'other' end logistics_type,
 	sub_order_num,
 	upld_24hr_hour_num,
 	upld_48hr_hour_num,
