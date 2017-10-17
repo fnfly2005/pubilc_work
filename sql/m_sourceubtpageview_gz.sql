@@ -1,10 +1,11 @@
 select
 	dt,
-	case when 
-		uuid is not null 
-		and length(uuid)>0 
-		then uuid
-	else cookieid end uuid,
+	case when trackercode='babytree_to_meitun'
+		and tcode='qiandao_sy' then null
+		else (case when uuid is not null 
+				and length(uuid)>0 
+				then uuid
+			else cookieid end) end) uuid,
 	sourcetype,
 	href,
 	referrer,
@@ -16,8 +17,9 @@ where
 	dt>='-time1'
 	and dt<'-time2'
 	and trackercode not like '%dsp%'
-	and trackercode not like 'djk-%' 
-	and url not like 'djk-%' 
+	and trackercode not like 'djk%' 
+	and url not like 'djk%' 
+	and tcode not like '%djk%'
 	and url not like 'qd%' 
 	and trackercode not like 'qd%'
 	and tcode not like '%djk_kj%'

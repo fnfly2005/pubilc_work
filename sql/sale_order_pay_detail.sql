@@ -15,6 +15,7 @@ select
 	parent_order_type,
 	promotion_id,
 	topic_id,
+	brand_id,
 	sku_id,
 	parent_order_id,
 	sub_order_id,
@@ -22,6 +23,8 @@ select
 	sku_num,
 	order_amt,
 	order_net_amt,
+	pay_pregnant_month,
+	province_id,
 	used_point
 from
 	dw.sale_order_pay_detail
