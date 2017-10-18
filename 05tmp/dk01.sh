@@ -47,7 +47,7 @@ temp as (select 1)
 "|grep -iv "SET">${attach}
 fi
 
-if [ 1 = 1 ]
+if [ 2 = 1 ]
 then 
 #曝光品牌
 ${presto_e}"
@@ -109,6 +109,7 @@ with sopd as (
 		   ),
 temp as (select 1)
 	select
+		dt,
 		-99 brand,
 		0 sub_brand,
 		count(distinct babytree_enc_user_id) suv,
@@ -119,9 +120,10 @@ temp as (select 1)
 		sopd s
 		join dp using(sku_id)
 	group by
-		1,2
+		1,2,3
 	union all
 	select
+		dt,
 		brand,
 		0 sub_brand,
 		count(distinct babytree_enc_user_id) suv,
@@ -132,9 +134,10 @@ temp as (select 1)
 		sopd s
 		join dp using(sku_id)
 	group by
-		1,2
+		1,2,3
 	union all
 	select
+		dt,
 		brand,
 		sub_brand,
 		count(distinct babytree_enc_user_id) suv,
@@ -147,7 +150,7 @@ temp as (select 1)
 	where
 		sub_brand<>0
 	group by
-		1,2
+		1,2,3
 "|grep -iv "SET">${attach}
 fi
 

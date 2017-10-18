@@ -2,10 +2,10 @@
 select
 	case when trackercode='babytree_to_meitun'
 		and tcode='qiandao_sy' then null
-		else (case when uuid is not null 
+	else (case when uuid is not null 
 				and length(uuid)>0 
 				then uuid
-			else cookieid end) end) uuid,
+			else cookieid end) end uuid,
 	sourcetype
 from
 	meitun.m_sourceubtpageview
