@@ -8,7 +8,7 @@ fun() {
 echo `cat ${path}sql/${1}.sql | sed "s/-time1/${2:-${t1% *}}/g;
 s/-time2/${3:-${t2% *}}/g;s/-time3/${4:-${t3% *}}/g"`
 }
-rh=`fun rpt_health_course_detail_ral_test` 
+rh=`fun rpt_health_course_detail_daily` 
 
 file="djk07"
 attach="${path}00output/${file}.csv"
@@ -28,25 +28,22 @@ temp as (select 1)
 		course_catagory_name,
 		expert_name,
 		organization_name,
-		course_type,
-		sum(listen_gmv) listen_gmv,
+		avg(course_price) course_price,
+		sum(home_play_pv) home_play_pv,
+		sum(home_otherplay_pv) home_otherplay_pv,
+		sum(pay_click_pv) pay_click_pv,
+		sum(commend_click_pv) commend_click_pv,
+		sum(voice_play_times) voice_play_times,
+		sum(voice_play_custs) voice_play_custs,
+		sum(total_gmv) total_gmv,
 		sum(cust_num) cust_num,
 		sum(new_cust_num) new_cust_num,
-		sum(voice_num) voice_num,
-		sum(ask_question_num) ask_question_num,
-		sum(expert_answer_num) expert_answer_num,
-		sum(award_cust_num) award_cust_num,
-		sum(award_amount) award_amount,
-		sum(course_like_num) course_like_num,
 		sum(uv) uv,
-		sum(diversion_uv) diversion_uv,
-		sum(r_uv) r_uv,
-		sum(voice_play_times) voice_play_times,
-		avg(course_price) course_price
+		sum(pay_uv) pay_uv
 	from
 		rh
 	group by
-		1,2,3,4,5,6,7
+		1,2,3,4,5,6
 	union all
 	select
 		'all' mt,
@@ -55,23 +52,20 @@ temp as (select 1)
 		course_catagory_name,
 		expert_name,
 		organization_name,
-		course_type,
-		sum(listen_gmv) listen_gmv,
+		avg(course_price) course_price,
+		sum(home_play_pv) home_play_pv,
+		sum(home_otherplay_pv) home_otherplay_pv,
+		sum(pay_click_pv) pay_click_pv,
+		sum(commend_click_pv) commend_click_pv,
+		sum(voice_play_times) voice_play_times,
+		sum(voice_play_custs) voice_play_custs,
+		sum(total_gmv) total_gmv,
 		sum(cust_num) cust_num,
 		sum(new_cust_num) new_cust_num,
-		sum(voice_num) voice_num,
-		sum(ask_question_num) ask_question_num,
-		sum(expert_answer_num) expert_answer_num,
-		sum(award_cust_num) award_cust_num,
-		sum(award_amount) award_amount,
-		sum(course_like_num) course_like_num,
 		sum(uv) uv,
-		sum(diversion_uv) diversion_uv,
-		sum(r_uv) r_uv,
-		sum(voice_play_times) voice_play_times,
-		avg(course_price) course_price
+		sum(pay_uv) pay_uv
 	from
 		rh
 	group by
-		1,2,3,4,5,6,7
+		1,2,3,4,5,6
 "|grep -iv "SET">${attach}
