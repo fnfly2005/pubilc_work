@@ -108,7 +108,7 @@ with sopd as (
 				t.is_vsku=0
 		   ),
 temp as (select 1)
-	select
+/*	select
 		dt,
 		-99 brand,
 		0 sub_brand,
@@ -135,7 +135,7 @@ temp as (select 1)
 		join dp using(sku_id)
 	group by
 		1,2,3
-	union all
+	union all*/
 	select
 		dt,
 		brand,
@@ -147,14 +147,14 @@ temp as (select 1)
 	from
 		sopd s
 		join dp using(sku_id)
-	where
-		sub_brand<>0
+/*	where
+		sub_brand<>0*/
 	group by
 		1,2,3
 "|grep -iv "SET">${attach}
 fi
 
-if [ 2 = 1 ]
+if [ 1 = 1 ]
 then 
 #复购率分布
 ${presto_e}"
@@ -185,7 +185,7 @@ with ds as (
 				1,2,3
 		   ),
 temp as (select 1)
-	select
+/*	select
 		brand,
 		'all' sub_brand,
 		num,
@@ -194,7 +194,7 @@ temp as (select 1)
 		sd
 	group by
 		1,2,3
-	union all
+	union all*/
 	select
 		brand,
 		sub_brand,
@@ -202,8 +202,8 @@ temp as (select 1)
 		count(distinct babytree_enc_user_id)
 	from
 		sd
-	where
-		brand<>sub_brand
+/*	where
+		brand<>sub_brand*/
 	group by
 		1,2,3
 "|grep -iv "SET">${attach}
