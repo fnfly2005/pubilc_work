@@ -13,7 +13,7 @@ fun() {
     if [[ ${1} =~ / ]];then
         pdir="$CODE_HOME"
     else
-        pdir="${CODE_HOME}sql/"
+        pdir="${CODE_HOME}my_code/sql/"
     fi
     tmp=`cat ${pdir}${fil} | grep -iv "/\*"`
     if [ -n $2 ];then
@@ -40,7 +40,7 @@ fun() {
 }
 
 fuc() {
-    file_all="${path}doc/$2"$file
+    file_all="/Users/fannian/Documents/doc/$2"$file
 
     echo "success!"
 
