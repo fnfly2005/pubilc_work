@@ -1,10 +1,10 @@
 #!/bin/bash
 #历史销售-全量-多维度-多指标-多数据源
-source ./fuc.sh
+source ./my_code/fuc.sh
 
 ssp=`fun detail_myshow_salesplan.sql u`
-so=`fun detail_myshow_saleorder.sql u` 
-spo=`fun detail_myshow_salepayorder.sql u` 
+so=`fun detail_myshow_saleorder.sql uD`
+ity=`fun my_code/sql/cob_dim_myshow_city.sql`
 per=`fun dim_myshow_performance.sql`
 cus=`fun dim_myshow_customer.sql`
 md=`fun dim_myshow_dictionary.sql`
@@ -14,10 +14,8 @@ scn=`fun detail_maoyan_order_sale_cost_new_info.sql u`
 ddn=`fun dim_deal_new.sql u`
 dsh=`fun dim_myshow_show.sql u`
 
-file="bs28"
-lim=";"
-attach="${path}doc/${file}.sql"
 
+fus() {
 echo "
 select
     sp.ds,
@@ -31,6 +29,7 @@ select
     sp.area_2_level_name,
     sp.province_name,
     sp.city_name,
+    sp.shop_name,
     sum(show_num) as show_num,
     sum(order_num) as order_num,
     sum(totalprice) as totalprice,
@@ -62,6 +61,8 @@ from (
         else 'all' end province_name,
         case when 10 in (\$dim) then city_name
         else 'all' end city_name,
+        case when 11 in (\$dim) then shop_name
+        else 'all' end shop_name,
         count(distinct spo.performance_id) as sp_num,
         sum(show_num) as show_num,
         sum(order_num) as order_num,
@@ -81,28 +82,7 @@ from (
             sum(grossprofit) as grossprofit
         from (
             select
-                substr(order_create_time,1,10) as dt,
-                sellchannel,
-                customer_id,
-                performance_id,
-                show_id,
-                count(distinct order_id) as order_num,
-                sum(totalprice) as totalprice,
-                sum(salesplan_count*setnumber) as ticket_num,
-                0 as grossprofit
-            from
-                mart_movie.detail_myshow_saleorder
-            where
-                pay_time is null
-                and order_create_time>='\$\$begindate'
-                and order_create_time<'\$\$enddate'
-                and \$payflag=0
-                and 0 in (\$ds)
-            group by
-                1,2,3,4,5
-            union all
-            select
-                partition_date as dt,
+                substr(\$time,1,10) as dt,
                 sellchannel,
                 customer_id,
                 performance_id,
@@ -111,24 +91,18 @@ from (
                 sum(totalprice) as totalprice,
                 sum(salesplan_count*setnumber) as ticket_num,
                 sum(grossprofit) as grossprofit
-            $spo
+            from
+                mart_movie.detail_myshow_saleorder
+            where
+                \$time>='\$\$begindate'
+                and \$time<'\$\$enddate'
+                and partition_sellchannel>0
                 and 0 in (\$ds)
-            group by
-                1,2,3,4,5
-            union all
-            select
-                substr(pay_time,1,10) as dt,
-                sellchannel,
-                customer_id,
-                performance_id,
-                show_id,
-                count(distinct order_id) as order_num,
-                sum(totalprice) as totalprice,
-                sum(salesplan_count*setnumber) as ticket_num,
-                0 as grossprofit
-            $so
-                and 0 in (\$ds)
-                and sellchannel in (9,10)
+                and (
+                    (partition_payflag>0 
+                        and \$payflag<>0)
+                    or \$payflag=0
+                    )
             group by
                 1,2,3,4,5
             ) sp1
@@ -143,23 +117,24 @@ from (
             1,2,3,4
             ) spo
         join (
-        $md
-        and key_name='sellchannel'
-        and value2 in ('\$pt')
+            $md
+            and key_name='sellchannel'
+            and value2 in ('\$pt')
         ) md1
         on md1.key=spo.sellchannel
         join (
-        $per
-        and category_id in (\$category_id)
+            $per
+            and category_id in (\$category_id)
+            and $ity
         ) per
         on spo.performance_id=per.performance_id
         join (
-        $cus
+            $cus
             and customer_type_id in (\$customer_type_id)
         ) cus
         on cus.customer_id=spo.customer_id
     group by
-        1,2,3,4,5,6,7,8,9,10,11
+        1,2,3,4,5,6,7,8,9,10,11,12
     union all
     select
         case when 0 in (\$dim) then '微格演出'
@@ -184,6 +159,8 @@ from (
         else 'all' end province_name,
         case when 10 in (\$dim) then city_name
         else 'all' end city_name,
+        case when 11 in (\$dim) then shop_name
+        else 'all' end shop_name,
         count(distinct wso.item_id) as sp_num,
         0 as show_num,
         sum(order_num) as order_num,
@@ -218,10 +195,11 @@ from (
             $wi
                 and (category_id in (\$category_id)
                 or 0 in (\$category_id))
+                and $ity
             ) wi
         on wso.item_id=wi.item_id
     group by
-        1,2,3,4,5,6,7,8,9,10,11
+        1,2,3,4,5,6,7,8,9,10,11,12
     union all
     select
         case when 0 in (\$dim) then '猫眼团购'
@@ -240,6 +218,7 @@ from (
         'all' area_2_level_name,
         'all' province_name,
         'all' city_name,
+        'all' shop_name,
         count(distinct deal_id) as sp_num,
         0 as show_num,
         count(distinct order_id) as order_num,
@@ -254,7 +233,7 @@ from (
             $ddn
             )
     group by
-        1,2,3,4,5,6,7,8,9,10,11
+        1,2,3,4,5,6,7,8,9,10,11,12
     ) as sp
     left join (
         select
@@ -279,6 +258,8 @@ from (
             else 'all' end province_name,
             case when 10 in (\$dim) then city_name
             else 'all' end city_name,
+            case when 11 in (\$dim) then shop_name
+            else 'all' end shop_name,
             count(distinct spo.performance_id) as ap_num
         from (
             select distinct
@@ -291,6 +272,7 @@ from (
                 and customer_type_id in (\$customer_type_id)
                 and category_id in (\$category_id)
                 and 0 in (\$ds)
+                and $ity
             ) spo
             join (
                 select
@@ -301,7 +283,7 @@ from (
                 on dsh.show_id=spo.show_id
             left join (
                 $per
-                and category_id in (\$category_id)
+                    and category_id in (\$category_id)
                 ) per
             on spo.performance_id=per.performance_id
             left join (
@@ -310,7 +292,7 @@ from (
                 ) cus
             on cus.customer_id=spo.customer_id
         group by
-            1,2,3,4,5,6,7,8,9,10,11
+            1,2,3,4,5,6,7,8,9,10,11,12
         ) ss
     on sp.ds=ss.ds
     and sp.mt=ss.mt
@@ -323,15 +305,11 @@ from (
     and sp.area_2_level_name=ss.area_2_level_name
     and sp.province_name=ss.province_name
     and sp.city_name=ss.city_name
+    and sp.shop_name=ss.shop_name
 group by
-    1,2,3,4,5,6,7,8,9,10,11
-$lim">${attach}
+    1,2,3,4,5,6,7,8,9,10,11,12
+${lim-;}"
+}
 
-echo "succuess!"
-echo ${attach}
-if [ ${1}r == pr ]
-#加上任意字符，如r 避免空值报错
-then
-cat ${attach}
-#命令行参数为p时，打印输出文件
-fi
+downloadsql_file $0
+fuc $1
