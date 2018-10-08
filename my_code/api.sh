@@ -2,7 +2,7 @@
 #*************************api3.0*******************
 #2.0新增实时模版;3.0函数模块化
 #!/bin/bash
-source ./fuc.sh
+source ./my_code/fuc.sh
 =`fun `
 
 fus() {
@@ -16,7 +16,7 @@ downloadsql_file $0
 fuc $1
 
 #!/bin/bash
-source ./fuc.sh
+source ./my_code/fuc.sh
 beg_key=
 end_key=
 
