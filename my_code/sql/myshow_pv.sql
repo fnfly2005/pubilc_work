@@ -1,0 +1,13 @@
+/*埋点字典表*/
+select
+    key,
+    value,
+    name,
+    page,
+    nav_flag,
+    page_tag1,
+    page_tag2
+from
+    upload_table.myshow_pv
+where
+    key='page_identifier'
