@@ -1,4 +1,5 @@
 #!/bin/bash
+#优惠券-全量-日期/类目/批次信息/发放量/使用量/出票/销售/毛利
 source ./fuc.sh
 
 cgr=`fun dim_myshow_batch.sql`
@@ -40,7 +41,6 @@ from (
         sum(spo.grossprofit) as grossprofit
     from (
         $cgr
-        and status=1
         ) cgr
         left join (
         $cou
