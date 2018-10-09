@@ -17,8 +17,6 @@ target = {
 ##Load##
 set hive.exec.dynamic.partition=true;
 set hive.exec.dynamic.partition.mode=nonstrict;
-set hive.exec.dynamic.partition=true;
-set hive.exec.dynamic.partition.mode=nonstrict;
 set hive.exec.parallel=true;
 set hive.exec.reducers.max =1000;
 set mapreduce.reduce.memory.mb=4096;
@@ -70,7 +68,8 @@ select
     coalesce(per.category_id,fp1.category_id) as category_id,
     per.city_id,
     per.province_id,
-    per.shop_id
+    per.shop_id,
+    fp1.page_cat
 from (
     select
         mv.app_name,
@@ -138,7 +137,8 @@ from (
                 when 'mini_programs' then custom['categoryId'] 
                 when 'pc' then custom['cat_id'] 
             end
-        end) as category_id
+        end) as category_id,
+        page_cat
     from (
         select 
             event_id,
@@ -251,7 +251,8 @@ CREATE TABLE IF NOT EXISTS `$target.table`
 `category_id` bigint COMMENT '类别ID',
 `city_id` bigint COMMENT '项目城市ID',
 `province_id` bigint COMMENT '项目省份ID',
-`shop_id` bigint COMMENT '点评场馆ID'
+`shop_id` bigint COMMENT '点评场馆ID',
+`page_cat` int COMMENT '页面意向-id'
 ) COMMENT '演出页面流量宽表'
 PARTITIONED BY (
     partition_date    string  COMMENT '日志生成日期'
