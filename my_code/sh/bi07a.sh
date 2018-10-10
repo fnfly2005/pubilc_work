@@ -81,7 +81,8 @@ from (
                             mart_movie.dim_myshow_pv
                         where
                             \$mod=3
-                            and regexp_like(page_name_my,'\$sdk_name')
+                            and (regexp_like(page_name_my,'\$sdk_name')
+                                or \$sdk_name in ('全部'))
                         )
                     or (page_identifier in ('\$identifier') and \$mod=0)
                     )
@@ -119,7 +120,8 @@ from (
                             mart_movie.dim_myshow_mv
                         where
                             \$mod=3
-                            and regexp_like(event_name_lv1,'\$sdk_name')
+                            and (regexp_like(event_name_lv1,'\$sdk_name')
+                                or \$sdk_name in ('全部'))
                         )
                     or (page_identifier in ('\$identifier') and \$mod=0)
                     or (event_id in ('\$identifier') and \$mod=2)
