@@ -9,7 +9,7 @@ select
     cid_type,
     page_identifier,
     user_intention,
-    user_int,
+    biz_tag,
     page_loc,
     operation_flag
 from
