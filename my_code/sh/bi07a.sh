@@ -1,13 +1,10 @@
 #!/bin/bash
 #埋点逻辑数据验证工具
-source ./fuc.sh
+source ./my_code/fuc.sh
 fpw=`fun detail_flow_pv_wide_report.sql u`
 fmw=`fun detail_flow_mv_wide_report.sql u`
 
-file="bi07"
-lim=";"
-attach="${path}doc/${file}.sql"
-
+fus() {
 echo "
 select 
     app_name,
@@ -77,6 +74,14 @@ from (
                             upload_table.myshow_identifier_ver
                         where
                             \$mod=1
+                        union all
+                        select
+                            page_identifier as identifier
+                        from 
+                            mart_movie.dim_myshow_pv
+                        where
+                            \$mod=3
+                            and regexp_like(page_name_my,'\$sdk_name')
                         )
                     or (page_identifier in ('\$identifier') and \$mod=0)
                     )
@@ -107,6 +112,14 @@ from (
                             upload_table.myshow_identifier_ver
                         where
                             \$mod=1
+                        union all
+                        select
+                            event_id as identifier
+                        from 
+                            mart_movie.dim_myshow_mv
+                        where
+                            \$mod=3
+                            and regexp_like(event_name_lv1,'\$sdk_name')
                         )
                     or (page_identifier in ('\$identifier') and \$mod=0)
                     or (event_id in ('\$identifier') and \$mod=2)
@@ -119,13 +132,8 @@ from (
     ) as ran
 where
     rank<=\$limit
-$lim">${attach}
+${lim-;}"
+}
 
-echo "succuess!"
-echo ${attach}
-if [ ${1}r == pr ]
-#加上任意字符，如r 避免空值报错
-then
-cat ${attach}
-#命令行参数为p时，打印输出文件
-fi
+downloadsql_file $0
+fuc $1
