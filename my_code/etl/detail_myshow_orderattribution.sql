@@ -2,7 +2,7 @@
 ##TaskInfo##
 creator = 'fannian@maoyan.com'
 source = {
-    'db': META['hdw'], 
+    'db': META['hmart_movie'], 
 }
 
 stream = {
@@ -60,7 +60,8 @@ select
     category_id,
     city_id,
     province_id,
-    shop_id
+    shop_id,
+    page_cat
 from (
     select
         union_id,
@@ -119,8 +120,9 @@ CREATE TABLE IF NOT EXISTS `$target.table`
 `category_id` bigint COMMENT '类别ID',
 `city_id` bigint COMMENT '项目城市ID',
 `province_id` bigint COMMENT '项目省份ID',
-`shop_id` bigint COMMENT '点评场馆ID'
-) COMMENT '演出页面流量宽表'
+`shop_id` bigint COMMENT '点评场馆ID',
+`page_cat` int COMMENT '页面意向-id'
+) COMMENT '演出订单归因表'
 PARTITIONED BY (
     partition_date    string  COMMENT '日志生成日期'
 ) STORED AS ORC;
