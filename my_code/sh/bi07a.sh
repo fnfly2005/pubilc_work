@@ -11,6 +11,7 @@ select
     page_identifier,
 	event_id,
     custom,
+    custom_key,
     utm_source,
     \$custom_id,
     page_city_id,
@@ -18,6 +19,7 @@ select
 	event_category,
 	event_type,
 	event_attribute,
+    event_attribute_key,
 	order_id
 from (
     select
@@ -25,6 +27,7 @@ from (
         page_identifier,
         event_id,
         custom,
+        map_keys(custom) as custom_key,
         utm_source,
         \$custom_id,
         page_city_id,
@@ -32,6 +35,7 @@ from (
         event_category,
         event_type,
         event_attribute,
+        map_keys(event_attribute) as event_attribute_key,
         order_id,
         row_number() over (partition by \$event_id order by 1) as rank
     from (
@@ -82,7 +86,7 @@ from (
                         where
                             \$mod=3
                             and (regexp_like(page_name_my,'\$sdk_name')
-                                or \$sdk_name in ('全部'))
+                                or '\$sdk_name'='全部')
                         )
                     or (page_identifier in ('\$identifier') and \$mod=0)
                     )
@@ -121,7 +125,7 @@ from (
                         where
                             \$mod=3
                             and (regexp_like(event_name_lv1,'\$sdk_name')
-                                or \$sdk_name in ('全部'))
+                                or '\$sdk_name'='全部')
                         )
                     or (page_identifier in ('\$identifier') and \$mod=0)
                     or (event_id in ('\$identifier') and \$mod=2)
