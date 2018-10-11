@@ -1,5 +1,6 @@
 /*猫眼演出页面埋点配置维度表*/
 select
+    pv_id,
     biz_bg_name,
     page_intention,
     page_name_my,

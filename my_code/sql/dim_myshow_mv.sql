@@ -1,5 +1,6 @@
 /*猫眼演出模块埋点配置维度表*/
 select
+    mv_id,
     page_name_my,
     event_name_lv1,
     event_name_lv2,
