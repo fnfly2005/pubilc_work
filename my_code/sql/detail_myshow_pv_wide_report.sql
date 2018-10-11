@@ -11,8 +11,12 @@ select
     category_id,
     pagedpcity_id,
     geodpcity_id,
-    page_stay_time
+    page_stay_time,
+    custom,
+    page_identifier,
+    partition_biz_bg
 from 
     mart_movie.detail_myshow_pv_wide_report
-where partition_date>='$$begindate'
+where 
+    partition_date>='$$begindate'
     and partition_date<'$$enddate'
