@@ -10,8 +10,10 @@ fun() {
     else
         fil="${1}.sql"
     fi
-    if [[ ${1} =~ / ]];then
+    if [[ ${1} =~ my_code ]];then
         pdir="$CODE_HOME"
+    elif [[ ${1} =~ / ]];then
+        pdir="${CODE_HOME}my_code/"
     else
         pdir="${CODE_HOME}my_code/sql/"
     fi
