@@ -1,8 +1,9 @@
 #!/bin/bash
+#页面埋点业务参数复验工具
 source ./my_code/fuc.sh
 fpw=`fun detail_myshow_pv_wide_report.sql ut`
 wpv=`fun my_code/sql/dim_myshow_pv.sql u`
-mke=`fun my_code/sql/myshow_unused_key.sql`
+mke=`fun my_code/sql/myshow_parkeylist.sql`
 
 fus() {
     echo "
@@ -35,10 +36,11 @@ fus() {
             where
                 ck is not null
             ) fp
-            left join (
+            join (
                 $mke
                 ) mke
-                on mke.unused_key=fp.ck
+                on mke.par_key=fp.ck
+                and mke.is_myshow=1
             left join (
                 select distinct
                     page_identifier,
@@ -57,7 +59,6 @@ fus() {
             and wp.ck=fp.ck
         where
             wp.ck is null 
-            and mke.unused_key is null
         group by
             1
         ) as cp
