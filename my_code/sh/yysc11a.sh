@@ -1,6 +1,6 @@
 #!/bin/bash
-#选人工具-电影-短信
-source ./fuc.sh
+#电影标签源-短信用
+source ${CODE_HOME-./}my_code/fuc.sh
 
 spe=`fun myshow_send_performance.sql`
 mou=`fun dim_myshow_movieuser.sql`
@@ -9,10 +9,7 @@ mov=`fun dim_movie.sql`
 hly=`fun sql/detail_movie_seat_info_monthly.sql u`
 dwd=`fun sql/aggr_discount_card_seat_dwd.sql u`
 
-file="yysc11"
-lim=";"
-attach="${path}doc/${file}.sql"
-
+fus() {
 echo "
 select 
     mobile,
@@ -33,7 +30,8 @@ from (
             from
                 mart_movie.dim_myshow_movieuser
             where
-                active_date>=date_add('day',-\$at,current_date)
+                (active_date>=date_add('day',-\$at,current_date)
+                or \$at=0)
                 and (
                     (
                         city_id in (\$city_id)
@@ -62,7 +60,8 @@ from (
             from
                 mart_movie.dim_myshow_movieusera
             where
-                active_date>=date_add('day',-\$at,current_date)
+                (active_date>=date_add('day',-\$at,current_date)
+                or \$at=0)
                 and (
                     (
                         city_id in (\$city_id)
@@ -224,13 +223,8 @@ from (
     ) as c
 where
     rank<=\$limit
-$lim">${attach}
+${lim-;}"
+}
 
-echo "succuess!"
-echo ${attach}
-if [ ${1}r == pr ]
-#加上任意字符，如r 避免空值报错
-then
-cat ${attach}
-#命令行参数为p时，打印输出文件
-fi
+downloadsql_file $0
+fuc $1
