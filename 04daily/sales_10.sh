@@ -1,5 +1,5 @@
 #!/bin/bash
-mysql_e="mysql -h10.50.50.61 -P3360 -ubiuser -pkOi9H-G3I;vvnVt4 -N -e"
+mysql_e="mysql -h1.1.1.1 -P3360 -uuu -p111 -N -e"
 presto_e="/opt/presto/bin/presto --server hc:9980 --catalog hive --execute "
 se="set session optimize_hash_generation=true;"
 

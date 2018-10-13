@@ -73,7 +73,7 @@ do
 done
 #backup 方式
 presto_f=${presto_e/-execute/f}
-mysql_e="mysql -h10.50.50.48 -P3360 -ubiuser -pkOi9H-G3I;vvnVt4 -N -e"
+mysql_e="mysql -h0.0.0.0 -P3360 -ufn -123 -N -e"
 mysql_f=${mysql_e/-e/-dsalesorder<}
 spark_e="spark-sql --master spark://hdn8:9077 -e"
 hive_e="/opt/hive/bin/hive -e "
