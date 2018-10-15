@@ -1,0 +1,29 @@
+/*拼团日报结果表*/
+select
+	date_id,
+	sea_type,
+	category_lvl1_name,
+	brand_name,
+	pintuan_id promotion_id,
+	pintuan_name,
+	spu_code,
+	order_amt,
+	order_net_amt,
+	cust_num,
+	order_num,
+	sale_num,
+	success_order_amt,
+	group_num,
+	pintuan_num,
+	success_cust_num,
+	activity_page_pv,
+	activity_page_uv,
+	payment_success_uv,
+	new_cust_num,
+	new_cust_order_amt,
+	pintuan_sale_num
+from
+	rpt.rpt_pintuan_activity_sale_by_days
+where
+	dt>='-time1'
+	and dt<'-time2'

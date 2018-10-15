@@ -1,0 +1,24 @@
+/*微课数据*/
+select
+	substr(date_id,1,7) mt,
+	course_id,
+	course_name,
+	course_catagory_name,
+	expert_name,
+	organization_name,
+	course_price,
+	home_play_pv,
+	home_otherplay_pv,
+	pay_click_pv,
+	commend_click_pv,
+	voice_play_times,
+	voice_play_custs,
+	total_gmv,
+	cust_num,
+	new_cust_num,
+	uv,
+	pay_uv
+from
+	rpt.rpt_health_course_detail_daily
+where
+	is_weike=1
