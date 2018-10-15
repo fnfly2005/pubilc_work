@@ -2,8 +2,9 @@
 #项目销售-全量-多维度-多指标
 source ${CODE_HOME-./}my_code/fuc.sh
 
-spo=`fun detail_myshow_saleorder.sql`
+spo=`fun detail_myshow_salepayorder.sql`
 dmp=`fun dim_myshow_performance.sql`
+ect=`fun my_code/sql/dim_myshow_project.sql`
 dc=`fun dim_myshow_customer.sql`
 md=`fun dim_myshow_dictionary.sql`
 
@@ -30,28 +31,36 @@ select
     spo.performance_id,
     dmp.performance_name,
     dmp.shop_name,
-    bd_name,
+    ect.bd_name,
     count(distinct order_id) as order_num,
     sum(ticket_num) as ticket_num,
     sum(TotalPrice) as TotalPrice,
-    sum(grossprofit) as grossprofit
+    sum(case when grossprofit<0 then 0 else grossprofit end) as grossprofit
 from (
     $spo
+        and category_id in (\$category_id)
     ) spo
-    join (
+    left join (
         $dmp
-            and category_id in (\$category_id)
         ) dmp
     using(performance_id)
-    left join (
-    $dc
+    join (
+        $dc
+            and customer_type_id in (\$customer_type_id)
     ) dc
     on spo.customer_id=dc.customer_id
+    left join (
+        $ect
+        ) ect
+    on ect.project_id=spo.project_id
     left join (
         $md
         and key_name='sellchannel'
     ) md
     on md.key=spo.sellchannel
+where
+    bd_name is not null
+    or \$bd_tag=0
 group by
     1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
 ${lim-;}"
