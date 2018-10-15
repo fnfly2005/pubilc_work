@@ -1,5 +1,6 @@
 /*订单支付明细表*/
 select
+    substr(partition_date,1,7) as mt,
     partition_date as dt,
     order_id,
     sellchannel,

@@ -7,4 +7,4 @@ select
 from
     mart_movie.dim_myshow_project
 where
-    project_id is not null
+    1=1

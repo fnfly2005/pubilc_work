@@ -33,10 +33,13 @@ select
     ticketclass_description,
     detailedaddress,
     salesplan_id,
-    salesplan_name
+    salesplan_name,
+    grossprofit,
+    bd_name
 from
     mart_movie.detail_myshow_saleorder
 where
-    pay_time is not null
-    and pay_time>='$$begindate'
+    pay_time>='$$begindate'
     and pay_time<'$$enddate'
+    and partition_sellchannel>0
+    and partition_payflag>0

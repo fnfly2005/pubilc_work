@@ -30,6 +30,7 @@ select
     sp.province_name,
     sp.city_name,
     sp.shop_name,
+    sp.bd_name,
     sum(show_num) as show_num,
     sum(order_num) as order_num,
     sum(totalprice) as totalprice,
@@ -63,6 +64,8 @@ from (
         else 'all' end city_name,
         case when 11 in (\$dim) then shop_name
         else 'all' end shop_name,
+        case when 12 in (\$dim) then bd_name
+        else 'all' end bd_name,
         count(distinct spo.performance_id) as sp_num,
         sum(show_num) as show_num,
         sum(order_num) as order_num,
@@ -74,6 +77,7 @@ from (
             dt,
             sellchannel,
             customer_id,
+            bd_name,
             performance_id,
             count(distinct sp1.show_id) as show_num,
             sum(order_num) as order_num,
@@ -85,6 +89,7 @@ from (
                 substr(\$time,1,10) as dt,
                 sellchannel,
                 customer_id,
+                bd_name,
                 performance_id,
                 show_id,
                 count(distinct order_id) as order_num,
@@ -104,7 +109,7 @@ from (
                     or \$payflag=0
                     )
             group by
-                1,2,3,4,5
+                1,2,3,4,5,6
             ) sp1
             join (
                 select
@@ -114,7 +119,7 @@ from (
                 ) dsh
                 on dsh.show_id=sp1.show_id
         group by
-            1,2,3,4
+            1,2,3,4,5
             ) spo
         join (
             $md
@@ -134,7 +139,7 @@ from (
         ) cus
         on cus.customer_id=spo.customer_id
     group by
-        1,2,3,4,5,6,7,8,9,10,11,12
+        1,2,3,4,5,6,7,8,9,10,11,12,13
     union all
     select
         case when 0 in (\$dim) then '微格演出'
@@ -161,6 +166,7 @@ from (
         else 'all' end city_name,
         case when 11 in (\$dim) then shop_name
         else 'all' end shop_name,
+        'all' bd_name,
         count(distinct wso.item_id) as sp_num,
         0 as show_num,
         sum(order_num) as order_num,
@@ -199,7 +205,7 @@ from (
             ) wi
         on wso.item_id=wi.item_id
     group by
-        1,2,3,4,5,6,7,8,9,10,11,12
+        1,2,3,4,5,6,7,8,9,10,11,12,13
     union all
     select
         case when 0 in (\$dim) then '猫眼团购'
@@ -219,6 +225,7 @@ from (
         'all' province_name,
         'all' city_name,
         'all' shop_name,
+        'all' bd_name,
         count(distinct deal_id) as sp_num,
         0 as show_num,
         count(distinct order_id) as order_num,
@@ -233,7 +240,7 @@ from (
             $ddn
             )
     group by
-        1,2,3,4,5,6,7,8,9,10,11,12
+        1,2,3,4,5,6,7,8,9,10,11,12,13
     ) as sp
     left join (
         select
@@ -260,6 +267,7 @@ from (
             else 'all' end city_name,
             case when 11 in (\$dim) then shop_name
             else 'all' end shop_name,
+            'all' bd_name,
             count(distinct spo.performance_id) as ap_num
         from (
             select distinct
@@ -292,7 +300,7 @@ from (
                 ) cus
             on cus.customer_id=spo.customer_id
         group by
-            1,2,3,4,5,6,7,8,9,10,11,12
+            1,2,3,4,5,6,7,8,9,10,11,12,13
         ) ss
     on sp.ds=ss.ds
     and sp.mt=ss.mt
@@ -306,8 +314,9 @@ from (
     and sp.province_name=ss.province_name
     and sp.city_name=ss.city_name
     and sp.shop_name=ss.shop_name
+    and sp.bd_name=ss.bd_name
 group by
-    1,2,3,4,5,6,7,8,9,10,11,12
+    1,2,3,4,5,6,7,8,9,10,11,12,13
 ${lim-;}"
 }
 
