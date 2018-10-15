@@ -1,9 +1,25 @@
 #1.0优化输出方式,函数处理;2.0新增实时模版;3.0优化函数功能;4.0函数模块化
 #!/bin/bash
+#读取文件
 downloadsql_file() {
     file=`echo $1 | sed "s/[a-z]*\.sh//g;s/.*\///g"`".sql"
 }
 
+#脚本输出
+fuc() {
+    file_all="/Users/fannian/Documents/doc/$2"$file
+
+    echo "success!"
+
+    if [ ${1}r == dr ];then
+        echo $file_all
+        fus > $file_all
+    else
+        fus
+    fi
+    }
+
+#读取SQL
 fun() {
     if [[ ${1} =~ \. ]];then
         fil=${1}
@@ -41,15 +57,13 @@ fun() {
     echo $tmp
 }
 
-fuc() {
-    file_all="/Users/fannian/Documents/doc/$2"$file
 
-    echo "success!"
+#按月偏移日期
+diffmonth() {
+    echo "date_add('month',-\$month,date_parse('${1-\$\$today}','%Y-%m-%d'))"
+}
 
-    if [ ${1}r == dr ];then
-        echo $file_all
-        fus > $file_all
-    else
-        fus
-    fi
-    }
+#偏移月份where条件
+diffmonth_condition() {
+    echo "substr($1,1,7)=substr(`diffmonth`,1,7)"
+}
