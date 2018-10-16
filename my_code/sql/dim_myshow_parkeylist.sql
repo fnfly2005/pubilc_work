@@ -2,6 +2,7 @@
 select
     par_key,
     is_myshow,
-    biz_tag
+    biz_tag,
+    tag_name
 from 
-    upload_table.myshow_parkeylist
+    upload_table.dim_myshow_parkeylist

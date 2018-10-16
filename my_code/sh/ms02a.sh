@@ -2,9 +2,6 @@
 #埋点键值核验工具
 source ./my_code/fuc.sh
 fmw=`fun detail_myshow_mv_wide_report.sql ut`
-fpw=`fun detail_myshow_pv_wide_report.sql ut`
-wmv=`fun my_code/sql/dim_myshow_mv.sql u`
-mke=`fun my_code/sql/myshow_parkeylist.sql`
 
 fus() {
     echo "
@@ -50,7 +47,7 @@ fus() {
             from (
                 select
                     map_keys(custom) as cus_key
-                $fpw
+                `fun detail_myshow_pv_wide_report.sql ut`
                     and partition_biz_bg<2
                     and map_keys(custom) is not null
                     and map_keys(custom)<>array[]
@@ -62,7 +59,7 @@ fus() {
                 ck is not null
             ) fp
             left join (
-                $mke
+                `fun my_code/sql/dim_myshow_parkeylist.sql`
                 ) mke
             on mke.par_key=fp.ck
     ${lim-;}"
