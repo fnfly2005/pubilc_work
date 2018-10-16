@@ -60,10 +60,10 @@ fun() {
 
 #按月偏移日期
 diffmonth() {
-    echo "date_add('month',-\$month,date_parse('${1-\$\$today}','%Y-%m-%d'))"
+    echo "substr(date_add('month',-\$month,date_parse('${2-\$\$today}','%Y-%m-%d')),1,${1-7})"
 }
 
 #偏移月份where条件
 diffmonth_condition() {
-    echo "substr($1,1,7)=substr(`diffmonth`,1,7)"
+    echo "substr($1,1,7)=`diffmonth`"
 }
