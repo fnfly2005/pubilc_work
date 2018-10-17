@@ -6,11 +6,10 @@ fmw=`fun detail_myshow_mv_wide_report.sql ut`
 fus() {
     echo "
         select distinct
-            fp.ck,
+            fp.ck as par_key,
             is_myshow,
             biz_tag,
-            case when mke.par_key is null then 1
-            else 0 end as is_new
+            tag_name
         from (
             select distinct
                 ck
@@ -62,6 +61,9 @@ fus() {
                 `fun my_code/sql/dim_myshow_parkeylist.sql`
                 ) mke
             on mke.par_key=fp.ck
+        where
+            mke.par_key is null
+            or is_myshow=1
     ${lim-;}"
 }
 
