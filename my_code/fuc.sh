@@ -67,3 +67,8 @@ diffmonth() {
 diffmonth_condition() {
     echo "substr($1,1,7)=`diffmonth`"
 }
+
+#自定义维度函数
+cas() {
+    echo "case when $1 in (\$dim) then $2 else ${3-'all'} end"
+}
