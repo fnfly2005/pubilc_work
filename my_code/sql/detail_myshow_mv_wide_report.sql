@@ -1,9 +1,20 @@
 /*演出页面流量宽表*/
 select
+    partition_date,
+    app_name,
+    event_name_lv1,
+    event_name_lv2,
+    page_name_my,
+    item_index,
     custom,
     event_id,
     event_attribute,
-    page_identifier
+    pagedpcity_id,
+    order_id,
+    page_identifier,
+    event_type,
+    union_id,
+    page_cat
 from
     mart_movie.detail_myshow_mv_wide_report
 where
