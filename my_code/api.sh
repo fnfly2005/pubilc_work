@@ -33,6 +33,17 @@ downloadsql_file $0
 fuc $1 ss_
 
 #!/bin/bash
+source ${CODE_HOME-./}/my_code/fuc.sh
+source ${CODE_HOME-./}/my_code/fet.sh
+echo "
+`task origindb `
+$ins
+select
+from
+$cre
+
+`com `"
+
 path="/Users/fannian/Documents/my_code/"
 clock="00"
 t1=${1:-`date -v -1d +"%Y-%m-%d ${clock}:00:00"`}
