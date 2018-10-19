@@ -3,12 +3,12 @@
 #2.0新增实时模版;3.0函数模块化
 #!/bin/bash
 source ${CODE_HOME-./}my_code/fuc.sh
-=`fun `
 
 fus() {
 echo "
 select
 from (
+    `fun `
 ${lim-;}"
 }
 
@@ -17,15 +17,15 @@ fuc $1
 
 #!/bin/bash
 source ${CODE_HOME-./}/my_code/fuc.sh
+
 beg_key=
 end_key=
-
-=`fun  $beg_key $end_key`
 
 fus() {
 echo "
 select
 from (
+    `fun  $beg_key $end_key`
 ${lim-limit 20000;}"
 }
 
@@ -41,7 +41,7 @@ echo "
 `task origindb `
 $ins
 select
-from
+from (
 $cre
 `com `"
 }
