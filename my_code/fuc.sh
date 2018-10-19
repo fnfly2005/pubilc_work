@@ -2,12 +2,16 @@
 #!/bin/bash
 #读取文件
 downloadsql_file() {
-    file=`echo $1 | sed "s/[a-z]*\.sh//g;s/.*\///g"`".sql"
+    if [[ ${2}r = er ]];then
+        file=`echo $1 | sed "s/\.sh//g;s/.*\///g"`".sql"
+    else
+        file=`echo $1 | sed "s/[a-z]\.sh//g;s/.*\///g"`".sql"
+    fi
 }
 
 #脚本输出
 fuc() {
-    file_all="/Users/fannian/Documents/doc/$2"$file
+    file_all="${CODE_HOME}my_code/${2-doc}/$3"$file
 
     echo "success!"
 

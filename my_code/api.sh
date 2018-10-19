@@ -30,19 +30,24 @@ ${lim-limit 20000;}"
 }
 
 downloadsql_file $0
-fuc $1 ss_
+fuc $1 doc ss_
 
 #!/bin/bash
 source ${CODE_HOME-./}/my_code/fuc.sh
 source ${CODE_HOME-./}/my_code/fet.sh
+
+fus() {
 echo "
 `task origindb `
 $ins
 select
 from
 $cre
-
 `com `"
+}
+
+downloadsql_file $0 e
+fuc $1 etl
 
 path="/Users/fannian/Documents/my_code/"
 clock="00"

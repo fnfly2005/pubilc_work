@@ -1,35 +1,35 @@
 #!/bin/bash
 task() {
-    echo "
-    ##Description##
+echo "
+##Description##
 
-    ##TaskInfo##
-    creator = 'fannian@maoyan.com'
+##TaskInfo##
+creator = 'fannian@maoyan.com'
 
-    source = {
-        'db': META['h$1'], 
-    }
+source = {
+    'db': META['h$1'], 
+}
 
-    stream = {
-        'format': '', 
-    }
+stream = {
+    'format': '', 
+}
 
-    target = {
-        'db': META['hmart_movie'], 
-        'table': '$2', 
-    } 
-    ##Extract##
+target = {
+    'db': META['hmart_movie'], 
+    'table': '$2', 
+} 
+##Extract##
 
-    ##Preload##
+##Preload##
 
-    ##Load##
+##Load##
 "
 }
 
-ins="insert OVERWRITE TABLE `\$target.table`"
+ins="insert OVERWRITE TABLE \`\$target.table\`"
 
 cre="##TargetDDL##
-CREATE TABLE IF NOT EXISTS `\$target.table`
+CREATE TABLE IF NOT EXISTS \`\$target.table\`
 ("
 
 com() {
