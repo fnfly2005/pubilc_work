@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS \`\$target.table\`
 
 com() {
 echo "
-)  COMMENT '$1'
+)  COMMENT '$sql_name'
 ROW FORMAT DELIMITED 
 FIELDS TERMINATED BY '\t'
 stored as orc"

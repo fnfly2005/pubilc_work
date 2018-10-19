@@ -3,7 +3,8 @@
 #读取文件
 downloadsql_file() {
     if [[ ${2}r = er ]];then
-        file=`echo $1 | sed "s/\.sh//g;s/.*\///g"`".sql"
+        fil=`echo $1 | sed "s/\.sh//g;s/.*\///g"`
+        file=${fil}".sql"
     else
         file=`echo $1 | sed "s/[a-z]\.sh//g;s/.*\///g"`".sql"
     fi

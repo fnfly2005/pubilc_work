@@ -2,8 +2,8 @@
 #*************************api3.0*******************
 #2.0新增实时模版;3.0函数模块化
 #!/bin/bash
+sql_name=""
 source ${CODE_HOME-./}my_code/fuc.sh
-
 fus() {
 echo "
 select
@@ -16,8 +16,8 @@ downloadsql_file $0
 fuc $1
 
 #!/bin/bash
+sql_name=""
 source ${CODE_HOME-./}/my_code/fuc.sh
-
 beg_key=
 end_key=
 
@@ -33,20 +33,20 @@ downloadsql_file $0
 fuc $1 doc ss_
 
 #!/bin/bash
+sql_name=""
 source ${CODE_HOME-./}/my_code/fuc.sh
 source ${CODE_HOME-./}/my_code/fet.sh
-
+downloadsql_file $0 e
 fus() {
 echo "
-`task origindb `
+`task origindb ${fil}`
 $ins
 select
 from (
 $cre
-`com `"
+`com`"
 }
 
-downloadsql_file $0 e
 fuc $1 etl
 
 path="/Users/fannian/Documents/my_code/"
