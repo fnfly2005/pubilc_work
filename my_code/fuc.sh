@@ -13,7 +13,7 @@ downloadsql_file() {
 fuc() {
     file_all="${CODE_HOME}my_code/${2-doc}/$3"$file
 
-    echo "success!"
+    echo "$sql_name success!"
 
     if [ ${1}r == dr ];then
         echo $file_all
