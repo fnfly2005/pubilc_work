@@ -8,4 +8,4 @@ select
 from
     origindb.dp_myshow__s_performance
 where
-    PerformanceID is not null
+    1=1
