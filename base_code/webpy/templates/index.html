@@ -8,3 +8,6 @@ $for todo in todos:
 <form method="post" action="add">
 <p><input type="text" name="title" /> <input type="submit" value="Add" /></p>
 </form>
+
+<!--设置“/Favigix.ICO”作为非安全资源 -->
+<intercept-url pattern="/favicon.ico" access="ROLE_ANONYMOUS" />
