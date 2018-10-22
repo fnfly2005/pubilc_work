@@ -62,6 +62,10 @@ fun() {
     echo $tmp
 }
 
+#简化版空值处理
+coa() {
+echo "coalesce($1,$2) as $1"
+}
 
 #按月偏移日期
 diffmonth() {
