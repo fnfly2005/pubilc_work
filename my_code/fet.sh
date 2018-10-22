@@ -27,6 +27,7 @@ target = {
 }
 
 ins="insert OVERWRITE TABLE \`\$target.table\`"
+etl_time="from_unixtime(unix_timestamp(),'yyyy-MM-dd HH:mm:ss') as etl_time"
 
 cre="##TargetDDL##
 CREATE TABLE IF NOT EXISTS \`\$target.table\`
