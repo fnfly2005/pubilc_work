@@ -1,9 +1,9 @@
 $def with (form)
+<!-- 禁止收藏图标请求 -->
+<link rel="icon" href="data:image/ico;base64,aWNv">
 
 <form name="main" method="post">
 $if not form.valid: <p class="error">Try agin, AmeriCAN:</p>
 $:form.render()
 <input type="submit" />     </form>
 
-<!--设置“/Favigix.ICO”作为非安全资源 -->
-<intercept-url pattern="/favicon.ico" access="ROLE_ANONYMOUS" />
