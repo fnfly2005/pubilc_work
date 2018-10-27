@@ -9,10 +9,17 @@ Version: v1.0
 '''
 ##################################
 import web
+import sys
 
-db = web.database(dbn='mysql',port=3306,host='127.0.0.1',user='fannian',pw='1a9SFQKh8YtG',db='webpy')
+try:
+    password=sys.argv[2]
+except:
+    print '请在参数2位置输入mysql连接密码'
+    sys.exit()
+
+db = web.database(dbn = 'mysql', port = 3306, host = '127.0.0.1', \
+    user = 'fnfly2005', pw = password, db = 'webpy')
 render = web.template.render('templates/')
-
 urls = (
     '/','index',
     '/add','add'
