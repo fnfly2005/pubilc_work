@@ -27,7 +27,7 @@ urls = (
 
 class index:
     def GET(self):
-        todos = db.select('todo')
+        todos = db.query("select id,title from todo")
         return render.index(todos)
 
 class add:
