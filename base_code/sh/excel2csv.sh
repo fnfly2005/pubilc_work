@@ -5,6 +5,6 @@ if [ $1 = h ];then
 else
     tmp="$HOME/Documents/tmp.xlsx"
     cp $1 $tmp
-    python ${CODE_HOME}my_code/py/excel2csv.py $tmp $2 $3
+    python ${pubilc_home}/base_code/py/excel2csv.py $tmp $2 $3
     rm $tmp
 fi
