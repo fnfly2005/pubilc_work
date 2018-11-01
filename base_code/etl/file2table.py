@@ -10,7 +10,6 @@ Version: v1.0
 ##################################
 import MySQLdb
 import sys
-import re
 '''
 db = MySQLdb.connect(host='localhost',user='fnfly2005',passwd=sys.argv[1],db='upload_table',port=3306,charset='utf8')
 cursor = db.cursor()
@@ -27,15 +26,19 @@ def isnumber(s):
     try:
         float(s)
         if s.isdigit():
-            print str(s) + "int(11)"
+            return "int(11)"
         else:
-            print str(s) + "decimal(10,2)"
+            return "decimal(10,2)"
     except:
-        print s + "varchar(20)"
-        
+        return "varchar(20)"
+
+print "create table sale_offline ("
 with open(sys.argv[1],'rb') as upfile:
     upfile_list=upfile.readlines()
     field_list=upfile_list[0].strip().split(',')
     data_list=upfile_list[1].strip().split(',')
-    for d in data_list:
-        isnumber(d)
+    d=0
+    for f in field_list:
+        print f + '\t' + isnumber(data_list[d]) + '\t' + "COMMENT ''"
+        d = d + 1
+print ") ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT=''"
