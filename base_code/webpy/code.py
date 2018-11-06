@@ -10,6 +10,7 @@ Version: v1.0
 ##################################
 import web
 import sys
+from web import form
 
 try:
     password=sys.argv[2]
@@ -25,10 +26,21 @@ urls = (
     '/add','add'
 )
 
+myform = form.Form(
+    form.Textbox("boe"),
+    form.Textbox("bax",
+        form.notnull,
+        form.regexp('\d+','Must be a digit'),
+        form.Validator('Must be more than 5', lambda x:int(x)>5)),
+    form.Textarea('moe'),
+    form.Checkbox('curly'),
+    form.Dropdown('french', ['mustard', 'fries', 'wine']))
+
 class index:
     def GET(self):
         todos = db.query("select id,title from todo")
-        return render.index(todos)
+        form = myform()
+        return render.index(todos,form)
 
 class add:
     def POST(self):

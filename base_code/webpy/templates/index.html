@@ -1,4 +1,4 @@
-$def with (todos)
+$def with (todos,form)
 <!-- 禁止收藏图标请求 -->
 <link rel="icon" href="data:image/ico;base64,aWNv">
 
@@ -7,6 +7,12 @@ $for todo in todos:
     <li id = "t$todo.id">$todo.title</li>
 </ul>
 
+<!--
 <form method="post" action="add">
 <p><input type="text" name="title" /> <input type="submit" value="Add" /></p>
 </form>
+-->
+<form name="main" method="post">
+$if not form.valid: <p class="error">Try agin, AmeriCAN:</p>
+$:form.render()
+<input type="submit" />     </form>
