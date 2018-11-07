@@ -14,7 +14,7 @@ attach="${path}00output/${file}_tp1.csv"
 data="${path}00output/${file}_tp2.txt"
 dict="${path}00output/${file}_dict.txt"
 psc="${path}03occasional/comment_jieba_classify.py"
-di="meitun_tmp.fannian_comment_dict"
+di="sensitive_tmp.fannian_comment_dict"
 
 presto_e="/opt/presto/bin/presto --server hc:9980 --catalog hive --execute "
 se="set session optimize_hash_generation=true;"

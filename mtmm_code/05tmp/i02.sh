@@ -28,7 +28,7 @@ with ci as (
 			 ),
 	 s1 as (
 			 select
-				babytree_enc_user_id,
+				sensitive_enc_user_id,
 				max(dt) dt
 			 from
 				sopd
@@ -41,7 +41,7 @@ with ci as (
 				mark,
 				service_mark,
 				transport_mark,
-				sopd.babytree_enc_user_id
+				sopd.sensitive_enc_user_id
 			 from
 				ci
 				join sopd on ci.sub_order_id=sopd.sub_order_id
@@ -51,12 +51,12 @@ temp as (select 1)
 		mark,
 		service_mark,
 		transport_mark,
-		case when s1.babytree_enc_user_id is not null then 0
+		case when s1.sensitive_enc_user_id is not null then 0
 		else 1 end isfugou,
-		count(distinct cs.babytree_enc_user_id) cuv
+		count(distinct cs.sensitive_enc_user_id) cuv
 	from
 		cs
-		left join s1 on cs.babytree_enc_user_id=s1.babytree_enc_user_id
+		left join s1 on cs.sensitive_enc_user_id=s1.sensitive_enc_user_id
 		and cs.dt=s1.dt
 	group by
 		1,2,3,4
@@ -78,7 +78,7 @@ with ci as (
 		   ),
 	 s1 as (
 			 select
-				babytree_enc_user_id,
+				sensitive_enc_user_id,
 				count(distinct dt) sdt
 			 from
 				sopd
@@ -88,11 +88,11 @@ with ci as (
 	 s2 as (
 			 select
 				spu_id,
-				count(distinct case when sdt>1 then s1.babytree_enc_user_id end) suv,
-				count(distinct s1.babytree_enc_user_id) uv
+				count(distinct case when sdt>1 then s1.sensitive_enc_user_id end) suv,
+				count(distinct s1.sensitive_enc_user_id) uv
 			 from
 				s1
-				join sopd using(babytree_enc_user_id)
+				join sopd using(sensitive_enc_user_id)
 				join ds on ds.sku_id=sopd.sku_id
 			group by
 				1
@@ -100,7 +100,7 @@ with ci as (
 	 cs as (
 			 select
 				spu_id,
-				ci.babytree_enc_user_id
+				ci.sensitive_enc_user_id
 			 from
 				ci
 				join sopd using(sub_order_id)
@@ -109,11 +109,11 @@ with ci as (
 	 c1 as (
 			 select
 				spu_id,	
-				count(distinct case when sdt>1 then cs.babytree_enc_user_id end) csuv,
-				count(distinct cs.babytree_enc_user_id) cuv
+				count(distinct case when sdt>1 then cs.sensitive_enc_user_id end) csuv,
+				count(distinct cs.sensitive_enc_user_id) cuv
 			 from
 				cs
-				join s1 using(babytree_enc_user_id)
+				join s1 using(sensitive_enc_user_id)
 			group by
 				1
 		   ),

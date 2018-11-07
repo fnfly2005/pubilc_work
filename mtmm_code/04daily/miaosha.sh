@@ -41,10 +41,10 @@ name=(
 script="${path}bin/mail.sh"
 topic="﻿秒杀流量日报"
 content="﻿数据从${t1% *} 0点至${t2% *} 0点，邮件由系统发出，有问题请联系樊年"
-address="fannian@meitunmama.com"
+address="fannian@sensitivemama.com"
 for i in "${name[@]}"
 do 
-	address="${address}, ${i}@meitunmama.com"
+	address="${address}, ${i}@sensitivemama.com"
 done
 
 bash ${script} "${topic}" "${content}" "${attach}" "${address}"

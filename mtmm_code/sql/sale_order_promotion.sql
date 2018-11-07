@@ -1,6 +1,6 @@
 select
 	coupon_id,
-	babytree_enc_user_id
+	sensitive_enc_user_id
 from
 	dw.sale_order_promotion
 where

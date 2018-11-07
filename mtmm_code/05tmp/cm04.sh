@@ -13,8 +13,8 @@ hd=`fun hier_district`
 dc=`fun dim_city`
 dpd=`fun dim_pregnancy_day`
 
-ytp="meitun_tmp.fannian_user_info_0828_2"
-mtp="meitun_tmp.fannian_user_profile_full_0828_2"
+ytp="sensitive_tmp.fannian_user_info_0828_2"
+mtp="sensitive_tmp.fannian_user_profile_full_0828_2"
 
 file="cm04"
 attach="${path}00output/${file}.csv"
@@ -38,17 +38,17 @@ with p as (
 		select
 			case when babybirthday is null then -999999 
 			else date_diff('day',timestamp'${t1% *}',babybirthday) end distance,
-			y.babytree_enc_user_id
+			y.sensitive_enc_user_id
 		from
 			${ytp} y
-			join ${mtp} u using(babytree_enc_user_id)
+			join ${mtp} u using(sensitive_enc_user_id)
 		),
 	 p1 as (
 			 select
 				case when distance>2520 then 999999
 					when distance<-645 and distance>-999999 then -2100
 				else distance end distance,
-				babytree_enc_user_id
+				sensitive_enc_user_id
 			 from
 				p
 		   ),
@@ -60,14 +60,14 @@ with p as (
 				pregnancy1,
 				pregnancy2,
 				pregnancy3,
-				babytree_enc_user_id
+				sensitive_enc_user_id
 			from
 				p1
 				join dpd using(distance)
 			)
 	select
 		pregnancy1 pregnancy,
-		approx_distinct(babytree_enc_user_id) user
+		approx_distinct(sensitive_enc_user_id) user
 	from
 		pd
 	group by
@@ -75,7 +75,7 @@ with p as (
 	union all
 	select
 		pregnancy2 pregnancy,
-		approx_distinct(babytree_enc_user_id) user
+		approx_distinct(sensitive_enc_user_id) user
 	from
 		pd
 	where
@@ -85,7 +85,7 @@ with p as (
 	union all
 	select
 		pregnancy3 pregnancy,
-		approx_distinct(babytree_enc_user_id) user
+		approx_distinct(sensitive_enc_user_id) user
 	from
 		pd
 	where
@@ -100,10 +100,10 @@ ${presto_e}"
 ${se}
 select
 	y.province_name,
-	approx_distinct(y.babytree_enc_user_id)
+	approx_distinct(y.sensitive_enc_user_id)
 from
 	${ytp} y
-	join ${mtp} u using(babytree_enc_user_id)
+	join ${mtp} u using(sensitive_enc_user_id)
 group by
 	1
 "|grep -iv "SET">${attach}
@@ -124,15 +124,15 @@ with dldm as (
 		   ),
 	 yu as (
 			 select
-				y.babytree_enc_user_id,
+				y.sensitive_enc_user_id,
 				location_id
 			 from
 				${ytp} y
-				join ${mtp} u using(babytree_enc_user_id)
+				join ${mtp} u using(sensitive_enc_user_id)
 		   )
 select
 	city_level,
-	approx_distinct(babytree_enc_user_id)
+	approx_distinct(sensitive_enc_user_id)
 from
 	yu
 	left join dldm using(location_id)

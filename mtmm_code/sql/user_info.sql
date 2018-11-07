@@ -1,6 +1,6 @@
 /*孕育用户信息表*/
 select
-	enc_user_id babytree_enc_user_id,
+	enc_user_id sensitive_enc_user_id,
 	date_parse(
 			replace(
 				replace(

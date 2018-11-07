@@ -26,7 +26,7 @@ with ui as (
 		select
 			case when babybirthday is null then -999999 
 			else date_diff('day',timestamp'${t1% *}',babybirthday) end distance,
-			babytree_enc_user_id
+			sensitive_enc_user_id
 		from
 			ui
 		),
@@ -35,7 +35,7 @@ with ui as (
 				case when distance>2520 then 999999
 					when distance<-645 and distance>-999999 then -2100
 				else distance end distance,
-				babytree_enc_user_id
+				sensitive_enc_user_id
 			 from
 				p
 		   ),
@@ -48,7 +48,7 @@ with ui as (
 		   )
 		select distinct
 			pregnancy_week,
-			babytree_enc_user_id
+			sensitive_enc_user_id
 		from
 			p1
 			join dpd using(distance)
@@ -57,7 +57,7 @@ with ui as (
 script="${path}bin/mail.sh"
 topic="﻿人群uid"
 content="﻿数据从${t1% *} 0点至${t2% *} 0点，邮件由系统发出，有问题请联系樊年"
-address="fannian@meitunmama.com"
+address="fannian@sensitivemama.com"
 mt_name=(
 	 )
 bb_name=(
@@ -65,10 +65,10 @@ bb_name=(
 	)
 for i in "${mt_name[@]}"
 do 
-	address="${address}, ${i}@meitunmama.com"
+	address="${address}, ${i}@sensitivemama.com"
 done
 for i in "${bb_name[@]}"
 do 
-	address="${address}, ${i}@babytree-inc.com"
+	address="${address}, ${i}@sensitive-inc.com"
 done
 bash ${script} "${topic}" "${content}" "${attach}" "${address}"

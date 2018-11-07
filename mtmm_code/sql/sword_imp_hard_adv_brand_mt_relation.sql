@@ -2,10 +2,10 @@
 select 
 	id,
 	adv_brand_name,
-	meitun_brand_name
+	sensitive_brand_name
 from
 	dm_sword.sword_imp_hard_adv_brand_mt_relation
 where
-	meitun_brand_name not like '%测试%'
-	and meitun_brand_name not like '%test%'
-	and meitun_brand_name not like '%Test%'
+	sensitive_brand_name not like '%测试%'
+	and sensitive_brand_name not like '%test%'
+	and sensitive_brand_name not like '%Test%'

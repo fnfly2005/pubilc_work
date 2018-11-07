@@ -1,6 +1,6 @@
-/*美囤流量表排除大健康和签到*/
+/*sensitive流量表排除大健康和签到*/
 select
-	case when trackercode='babytree_to_meitun'
+	case when trackercode='sensitive_to_sensitive'
 		and tcode='qiandao_sy' then null
 	else (case when uuid is not null 
 				and length(uuid)>0 
@@ -8,7 +8,7 @@ select
 			else cookieid end) end uuid,
 	sourcetype
 from
-	meitun.m_sourceubtpageview
+	sensitive.m_sourceubtpageview
 where
 	dt>='-time1'
 	and dt<'-time2'

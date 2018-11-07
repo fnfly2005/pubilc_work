@@ -29,7 +29,7 @@ with ci as (
 			select
 				substr(dt,1,7) mt,
 				supplier_id,
-				babytree_enc_user_id,
+				sensitive_enc_user_id,
 				mark,
 				service_mark,
 				transport_mark,
@@ -37,7 +37,7 @@ with ci as (
 				row_number() over(partition by 
 					substr(dt,1,7),
 					supplier_id,
-					babytree_enc_user_id
+					sensitive_enc_user_id
 					order by comment_id) rank
 			from
 				ci

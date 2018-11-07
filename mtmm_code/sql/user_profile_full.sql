@@ -1,6 +1,6 @@
-/*美囤人群画像标签表*/
+/*sensitive人群画像标签表*/
 select distinct
-	babytree_user_id babytree_enc_user_id,
+	sensitive_user_id sensitive_enc_user_id,
 	favor_province_name
 from
 	dw.user_profile_full

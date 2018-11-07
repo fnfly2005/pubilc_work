@@ -21,7 +21,7 @@ with ci as (
 	 c as (
 			select
 				dt,
-				count(distinct babytree_enc_user_id) cuv,
+				count(distinct sensitive_enc_user_id) cuv,
 				count(comment_id) cnum
 			from
 				ci

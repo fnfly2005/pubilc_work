@@ -20,7 +20,7 @@ with upi as (
 		),
 	 po as (
 	select
-		babytree_enc_user_id,
+		sensitive_enc_user_id,
 		sum(point) point
 	from
 		upi
@@ -31,7 +31,7 @@ with upi as (
 		   ),
 temp as (select 1)
 	select
-		count(distinct babytree_enc_user_id) babytree_enc_user,
+		count(distinct sensitive_enc_user_id) sensitive_enc_user,
 		sum(point) point
 	from
 		po

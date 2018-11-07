@@ -3,7 +3,7 @@ select
 	dt,
 	comment_id,
 	supplier_id,
-	babytree_enc_user_id,
+	sensitive_enc_user_id,
 	sub_order_id,
 	sku_id,
 	mark,

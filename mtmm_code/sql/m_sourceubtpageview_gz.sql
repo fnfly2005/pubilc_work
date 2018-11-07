@@ -1,6 +1,6 @@
 select
 	dt,
-	case when trackercode='babytree_to_meitun'
+	case when trackercode='sensitive_to_sensitive'
 		and tcode='qiandao_sy' then null
 		else (case when uuid is not null 
 				and length(uuid)>0 
@@ -9,10 +9,10 @@ select
 	sourcetype,
 	href,
 	referrer,
-	userid babytree_enc_user_id,
+	userid sensitive_enc_user_id,
 	trackercode
 from
-	meitun.m_sourceubtpageview_gz
+	sensitive.m_sourceubtpageview_gz
 where
 	dt>='-time1'
 	and dt<'-time2'

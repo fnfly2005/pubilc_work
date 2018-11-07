@@ -39,12 +39,12 @@ with dr as (
 		  ),
 temp as (select 1)
 select distinct
-	u.babytree_enc_user_id,
+	u.sensitive_enc_user_id,
 	u.nickname,
 	dp.floor
 from
 	dp join dr using(response_id)
-	join u on dr.babytree_user_id=u.babytree_user_id
+	join u on dr.sensitive_user_id=u.sensitive_user_id
 "|grep -iv "SET">>${attach}
 
 name=(
@@ -55,10 +55,10 @@ name=(
 script="${path}bin/mail.sh"
 topic="﻿社区活动数据"
 content="﻿邮件由系统发出，uid需要去重,有问题请联系樊年"
-address="fannian@meitunmama.com"
+address="fannian@sensitivemama.com"
 for i in "${name[@]}"
 do 
-	address="${address}, ${i}@meitunmama.com"
+	address="${address}, ${i}@sensitivemama.com"
 done
 
 bash ${script} "${topic}" "${content}" "${attach}" "${address}"

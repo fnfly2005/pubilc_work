@@ -11,7 +11,7 @@ select
 	sea_type_id,
 	biz_unit,
 	order_line_id,
-	babytree_enc_user_id,
+	sensitive_enc_user_id,
 	parent_order_type,
 	promotion_id,
 	topic_id,

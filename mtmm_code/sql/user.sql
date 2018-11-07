@@ -1,6 +1,6 @@
 select
-	user_id babytree_user_id,
-	enc_user_id babytree_enc_user_id,
+	user_id sensitive_user_id,
+	enc_user_id sensitive_enc_user_id,
 	nickname
 from
-	babytree.user
+	sensitive.user

@@ -43,9 +43,9 @@ with cu as (
 		   ),
 temp as (select 1)
  select distinct
-	babytree_user_id
+	sensitive_user_id
  from
-	cuc join u using(babytree_enc_user_id)"
+	cuc join u using(sensitive_enc_user_id)"
 fi
 ${presto_e}"
 ${se}
@@ -56,7 +56,7 @@ temp as (select 1)
 	select distinct
 		clientid
 	from
-		uaa join ${table} using(babytree_user_id)
+		uaa join ${table} using(sensitive_user_id)
 "|grep -iv "SET"|sed 's/"//g'>${ios}
 
 ${presto_e}"
@@ -68,5 +68,5 @@ temp as (select 1)
 	select distinct
 		clientid
 	from
-		uac join ${table} using(babytree_user_id)
+		uac join ${table} using(sensitive_user_id)
 "|grep -iv "SET"|sed 's/"//g'>${andriod}

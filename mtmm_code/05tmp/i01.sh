@@ -23,11 +23,11 @@ with msg as (
 		),
 	 m1 as (
 			 select distinct
-				babytree_enc_user_id
+				sensitive_enc_user_id
 			 from
 				msg
 			where
-				babytree_enc_user_id is not null
+				sensitive_enc_user_id is not null
 		   ),
 	 m2 as (
 			 select
@@ -45,11 +45,11 @@ with msg as (
 	 s1 as (
 			select
 				'${t1% *}' dt,
-				count(distinct sopd.babytree_enc_user_id) ouv,
+				count(distinct sopd.sensitive_enc_user_id) ouv,
 				sum(order_amt) order_amt
 			from
 				m1
-				join sopd using(babytree_enc_user_id)
+				join sopd using(sensitive_enc_user_id)
 			group by
 				1
 		   ),

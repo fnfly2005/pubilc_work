@@ -10,7 +10,7 @@ s/-time2/${3:-${t2% *}}/g;s/-time3/${4:-${t3% *}}/g"`
 }
 ds=`fun dim_sku` 
 sopd=`fun sale_order_pay_detail`
-mc=`fun meitun_cart`
+mc=`fun sensitive_cart`
 tnpd=`fun tfc_navpage_path_detail`
 siha=`fun sword_imp_hard_adv_brand_mt_relation`
 ox=`fun ox`
@@ -112,7 +112,7 @@ temp as (select 1)
 		dt,
 		-99 brand,
 		0 sub_brand,
-		count(distinct babytree_enc_user_id) suv,
+		count(distinct sensitive_enc_user_id) suv,
 		count(distinct parent_order_id) so,
 		sum(sku_num) sku_num,
 		sum(order_amt) order_amt
@@ -126,7 +126,7 @@ temp as (select 1)
 		dt,
 		brand,
 		0 sub_brand,
-		count(distinct babytree_enc_user_id) suv,
+		count(distinct sensitive_enc_user_id) suv,
 		count(distinct parent_order_id) so,
 		sum(sku_num) sku_num,
 		sum(order_amt) order_amt
@@ -140,7 +140,7 @@ temp as (select 1)
 		dt,
 		brand,
 		sub_brand,
-		count(distinct babytree_enc_user_id) suv,
+		count(distinct sensitive_enc_user_id) suv,
 		count(distinct parent_order_id) so,
 		sum(sku_num) sku_num,
 		sum(order_amt) order_amt
@@ -177,7 +177,7 @@ with ds as (
 			select
 				brand,
 				sub_brand,
-				babytree_enc_user_id,
+				sensitive_enc_user_id,
 				count(distinct parent_order_id) num
 			from
 				sopd join dp using(sku_id)
@@ -189,7 +189,7 @@ temp as (select 1)
 		brand,
 		'all' sub_brand,
 		num,
-		count(distinct babytree_enc_user_id)
+		count(distinct sensitive_enc_user_id)
 	from
 		sd
 	group by
@@ -199,7 +199,7 @@ temp as (select 1)
 		brand,
 		sub_brand,
 		num,
-		count(distinct babytree_enc_user_id)
+		count(distinct sensitive_enc_user_id)
 	from
 		sd
 /*	where
@@ -234,7 +234,7 @@ with ds as (
 				brand,
 				sub_brand,
 				sku_code,
-				babytree_enc_user_id,
+				sensitive_enc_user_id,
 				count(distinct parent_order_id) num
 			from
 				sopd join dp using(sku_id)
@@ -287,7 +287,7 @@ with ds as (
 				brand,
 				sub_brand,
 				(sum(order_amt)/count(distinct parent_order_id)) o_price,
-				(sum(order_amt)/count(distinct babytree_enc_user_id)) u_price
+				(sum(order_amt)/count(distinct sensitive_enc_user_id)) u_price
 			from
 				dp join sopd using(sku_id)	
 			where
@@ -299,7 +299,7 @@ with ds as (
 				'all' brand,
 				brand sub_brand,
 				(sum(order_amt)/count(distinct parent_order_id)) o_price,
-				(sum(order_amt)/count(distinct babytree_enc_user_id)) u_price
+				(sum(order_amt)/count(distinct sensitive_enc_user_id)) u_price
 			from
 				dp join sopd using(sku_id)	
 			group by
@@ -309,7 +309,7 @@ with ds as (
 				'all' brand,
 				brand sub_brand,
 				(sum(order_amt)/count(distinct parent_order_id)) o_price,
-				(sum(order_amt)/count(distinct babytree_enc_user_id)) u_price
+				(sum(order_amt)/count(distinct sensitive_enc_user_id)) u_price
 			from
 				d1 join sopd using(sku_id)	
 			group by
@@ -388,8 +388,8 @@ temp as (select 1)
 		COUNT(DISTINCT CASE WHEN t.navpage_track_id IS NOT NULL AND length (t.navpage_track_id)>1 AND t.track_flag = 1 THEN t.uuid ELSE NULL END) AS navpage_uv,
 		COUNT(DISTINCT CASE WHEN t.item_track_id IS NOT NULL AND length (t.item_track_id) > 1 AND t.track_flag = 1 THEN t.uuid ELSE NULL END ) AS item_uv,
 		COUNT ( DISTINCT CASE WHEN t.cart_track_id IS NOT NULL AND length (t.cart_track_id) > 1 AND t.track_flag = 1 THEN t.uuid ELSE NULL END ) AS cart_uv,
-		COUNT ( DISTINCT CASE WHEN t.parent_order_id IS NOT NULL THEN t.babytree_enc_user_id ELSE NULL END ) AS order_uv,
-		COUNT ( DISTINCT CASE WHEN order_pay_flag = 1 THEN t.babytree_enc_user_id ELSE NULL END ) AS pay_uv
+		COUNT ( DISTINCT CASE WHEN t.parent_order_id IS NOT NULL THEN t.sensitive_enc_user_id ELSE NULL END ) AS order_uv,
+		COUNT ( DISTINCT CASE WHEN order_pay_flag = 1 THEN t.sensitive_enc_user_id ELSE NULL END ) AS pay_uv
 	from
 		tnpd t join ${tp} s
 		on case when t.sku_code is not null and length(t.sku_code) >1 then t.sku_code else t.item_sku end =s.sku_code

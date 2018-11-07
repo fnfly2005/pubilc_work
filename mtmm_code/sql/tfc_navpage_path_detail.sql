@@ -10,7 +10,7 @@ select
 	track_flag,
 	order_pay_flag,
 	parent_order_id,
-	babytree_enc_user_id
+	sensitive_enc_user_id
 from
 	dw.tfc_navpage_path_detail
 where

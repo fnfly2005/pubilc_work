@@ -1,5 +1,5 @@
 select distinct
-	babytree_enc_user_id	
+	sensitive_enc_user_id	
 from
 	dw.sale_cust_first_order
 where

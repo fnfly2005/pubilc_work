@@ -52,7 +52,7 @@ with msg as (
 				category_lvl1_name,
 				sku_code,
 				prod_name,
-				count(distinct babytree_enc_user_id) suv,
+				count(distinct sensitive_enc_user_id) suv,
 				sum(sku_num) sku_num,
 				sum(order_amt) order_amt
 			 from

@@ -34,7 +34,7 @@ temp as (select 1)
 select
 	dt,
 	sku_code,
-	count(distinct babytree_enc_user_id) babytree_enc_user,
+	count(distinct sensitive_enc_user_id) sensitive_enc_user,
 	count(distinct parent_order_id) parent_order,
 	sum(sku_num) sku_num,
 	sum(order_amt) order_amt,

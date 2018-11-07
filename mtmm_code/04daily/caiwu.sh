@@ -49,11 +49,11 @@ name=(
 script="${path}bin/mail.sh"
 topic="﻿财务日报"
 content="﻿数据从${t1% *} 0点至${t2% *} 0点，邮件由系统发出，有问题请联系樊年"
-address="wangyu1@babytree-inc.com"
-#, xugaiyuan@babytree-inc.com"
+address="wangyu1@sensitive-inc.com"
+#, xugaiyuan@sensitive-inc.com"
 for i in "${name[@]}"
 do 
-	address="${address}, ${i}@meitunmama.com"
+	address="${address}, ${i}@sensitivemama.com"
 done
 
 bash ${script} "${topic}" "${content}" "${attach}" "${address}"

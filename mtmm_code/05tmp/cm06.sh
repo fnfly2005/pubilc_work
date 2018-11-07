@@ -26,7 +26,7 @@ with sopd as (
 	 s1 as (
 			 select
 				brand_id,
-				babytree_enc_user_id,
+				sensitive_enc_user_id,
 				parent_order_id,
 				province_id,
 				pay_pregnant_month
@@ -44,10 +44,10 @@ with sopd as (
 			 select
 				s1.brand_id,
 				db.brand_name,
-				count(distinct s1.babytree_enc_user_id) sv
+				count(distinct s1.sensitive_enc_user_id) sv
 			 from
 				sopd
-				join s1 using(babytree_enc_user_id)
+				join s1 using(sensitive_enc_user_id)
 				join db on sopd.brand_id=db.brand_id
 			where
 				sopd.brand_id<>s1.brand_id 
@@ -61,7 +61,7 @@ with sopd as (
 			 select
 				brand_id,
 				province_name,
-				count(distinct babytree_enc_user_id) sv
+				count(distinct sensitive_enc_user_id) sv
 			 from
 				s1
 				join dp using(province_id)
@@ -72,7 +72,7 @@ with sopd as (
 			 select
 				brand_id,
 				pay_pregnant_month,
-				count(distinct babytree_enc_user_id) sv
+				count(distinct sensitive_enc_user_id) sv
 			 from
 				s1
 			group by
@@ -81,7 +81,7 @@ with sopd as (
 	 s5 as (
 			 select
 				brand_id,
-				count(distinct babytree_enc_user_id) sv
+				count(distinct sensitive_enc_user_id) sv
 			 from
 				s1
 			group by
@@ -90,7 +90,7 @@ with sopd as (
 	 s6 as (
 			 select
 				brand_id,
-				babytree_enc_user_id
+				sensitive_enc_user_id
 			 from
 				s1
 			group by
@@ -101,7 +101,7 @@ with sopd as (
 	 s7 as (
 			 select
 				brand_id,
-				count(babytree_enc_user_id) sv
+				count(sensitive_enc_user_id) sv
 			 from
 				s6
 			group by

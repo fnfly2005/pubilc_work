@@ -29,7 +29,7 @@ temp as (select 1)
 	select
 		category_lvl2_name,
 		category_lvl3_name,
-		count(distinct babytree_enc_user_id) babytree_enc_user_id,
+		count(distinct sensitive_enc_user_id) sensitive_enc_user_id,
 		count(distinct parent_order_id) parent_order,
 		sum(sku_num) sku_num,
 		sum(order_amt) order_amt
@@ -42,7 +42,7 @@ temp as (select 1)
 	select
 		'all' category_lvl2_name,
 		'all' category_lvl3_name,
-		count(distinct babytree_enc_user_id) babytree_enc_user_id,
+		count(distinct sensitive_enc_user_id) sensitive_enc_user_id,
 		count(distinct parent_order_id) parent_order,
 		sum(sku_num) sku_num,
 		sum(order_amt) order_amt

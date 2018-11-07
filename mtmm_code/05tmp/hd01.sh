@@ -12,7 +12,7 @@ ds=`fun dim_sku`
 
 if [ -z ${3} ]
 then 
-cms="http://m.meitun.com/index.html?sid=863&title=海淘嘉年华&mtoapp=23"
+cms="http://m.sensitive.com/index.html?sid=863&title=海淘嘉年华&mtoapp=23"
 else
 cms="${3}"
 fi
@@ -34,11 +34,11 @@ with msg as (
 		),
 	 m1 as (
 			 select distinct
-				babytree_enc_user_id
+				sensitive_enc_user_id
 			 from
 				msg
 			where
-				babytree_enc_user_id is not null
+				sensitive_enc_user_id is not null
 		   ),
 	 m2 as (
 			 select
@@ -61,7 +61,7 @@ with msg as (
 		   ),
 	 sopd as (
 			 select
-				babytree_enc_user_id,
+				sensitive_enc_user_id,
 				parent_order_id,
 				sub_order_id,
 				sku_num,
@@ -74,7 +74,7 @@ with msg as (
 	 sm as (
 	select
 		'${t1% *}' dt,
-		count(distinct m1.babytree_enc_user_id) babytree_enc_user,
+		count(distinct m1.sensitive_enc_user_id) sensitive_enc_user,
 		count(distinct parent_order_id) parent_order,
 		count(distinct sub_order_id) sub_order,
 		sum(sku_num) sku_num,
@@ -82,7 +82,7 @@ with msg as (
 		sum(order_net_amt) order_net_amt
 	from
 		m1
-		join sopd on m1.babytree_enc_user_id=sopd.babytree_enc_user_id
+		join sopd on m1.sensitive_enc_user_id=sopd.sensitive_enc_user_id
 	group by
 		1
 			 ),
@@ -92,7 +92,7 @@ temp as (select 1)
 		m2.dt,
 		pv,
 		uv,
-		babytree_enc_user,
+		sensitive_enc_user,
 		parent_order,
 		sub_order,
 		sku_num,
@@ -108,9 +108,9 @@ name=(
 script="${path}bin/mail.sh"
 topic="﻿${file}数据报表"
 content="﻿数据从${t1% *} 0点至${t2% *} 0点，邮件由系统发出，有问题请联系樊年"
-address="fannian@meitunmama.com"
+address="fannian@sensitivemama.com"
 for i in "${name[@]}"
 do 
-	address="${address}, ${i}@meitunmama.com"
+	address="${address}, ${i}@sensitivemama.com"
 done
 bash ${script} "${topic}" "${content}" "${attach}" "${address}"

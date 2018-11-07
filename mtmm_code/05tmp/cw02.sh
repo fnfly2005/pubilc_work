@@ -18,8 +18,8 @@ file="cw02"
 attach="${path}00output/${file}.csv"
 presto_e="/opt/presto/bin/presto --server hc:9980 --catalog hive --execute "
 se="set session optimize_hash_generation=true;"
-tp="meitun_tmp.so_kuaidi100_qianshou_081501"
-sp="meitun_tmp.so_sub_order_qianshou_081501"
+tp="sensitive_tmp.so_kuaidi100_qianshou_081501"
+sp="sensitive_tmp.so_sub_order_qianshou_081501"
 
 if [ 2 = 1 ]
 then

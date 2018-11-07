@@ -68,7 +68,7 @@ select
 	 from
 		(${sso}) sso 
 		join (${sop}) sop using(sub_order_id)
-		)/sum(so.order_amt)) meitun_discount
+		)/sum(so.order_amt)) sensitive_discount
 from
 	(${sso}) so
 "`
@@ -99,7 +99,7 @@ o2=`echo ${order_amt}|awk '{printf "%'"'"'18.0f\n",$1}'|sed 's/ //g'`
 sea_order_amt=`echo ${tp_data}|awk -F ' ' '{printf("%.0f",$2)}'`
 o3=`echo ${sea_order_amt}|awk '{printf "%'"'"'18.0f\n",$1}'|sed 's/ //g'`
 all_discount=`echo ${tp_data}|awk -F ' ' '{printf("%.2f",$3*100)}'`
-meitun_discount=`echo ${tp_data}|awk -F ' ' '{printf("%.2f",$4*100)}'`
+sensitive_discount=`echo ${tp_data}|awk -F ' ' '{printf("%.2f",$4*100)}'`
 m_sales_b=`cat ${all_data}|awk -F ' ' '{print $1}'`
 
 if [ -z ${3} ]
@@ -130,7 +130,7 @@ fi
 script="${path}bin/mail.sh"
 topic="${file}_data"
 content="﻿数据从${t1% *} 0点至${t2% *} 0点，邮件由系统发出，有问题请联系樊年"
-address="fannian@meitunmama.com"
+address="fannian@sensitivemama.com"
 bash ${script} "${topic}" "${content}" "${attach}" "${address}"
 name=(
 	#zhaoqi
@@ -140,8 +140,8 @@ name=(
 	 )
 for i in "${name[@]}"
 do 
-	address="${address}, ${i}@meitunmama.com"
+	address="${address}, ${i}@sensitivemama.com"
 done
 topic="﻿昨日速报"
-content="﻿昨日流量${o1}，GMV${o2}元，其中海淘GMV${o3}元。整体折扣力度${all_discount}%，其中美囤优惠券折扣${meitun_discount}%，${m}月1日00点开始截止到今天上午00点GMV累计${o4}元 。离目标${o5}亿还差${o6}元${o7}。月累计达成率${m_sales_r}%${o8}。数据从${t1% *} 0点至${t2% *} 0点，邮件由系统发出，有问题请联系樊年"
+content="﻿昨日流量${o1}，GMV${o2}元，其中海淘GMV${o3}元。整体折扣力度${all_discount}%，其中sensitive优惠券折扣${sensitive_discount}%，${m}月1日00点开始截止到今天上午00点GMV累计${o4}元 。离目标${o5}亿还差${o6}元${o7}。月累计达成率${m_sales_r}%${o8}。数据从${t1% *} 0点至${t2% *} 0点，邮件由系统发出，有问题请联系樊年"
 bash ${script} "${topic}" "${content}" "" "${address}"

@@ -95,8 +95,8 @@ temp as (select 1)
 		sopd.parent_order_id,
 		sopd.sub_order_id,
 		province_name,
-		sopd.babytree_enc_user_id,
-		case when scfo.babytree_enc_user_id is null then 'old'
+		sopd.sensitive_enc_user_id,
+		case when scfo.sensitive_enc_user_id is null then 'old'
 		else 'new' end user_type,
 		ds.sku_code,
 		ds.barcode,
@@ -121,8 +121,8 @@ temp as (select 1)
 		join s2 using(order_line_id)
 		join sso on sopd.sub_order_id=sso.sub_order_id
 		join ds on sopd.sku_id=ds.sku_id
-		left join scfo on sopd.babytree_enc_user_id=scfo.babytree_enc_user_id
-		left join du on sopd.babytree_enc_user_id=du.babytree_enc_user_id
+		left join scfo on sopd.sensitive_enc_user_id=scfo.sensitive_enc_user_id
+		left join du on sopd.sensitive_enc_user_id=du.sensitive_enc_user_id
 "|grep -iv "SET">>${attach}
 
 name=(
@@ -131,10 +131,10 @@ name=(
 script="${path}bin/mail.sh"
 topic="﻿sku明细"
 content="﻿数据从${t1% *} 0点至${t2% *} 0点，邮件由系统发出，有问题请联系樊年"
-address="fannian@meitunmama.com"
+address="fannian@sensitivemama.com"
 for i in "${name[@]}"
 do 
-	address="${address}, ${i}@meitunmama.com"
+	address="${address}, ${i}@sensitivemama.com"
 done
 fsize=`ls -l ${attach} | cut -d' ' -f 5`
 if [ ${fsize} -ge 80000000 ]

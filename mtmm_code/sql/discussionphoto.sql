@@ -3,7 +3,7 @@ select
 	response_id,
 	floor
 from
-	babytree.discussionphoto
+	sensitive.discussionphoto
 where
 	dt>='-time1'
 	and dt<'-time2'

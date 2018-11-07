@@ -1,6 +1,6 @@
 /*andriod,push*/
 select
-	user_id babytree_user_id,
+	user_id sensitive_user_id,
 	clientid
 from
 	(select
@@ -8,7 +8,7 @@ from
 		clientid,
 		row_number() over (partition by user_id order by update_ts desc) row_number
 	from
-		babytree.userappclientidmaptotal
+		sensitive.userappclientidmaptotal
 	where
 		app_id=11)
 where

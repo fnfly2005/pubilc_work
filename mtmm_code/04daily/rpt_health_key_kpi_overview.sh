@@ -40,10 +40,10 @@ name=(
 script="${path}bin/mail.sh"
 topic="﻿大健康数据日表"
 content="﻿数据从${t1% *} 0点至${t2% *} 0点，邮件由系统发出，有问题请联系樊年"
-address="tana1@babytree-inc.com, yanggangsong@babytree-inc.com, wangjing@babytree-inc.com"
+address="tana1@sensitive-inc.com, yanggangsong@sensitive-inc.com, wangjing@sensitive-inc.com"
 for i in "${name[@]}"
 do 
-	address="${address}, ${i}@meitunmama.com"
+	address="${address}, ${i}@sensitivemama.com"
 done
 
 bash ${script} "${topic}" "${content}" "${attach}" "${address}"

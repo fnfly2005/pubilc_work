@@ -44,7 +44,7 @@ with upi as (
 		),
 temp as (select 1)
 			select
-				babytree_enc_user_id,
+				sensitive_enc_user_id,
 				sum(point) point
 			from
 				upi
