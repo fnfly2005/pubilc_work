@@ -11,6 +11,9 @@ Version: v1.0
 import web
 import sys
 from web import form
+import os
+
+pubhome=os.environ.get('pubilc_home')
 
 try:
     password=sys.argv[2]
@@ -19,8 +22,8 @@ except:
     sys.exit()
 
 db = web.database(dbn = 'mysql', port = 3306, host = '127.0.0.1', \
-    user = 'fnfly2005', pw = password, db = 'webpy')
-render = web.template.render('templates/')
+    user = 'fnfly2005', pw = password, db = 'upload_table')
+render = web.template.render(pubhome + '/base_code/webpy/templates/')
 urls = (
     '/','index',
     '/add','add'
@@ -38,7 +41,7 @@ myform = form.Form(
 
 class index:
     def GET(self):
-        todos = db.query("select id,title from todo")
+        todos = db.query("select id,title from ")
         form = myform()
         return render.index(todos,form)
 
