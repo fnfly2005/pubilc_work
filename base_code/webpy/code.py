@@ -13,7 +13,7 @@ import sys
 from web import form
 import os
 
-pubhome=os.environ.get('pubilc_home')
+pubhome=os.environ.get('public_home')
 
 try:
     password=sys.argv[2]
