@@ -48,12 +48,12 @@ def CreTabSql(Files,Tablename):
 
 desc="""当参数1=c时：根据输入文件生成建表语句 参数2为输入文件 参数3为表名
 当参数2=m时：根据输入SQL文件建表 参数2位输入文件 参数3为表名，参数4为mysql密码"""
-#try:
-if sys.argv[1] == 'c':
-    CreTabSql(sys.argv[2],sys.argv[3])
-elif sys.argv[1] == 'm':
-    ConMysql(sys.argv[2],sys.argv[3],sys.argv[4])
-else:
+try:
+    if sys.argv[1] == 'c':
+        CreTabSql(sys.argv[2],sys.argv[3])
+    elif sys.argv[1] == 'm':
+        ConMysql(sys.argv[2],sys.argv[3],sys.argv[4])
+    else:
+        print desc
+except:
     print desc
-#except:
-    #print desc
