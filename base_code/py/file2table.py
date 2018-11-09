@@ -11,11 +11,11 @@ Version: v1.0
 import MySQLdb
 import sys
 import re
-def ConMysql(sqlfiles,Tablename,mysqlpw):
-    db = MySQLdb.connect(host='localhost',user='fnfly2005',passwd=mysqlpw,db='upload_table',port=3306,charset='utf8')
+def ConMysql(*args):
+    db = MySQLdb.connect(host='localhost',user='fnfly2005',passwd=args[2],db='upload_table',port=3306,charset='utf8')
     cursor = db.cursor()
-    cursor.execute("DROP TABLE IF EXISTS " + Tablename)
-    with open(sqlfiles) as sqlfile:
+    cursor.execute("DROP TABLE IF EXISTS " + args[1])
+    with open(args[0]) as sqlfile:
         sql = sqlfile.read()
     cursor.execute(sql)
     db.close()
@@ -30,9 +30,9 @@ def isnumber(s):
     except:
         return "varchar(20)"
 
-def CreTabSql(Files,Tablename):
-    print "create table " + Tablename + " ("
-    with open(Files,'rb') as upfile:
+def CreTabSql(*args):
+    print "create table " + args[1] + " ("
+    with open(args[0],'rb') as upfile:
         upfile_list=upfile.readlines()
         field_list=upfile_list[0].strip().split(',')
         data_list=upfile_list[1].strip().split(',')
@@ -46,14 +46,27 @@ def CreTabSql(Files,Tablename):
             print f + '\t' + isnumber(data_list[d]) + '\t' + "COMMENT ''" + ed
             d = d + 1
 
-desc="""当参数1=c时：根据输入文件生成建表语句 参数2为输入文件 参数3为表名
-当参数2=m时：根据输入SQL文件建表 参数2位输入文件 参数3为表名，参数4为mysql密码"""
+def helpinfo(*args):
+    print """当参数1=c时,根据输入文件生成建表语句:参数2为输入文件,参数3为表名
+    当参数1=m时,根据输入SQL文件建表:参数2为输入文件,参数3为表名,参数4为密码
+    当参数1=i时,从输入文件导入数据至指定表:参数2为输入文件,参数3为表名,参数4为密码"""
+
 try:
-    if sys.argv[1] == 'c':
-        CreTabSql(sys.argv[2],sys.argv[3])
-    elif sys.argv[1] == 'm':
-        ConMysql(sys.argv[2],sys.argv[3],sys.argv[4])
-    else:
-        print desc
+    s3=sys.argv[4]
 except:
-    print desc
+    s3=0
+try:
+    s0=sys.argv[1]
+    s1=sys.argv[2]
+    s2=sys.argv[3]
+except:
+    s0='h'
+    s1=0
+    s2=s1
+
+functions = {
+    'h': helpinfo,
+    'c': CreTabSql,
+    'm': ConMysql
+    }
+functions[s0](s1,s2,s3)
