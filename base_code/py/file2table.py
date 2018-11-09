@@ -51,6 +51,8 @@ def helpinfo(*args):
     当参数1=m时,根据输入SQL文件建表:参数2为输入文件,参数3为表名,参数4为密码
     当参数1=i时,从输入文件导入数据至指定表:参数2为输入文件,参数3为表名,参数4为密码"""
 
+'''
+字典映射替代分支
 try:
     s3=sys.argv[4]
 except:
@@ -70,3 +72,13 @@ functions = {
     'm': ConMysql
     }
 functions[s0](s1,s2,s3)
+'''
+try:
+    if sys.argv[1] == 'c':
+        CreTabSql(sys.argv[2],sys.argv[3])
+    elif sys.argv[1] == 'm':
+        ConMysql(sys.argv[2],sys.argv[3],sys.argv[4])
+    else:
+        helpinfo()
+except:
+    helpinfo()
