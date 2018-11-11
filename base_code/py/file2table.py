@@ -32,10 +32,14 @@ def isnumber(s):
 
 def CreTabSql(*args):
     print "create table " + args[1] + " ("
+    if args[2] == ',':
+        sli = ','
+    else:
+        sli = '\t'
     with open(args[0],'rb') as upfile:
         upfile_list=upfile.readlines()
-        field_list=upfile_list[0].strip().split(',')
-        data_list=upfile_list[1].strip().split(',')
+        field_list=upfile_list[0].strip().split(sli)
+        data_list=upfile_list[1].strip().split(sli)
         d = 0
         dl = len(field_list) -1
         for f in field_list:
@@ -47,24 +51,22 @@ def CreTabSql(*args):
             d = d + 1
 
 def helpinfo(*args):
-    print """当参数1=c时,根据输入文件生成建表语句:参数2为输入文件,参数3为表名
+    print """当参数1=c时,根据输入文件生成建表语句:参数2为输入文件,参数3为表名,参数4为分隔符
     当参数1=m时,根据输入SQL文件建表:参数2为输入文件,参数3为表名,参数4为密码
     当参数1=i时,从输入文件导入数据至指定表:参数2为输入文件,参数3为表名,参数4为密码"""
 
 '''
 字典映射替代分支
 try:
-    s3=sys.argv[4]
-except:
-    s3=0
-try:
     s0=sys.argv[1]
     s1=sys.argv[2]
     s2=sys.argv[3]
+    s3=sys.argv[4]
 except:
     s0='h'
     s1=0
     s2=s1
+    s3=s1
 
 functions = {
     'h': helpinfo,
@@ -75,7 +77,7 @@ functions[s0](s1,s2,s3)
 '''
 try:
     if sys.argv[1] == 'c':
-        CreTabSql(sys.argv[2],sys.argv[3])
+        CreTabSql(sys.argv[2],sys.argv[3],sys.argv[4])
     elif sys.argv[1] == 'm':
         ConMysql(sys.argv[2],sys.argv[3],sys.argv[4])
     else:
