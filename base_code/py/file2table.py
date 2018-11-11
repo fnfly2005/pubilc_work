@@ -12,7 +12,7 @@ import MySQLdb
 import sys
 import re
 def ConMysql(*args):
-    db = MySQLdb.connect(host='localhost',user='fnfly2005',passwd=args[2],db='upload_table',port=3306,charset='utf8')
+    db = MySQLdb.connect(host='127.0.0.1',user='fnfly2005',passwd=args[2],db='upload_table',port=3306,charset='utf8')
     cursor = db.cursor()
     cursor.execute("DROP TABLE IF EXISTS " + args[1])
     with open(args[0]) as sqlfile:
@@ -75,12 +75,9 @@ functions = {
     }
 functions[s0](s1,s2,s3)
 '''
-try:
-    if sys.argv[1] == 'c':
-        CreTabSql(sys.argv[2],sys.argv[3],sys.argv[4])
-    elif sys.argv[1] == 'm':
-        ConMysql(sys.argv[2],sys.argv[3],sys.argv[4])
-    else:
-        helpinfo()
-except:
+if sys.argv[1] == 'c':
+    CreTabSql(sys.argv[2],sys.argv[3],sys.argv[4])
+elif sys.argv[1] == 'm':
+    ConMysql(sys.argv[2],sys.argv[3],sys.argv[4])
+else:
     helpinfo()
