@@ -20,8 +20,8 @@ def isnumber(s):
     except:
         return "varchar(20)"
 
-def CreTabSql(src_file,spl_del):
-    print "create table table_name ("
+def CreTabSql(src_file,tb_name,spl_del):
+    print "DROP TABLE IF EXISTS " + tb_name + ";create table " + tb_name + " ("
     if spl_del != ',':
         spl_del = '\t'
     with open(args[0],'rb') as upfile:
@@ -40,6 +40,6 @@ def CreTabSql(src_file,spl_del):
 
 if __name__ == '__main__':
     if sys.argv[1] == 'h':
-        print "根据输入文件生成建表语句:参数1为输入文件,参数2分隔符"
+        print "根据输入文件生成建表语句:参数1为输入文件,参数2为表名,参数3分隔符"
     else:
-        CreTabSql(sys.argv[1],sys.argv[2])
+        CreTabSql(sys.argv[1],sys.argv[2],sys.argv[3])
