@@ -8,5 +8,5 @@ mysqle() {
 }
 
 mysqll() {
-    mysqlimport -h$host -u$user -p$2 $tb --fields-terminated-by=',' $1  --local
+    mysqlimport -h$host -u$user -p$2 $tb --fields-terminated-by=',' $1 --local
 }
