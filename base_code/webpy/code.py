@@ -30,8 +30,10 @@ urls = (
 )
 
 myform = form.Form(
-    form.Textbox("boe"),
-    form.Textbox("bax",
+    #form.Textbox("boe"),
+    form.Textbox("performance_name"),
+    form.Textbox("performance_id"),
+    form.Textbox("totalprice",
         form.notnull,
         form.regexp('\d+','Must be a digit'),
         form.Validator('Must be more than 5', lambda x:int(x)>5)),
@@ -41,14 +43,14 @@ myform = form.Form(
 
 class index:
     def GET(self):
-        todos = db.query("select id,title from ")
+        todos = db.query("select * from detail_myshow_saleoffline")
         form = myform()
         return render.index(todos,form)
 
 class add:
     def POST(self):
         i = web.input()
-        n = db.insert('todo',title=i.title)
+        n = db.insert('todo',performance_name=i.performance_name)
         raise web.seeother('/')
 
 if __name__ == "__main__":

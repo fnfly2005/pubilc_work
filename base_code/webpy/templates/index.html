@@ -2,10 +2,16 @@ $def with (todos,form)
 <!-- 禁止收藏图标请求 -->
 <link rel="icon" href="data:image/ico;base64,aWNv">
 
-<ul>
+<table border="0">
 $for todo in todos:
-    <li id = "t$todo.id">$todo.title</li>
-</ul>
+    <tr id = "t$todo.sale_id">
+        <td>$todo.sale_id</td>
+        <td>$todo.performance_name</td>
+        <td>$todo.totalprice</td>
+        <td>$todo.dt</td>
+        <td>$todo.bd_name</td>
+    </tr>
+</table>
 
 <!--
 <form method="post" action="add">
