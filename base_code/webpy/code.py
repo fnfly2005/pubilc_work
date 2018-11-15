@@ -30,16 +30,21 @@ urls = (
 )
 
 myform = form.Form(
-    #form.Textbox("boe"),
-    form.Textbox("performance_name"),
-    form.Textbox("performance_id"),
-    form.Textbox("totalprice",
+    form.Textbox("项目名称 *",form.notnull),
+    form.Textbox("销售额 *",
         form.notnull,
         form.regexp('\d+','Must be a digit'),
         form.Validator('Must be more than 5', lambda x:int(x)>5)),
-    form.Textarea('moe'),
-    form.Checkbox('curly'),
-    form.Dropdown('french', ['mustard', 'fries', 'wine']))
+    form.Textbox("打款日期 *",form.notnull),
+    form.Textbox("负责BD *",form.notnull),
+    form.Dropdown('打款方式 *', ['公对公', '私对公']),
+    form.Textbox("项目ID"),
+    form.Textbox("出票量",
+        form.regexp('\d+','Must be a digit'),
+        form.Validator('Must be more than 5', lambda x:int(x)>5)),
+    form.Textbox("分销方"),
+    form.Textbox("佣金率"),
+    form.Textbox("猫眼订单ID"))
 
 class index:
     def GET(self):
@@ -49,8 +54,8 @@ class index:
 
 class add:
     def POST(self):
-        i = web.input()
-        n = db.insert('todo',performance_name=i.performance_name)
+        form = myform()
+        n = db.insert('sale_offline',performance_name=form['项目名称 *'].value)
         raise web.seeother('/')
 
 if __name__ == "__main__":
