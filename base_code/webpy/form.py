@@ -10,8 +10,10 @@ Version: v1.0
 ##################################
 import web
 from web import form
+import os
 
-render = web.template.render('templates/')
+pubhome=os.environ.get('public_home')
+render = web.template.render(pubhome + '/base_code/webpy/templates/')
 
 urls = ('/','index')
 app = web.application(urls, globals())
@@ -40,7 +42,7 @@ class index:
         else:
             # form.d.boe and form['boe'].value are equivalent ways of
             # extracting the validated arguments from the form.
-            return "Grrreat success! boe: %s, bax: %s" % (form.d.boe, form['bax'].value)
+            return "Grrreat success! boe: %s bax: %s" % (form.d.boe, form['bax'].value)
 
 if __name__ == "__main__":
     web.internalerror = web.debugerror

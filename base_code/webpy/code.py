@@ -11,6 +11,8 @@ Version: v1.0
 import web
 import sys
 from web import form
+from web import sqlquote
+from web import SQLLiteral
 import os
 
 pubhome=os.environ.get('public_home')
@@ -25,12 +27,12 @@ db = web.database(dbn = 'mysql', port = 3306, host = '127.0.0.1', \
     user = 'fnfly2005', pw = password, db = 'upload_table')
 render = web.template.render(pubhome + '/base_code/webpy/templates/')
 urls = (
-    '/','index',
-    '/add','add'
+    '/','index'
 )
+app = web.application(urls, globals())
 
 myform = form.Form(
-    form.Textbox("项目名称 *",form.notnull),
+    form.Textbox("performance_name"),
     form.Textbox("销售额 *",
         form.notnull,
         form.regexp('\d+','Must be a digit'),
@@ -50,14 +52,26 @@ class index:
     def GET(self):
         todos = db.query("select * from detail_myshow_saleoffline")
         form = myform()
-        return render.index(todos,form)
+        #return render.index(todos,form)
+        return render.index(form)
 
-class add:
     def POST(self):
         form = myform()
-        n = db.insert('sale_offline',performance_name=form['项目名称 *'].value)
-        raise web.seeother('/')
+        return "string %s" % (form['performance_name'].value)
+        '''n = db.insert('sale_offline',
+            performance_name=
+            totalprice=form['销售额 *'].value,
+            dt=form['打款日期 *'].value,
+            bd_name=form['负责BD *'].value,
+            pay_type=form['打款方式 *'].value,
+            performance_id=form['项目ID'].value,
+            ticket_num=form['出票量'].value,
+            distributor=form['分销方'].value,
+            takerate=form['佣金率'].value,
+            myorderid=form['猫眼订单ID'].value,
+            create_date=sqlquote(SQLLiteral('now()'))
+            )
+        raise web.seeother('/')'''
 
 if __name__ == "__main__":
-    app = web.application(urls, globals())
     app.run()
