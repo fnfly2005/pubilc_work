@@ -47,12 +47,13 @@ myform = form.Form(
 
 class index:
     def GET(self):
-        todos = db.query("select * from detail_myshow_saleoffline")
+        todos = db.query("select * from sale_offline")
         return render.index(todos)
 
 class add:
     def POST(self):
         i = web.input()
+        print i.performance_name
         n = db.insert('sale_offline',performance_name=i.performance_name)
         raise web.seeother('/')
 

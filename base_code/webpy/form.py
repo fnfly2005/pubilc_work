@@ -52,8 +52,8 @@ class index:
         else:
             # form.d.boe and form['boe'].value are equivalent ways of
             # extracting the validated arguments from the form.
-            s=form.d.performance_name
-            return "%s" % (s)
+            n = db.insert('sale_offline',performance_name=form.d.performance_name)
+            raise web.seeother('/')
 
 if __name__ == "__main__":
     web.internalerror = web.debugerror
