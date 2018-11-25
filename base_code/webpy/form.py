@@ -28,14 +28,20 @@ render = web.template.render(pubhome + '/base_code/webpy/templates/')
 urls = ('/','index')
 
 myform = form.Form(
-    form.Textbox("performance_name"),
-    form.Textbox("bax",
+    form.Textbox("performance_name",
+        form.notnull
+        ),
+    form.Textbox("totalprice",
         form.notnull,
         form.regexp('\d+','Must be a digit'),
         form.Validator('Must be more than 5', lambda x:int(x)>5)),
-    form.Textarea('moe'),
-    form.Checkbox('curly'),
-    form.Dropdown('french', ['mustard', 'fries', 'wine']))
+    form.Textbox("dt",
+        form.notnull
+        ),
+    form.Textbox("bd_name",
+        form.notnull
+        ),
+    form.Dropdown('pay_type', ['公对公', '私对公']))
 
 class index:
     def GET(self):
@@ -52,7 +58,12 @@ class index:
         else:
             # form.d.boe and form['boe'].value are equivalent ways of
             # extracting the validated arguments from the form.
-            n = db.insert('sale_offline',performance_name=form.d.performance_name)
+            n = db.insert('sale_offline',
+                performance_name=form.d.performance_name,
+                totalprice=form.d.totalprice,
+                dt=form.d.dt,
+                bd_name=form.d.bd_name,
+                pay_type=form.d.pay_type)
             raise web.seeother('/')
 
 if __name__ == "__main__":
