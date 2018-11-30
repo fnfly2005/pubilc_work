@@ -28,20 +28,33 @@ render = web.template.render(pubhome + '/base_code/webpy/templates/')
 urls = ('/','index')
 
 myform = form.Form(
-    form.Textbox("performance_name",
+    form.Textbox('项目名称*',
         form.notnull
         ),
-    form.Textbox("totalprice",
+    form.Textbox('项目ID',
+        form.regexp('\d+','必须为数字'),
+        form.Validator('必须为正整数', lambda x:int(x)>0),
+        value=0),
+    form.Textbox('销售额*',
         form.notnull,
-        form.regexp('\d+','Must be a digit'),
-        form.Validator('Must be more than 5', lambda x:int(x)>5)),
-    form.Textbox("dt",
+        form.regexp('\d+','必须为数字'),
+        form.Validator('必须为正数', lambda x:float(x)>0)),
+    form.Textbox('出票量',
+        form.regexp('\d+','必须为数字'),
+        form.Validator('必须为正整数', lambda x:int(x)>0),
+        value=1
+        ),
+    form.Textbox('打款日期*',
         form.notnull
         ),
-    form.Textbox("bd_name",
+    form.Textbox('负责BD*',
         form.notnull
         ),
-    form.Dropdown('pay_type', ['公对公', '私对公']))
+    form.Dropdown('打款方式*', ['公对公', '私对公']),
+    form.Textbox('分销方'),
+    form.Textbox('佣金比例',
+    value=0)
+    )
 
 class index:
     def GET(self):
@@ -59,11 +72,11 @@ class index:
             # form.d.boe and form['boe'].value are equivalent ways of
             # extracting the validated arguments from the form.
             n = db.insert('sale_offline',
-                performance_name=form.d.performance_name,
-                totalprice=form.d.totalprice,
-                dt=form.d.dt,
-                bd_name=form.d.bd_name,
-                pay_type=form.d.pay_type)
+                performance_name=form['项目名称*'].value,
+                totalprice=form['销售额*'].value,
+                dt=form['打款日期*'].value,
+                bd_name=form['负责BD*'].value,
+                pay_type=form['打款方式*'].value)
             raise web.seeother('/')
 
 if __name__ == "__main__":
