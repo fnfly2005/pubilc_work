@@ -8,21 +8,33 @@ def swap(array,a1,a2):
     array[a1]=array[a2]
     array[a2]=temp
 
-def selectsort(arr):
+def selectSort(arr):
     #通过选择排序算法实现顺序排列
     for a in range(0,len(arr)-1):
         for x in range(a+1,len(arr)):
             if arr[a]>arr[x]:
                 swap(arr,a,x)
 
-def bubblesort(arr):
+def bubbleSort(arr):
     #通过冒泡排序算法实现顺序排列
     for a in range(1,len(arr)):
         for x in range(0,len(arr)-a):
             if arr[x]>arr[x+1]:
                 swap(arr,x,x+1)
 
+def bubbleSortPro(arr):
+    #通过冒泡排序算法实现顺序排列,利用中间变量提高性能
+    for a in range(0,len(arr)-1):
+        tmp = arr[0]
+        tp = 0
+        for x in range(1,len(arr)-a):
+            if arr[x] > tmp:
+                tmp = arr[x]
+                tp = x
+            if x == len(arr)-a-1:
+                swap(arr,tp,x)
+
 if __name__ == '__main__':
     print ar
-    bubblesort(ar)
+    bubbleSortPro(ar)
     print ar
