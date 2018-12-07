@@ -38,7 +38,28 @@ def rangeTest(a):
     for r in range(a):
         print r
 
+def search(arr,v):
+    """在指定数组中循环查找给定值,并返回值所在角标"""
+    for a in range(len(arr)-1):
+        if v == arr[a]:
+            return a
+    else:
+        return -1
+
+def binarySearch(arr,v):
+    """在指定数组中通过折半查找算法查找给定值,并返回值所在角标"""
+    bubbleSortPro(arr)
+    low = 0
+    high = len(arr)-1
+    while low <= high:
+        mid = (low + high)/2
+        if arr[mid] == v:
+            return mid
+        elif arr[mid] > v:
+           high = mid - 1
+        else:
+           low = mid + 1
+    return -1
+
 if __name__ == '__main__':
-    print ar
-    selectSort(ar)
-    print ar
+    print binarySearch(ar,500)
