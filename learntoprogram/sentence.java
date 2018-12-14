@@ -4,9 +4,8 @@ class sentence
     public static void main(String[] args)
     {
         int x = 5;
-        seasonIf(x);
-        x = 0;
-        seasonIf(x);
+        multiplicationWhile(x);
+        multiplicationWhile();
     }
 
     static void weekIf(int x)
@@ -68,6 +67,37 @@ class sentence
                 System.out.println(x + "月是秋季");
             default:
                 System.out.println(x + "月不存在");
+        }
+    }
+
+    static void multiplicationWhile(int x)
+    /*while & for语句打印99乘法表*/
+    {
+        int a = 1;
+        while (a <= x)
+        {
+            for (int b = 1;b<=a;b++)
+            {
+                System.out.print(b + "*" + a + "=" + a*b + "\t");
+            }
+            a++;
+            System.out.print("\n");
+        }
+    }
+
+    static void multiplicationWhile()
+    /*do while & for语句打印99乘法表 重载函数*/
+    {
+        for (int a = 1;a <= 9;a++)
+        {
+            int b = 1;
+            do
+            {
+                System.out.print(b + "*" + a + "=" + a*b + "\t");
+                b++;
+            }
+            while (b<=a);
+            System.out.print("\n");
         }
     }
 }
