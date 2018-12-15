@@ -31,8 +31,10 @@ def seasonIf(x):
 def multiplicationFor(x=9):
     """for 语句实现99乘法表"""
     for a in range(1,x+1):
+        if a == 10:
+            break#用break跳出循环,continue执行下一个循环
         for b in range(1,a+1):
-            print str(b) + " * " + str(a) + " = " + str(b*a) + '\t',
+            print str(b) + "*" + str(a) + "=" + str(b*a) + '\t',
         print '\n'
 
 def multiplicationWhile(x=9):
@@ -47,4 +49,4 @@ def multiplicationWhile(x=9):
         a += 1
 
 if __name__ == '__main__':
-    multiplicationWhile()
+    multiplicationFor(10)
