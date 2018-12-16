@@ -8,8 +8,8 @@ Version: v1.0
 ##################################
 def draw(row,col):
     """根据输入的行列数，在屏幕上输出一个矩形"""
-    for c in range(col):
-        print "*"*row
+    for c in range(row):
+        print "*"*col
 
 def equals(number):
     """根据考试成绩返回学生分数对应的等级"""
