@@ -47,4 +47,4 @@ if __name__ == '__main__':
     parrot(**d)
     write_multiple_items("a",1,6546,"kill them")
     f=closure(1,2)
-    print f(1)
+    print f(1),closure.__doc__#打印函数文档
