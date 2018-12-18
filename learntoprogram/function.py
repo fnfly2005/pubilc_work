@@ -36,9 +36,15 @@ def write_multiple_items(*args):
     for a in args:
         print a
 
+def closure(a,b):
+    """利用lambda表达式返回一个匿名函数"""
+    return lambda x:a*x+b
+
 if __name__ == '__main__':
     draw(3,2)
     print equals(76)
     d = {"voltage": "four million", "state": "bleedin' demised"}
     parrot(**d)
     write_multiple_items("a",1,6546,"kill them")
+    f=closure(1,2)
+    print f(1)
