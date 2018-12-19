@@ -6,26 +6,34 @@ Description:数组-常见操作
 Version: v1.0
 """
 ##################################
-ar=[12,443,32,5,500]
+ar = [12,443,32,5,500]
+
+def maximum(array):
+    """遍历数组并查找数组中最大值"""
+    max = 0
+    for a in range(1,len(array)):
+        if array[a] > array[max]:
+            max = a
+    return max
 
 def swap(array,a1,a2):
     """实现数组中两个值的位置互换"""
-    temp=array[a1]
-    array[a1]=array[a2]
-    array[a2]=temp
+    temp = array[a1]
+    array[a1] = array[a2]
+    array[a2] = temp
 
 def selectSort(arr):
     """通过选择排序算法实现顺序排列"""
     for a in range(len(arr)-1):
         for x in range(a+1,len(arr)):
-            if arr[a]>arr[x]:
+            if arr[a] > arr[x]:
                 swap(arr,a,x)
 
 def bubbleSort(arr):
     """通过冒泡排序算法实现顺序排列"""
     for a in range(1,len(arr)):
         for x in range(len(arr)-a):
-            if arr[x]>arr[x+1]:
+            if arr[x] > arr[x+1]:
                 swap(arr,x,x+1)
 
 def bubbleSortPro(arr):
@@ -68,4 +76,4 @@ def binarySearch(arr,v):
     return -1
 
 if __name__ == '__main__':
-    print binarySearch(ar,500)
+    print maximum(ar)
