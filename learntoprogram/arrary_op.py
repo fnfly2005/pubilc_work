@@ -2,11 +2,26 @@
 #coding:utf-8
 ##################################
 """
-Description:数组-常见操作 
+Description:数组
 Version: v1.0
 """
 ##################################
-ar = [12,443,32,5,500]
+ar = [12,443,32,5,500,27,200,64]
+
+def filterAr(array,v):
+    """判断输入值是否是指定数组元素的约数，生成是或否的新数组"""
+    newar = []
+    for a in array:
+        if a % v == 0:
+            newar.append(str(v) + '是')
+        else:
+            newar.append(str(v) + '不是')
+    return newar
+
+def arrayZip(arx,ary):
+    """根据两对数组的值,匹配打印判断语句"""
+    for x, y in zip(arx, ary):
+        print '{0} {1} 的约数'.format(x,y)
 
 def maximum(array):
     """遍历数组并查找数组中最大值"""
@@ -54,9 +69,9 @@ def rangeTest(a):
 
 def search(arr,v):
     """在指定数组中循环查找给定值,并返回值所在角标"""
-    for a in range(len(arr)-1):
-        if v == arr[a]:
-            return a
+    for i,a in enumerate(arr):
+        if v == a:
+            return i
     else:
         return -1
 
@@ -76,4 +91,5 @@ def binarySearch(arr,v):
     return -1
 
 if __name__ == '__main__':
-    print maximum(ar)
+    arb = filterAr(ar,3)
+    arrayZip(arb,ar)
