@@ -60,8 +60,7 @@ def bubbleSortPro(arr):
             if arr[x] > tmp:
                 tmp = arr[x]
                 tp = x
-        else:
-            swap(arr,tp,x)
+        swap(arr,tp,x)
 
 def rangeTest(a):
     for r in range(a):
