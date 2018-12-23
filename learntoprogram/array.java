@@ -122,7 +122,9 @@ class array
 
     public static void main(String [] args)
     {
+        int [] ara = new int[3];//定义一维数组
         int [] ar = {12,443,32,5,500,27,200,64};
+        int [][] br = {{12,443},{32,5,500},{27,200,64}};//定义二维数组
         loopArray(ar);
         bubbleSortPro(ar);
         loopArray(ar);
