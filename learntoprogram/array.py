@@ -41,8 +41,8 @@ class array:
                 max = a
         return max
 
-    def swap(self,array,a1,a2):
-        """实现数组中两个值的位置互换"""
+    def __swap(self,array,a1,a2):
+        """双下划线私有化方法，实现数组中两个值的位置互换"""
         temp = array[a1]
         array[a1] = array[a2]
         array[a2] = temp
@@ -52,14 +52,14 @@ class array:
         for a in range(len(self.data)-1):
             for x in range(a+1,len(self.data)):
                 if self.data[a] > self.data[x]:
-                    self.swap(self.data,a,x)
+                    self.__swap(self.data,a,x)
 
     def bubbleSort(self):
         """通过冒泡排序算法实现顺序排列"""
         for a in range(1,len(self.data)):
             for x in range(len(self.data)-a):
                 if self.data[x] > self.data[x+1]:
-                    self.swap(self.data,x,x+1)
+                    self.__swap(self.data,x,x+1)
 
     def bubbleSortPro(self):
         """通过冒泡排序算法实现顺序排列,利用中间变量提高性能"""
@@ -70,7 +70,7 @@ class array:
                 if self.data[x] > tmp:
                     tmp = self.data[x]
                     tp = x
-            self.swap(self.data,tp,x)
+            self.__swap(self.data,tp,x)
 
     def search(self,v):
         """在指定数组中循环查找给定值,并返回值所在角标"""
