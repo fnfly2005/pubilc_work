@@ -1,12 +1,18 @@
-/*数组*/
+/*数组&类*/
 class array
 {
-    static int maximum(int[] arr)
+    int[] data;//实例变量
+    array(int[] arr)
+    {//构造函数，初始化实例变量
+        this.data = arr;
+    }
+
+    int maximum()
     {//遍历数组并查找数组中最大值的角标
         int max = 0;
-        for(int i=1;i<arr.length;i++)
+        for(int i=1;i<this.data.length;i++)
         {
-            if (arr[i]>arr[max])
+            if (this.data[i]>this.data[max])
             {    
                 max = i;
             }
@@ -119,15 +125,16 @@ class array
         }
         System.out.println(']');
     }
+}
 
+class arrayDemo
+{
     public static void main(String [] args)
     {
         int [] ara = new int[3];//定义一维数组
         int [] ar = {12,443,32,5,500,27,200,64};
         int [][] br = {{12,443},{32,5,500},{27,200,64}};//定义二维数组
-        loopArray(ar);
-        bubbleSortPro(ar);
-        loopArray(ar);
-        System.out.println(binarySearch(ar,200));
+        array a = new array(ar);//创建一个实例a
+        System.out.println(a.maximum());
     }
 }
