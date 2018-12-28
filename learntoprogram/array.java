@@ -1,9 +1,26 @@
 /*数组&类*/
 class array
 {
-    int[] data;//实例变量
+    private int[] data;//封装实例变量
+    
     array(int[] arr)
     {//构造函数，初始化实例变量
+        this.data = arr;
+    }
+
+    array(int[] arr,String inf)
+    {//构造函数重载
+        this.data = arr;
+        System.out.println(inf);
+    }
+
+    public int[] getData()
+    {//访问内部数据的对外方法
+        return this.data;
+    }
+
+    public void setData(int[] arr)
+    {//改变内部数据的对外方法
         this.data = arr;
     }
 
@@ -20,69 +37,69 @@ class array
         return max;
     }
 
-    static void swap(int[] array,int a1,int a2)
+    private void swap(int[] array,int a1,int a2)
     {//实现数组中两个值的位置互换
         int tmp = array[a1];
         array[a1] = array[a2];
         array[a2] = tmp;
     }
 
-    static void selectSort(int[] arr)
+    void selectSort()
     {//通过选择排序算法实现顺序排列
-        for(int x=0;x<arr.length-1;x++)
+        for(int x=0;x<this.data.length-1;x++)
         {
-            for(int y=x+1;y<arr.length;y++)
+            for(int y=x+1;y<this.data.length;y++)
             {
-                if (arr[x]>arr[y])
+                if (this.data[x]>this.data[y])
                 {
-                    swap(arr,x,y);
+                    swap(this.data,x,y);
                 }
             }
         }
     }
 
-    static void bubbleSort(int[] arr)
+    void bubbleSort()
     {//通过冒泡排序算法实现顺序排列
-        for (int x=1;x<arr.length-1;x++)
+        for (int x=1;x<this.data.length-1;x++)
         {
-            for (int y=0;y<arr.length-x;y++)
+            for (int y=0;y<this.data.length-x;y++)
             {
-                if (arr[y]>arr[y+1])
+                if (this.data[y]>this.data[y+1])
                 {
-                    swap(arr,y,y+1);
+                    swap(this.data,y,y+1);
                 }
             }
         }
     }
 
-    static void bubbleSortPro(int[] arr)
+    void bubbleSortPro()
     {//通过冒泡排序算法实现顺序排列,利用中间变量提高性能
-        for (int x=1;x<arr.length;x++)
+        for (int x=1;x<this.data.length;x++)
         {
             int tmp = 0;
-            for (int y=0;y<arr.length-x;y++)
+            for (int y=0;y<this.data.length-x;y++)
             {
-                if (arr[tmp]<arr[y+1])
+                if (this.data[tmp]<this.data[y+1])
                 {
                     tmp = y+1;
                 }
             }
-            if (tmp == arr.length-x)
+            if (tmp == this.data.length-x)
             {
                 continue;
             }
             else
             {
-                swap(arr,tmp,arr.length-x);
+                swap(this.data,tmp,this.data.length-x);
             }
         }
     }
 
-    static int search(int[] arr,int v)
+    int search(int v)
     {//在指定数组中循环查找给定值,并返回值所在角标
-        for (int x=0;x<arr.length;x++)
+        for (int x=0;x<this.data.length;x++)
         {
-            if(arr[x] == v)
+            if(this.data[x] == v)
             {
                 return x;
             }
@@ -90,17 +107,17 @@ class array
         return -1;
     }
 
-    static int binarySearch(int[] arr,int v)
+    int binarySearch(int v)
     {//在指定数组中通过折半查找算法查找给定值,并返回值所在角标
-        int min = 0,max = arr.length-1,mid;
+        int min = 0,max = this.data.length-1,mid;
         while (min <= max)
         {    
             mid = (min + max)/2;
-            if (arr[mid] == v)
+            if (this.data[mid] == v)
             {    
                 return mid;
             }
-            else if (arr[mid] > v)
+            else if (this.data[mid] > v)
             {
                 max = mid-1;
             }
@@ -112,29 +129,28 @@ class array
         return -1;
     }
 
-    static void loopArray(int[] arr)
+    void loopArray()
     {//遍历并打印数组
         System.out.print('[');
-        for(int a=0;a<arr.length;a++)
+        for(int a=0;a<this.data.length;a++)
         {
-            System.out.print(arr[a]);
-            if(a<(arr.length-1))
+            System.out.print(this.data[a]);
+            if(a<(this.data.length-1))
             {
                 System.out.print(',');
             }
         }
         System.out.println(']');
     }
-}
 
-class arrayDemo
-{
     public static void main(String [] args)
     {
         int [] ara = new int[3];//定义一维数组
         int [] ar = {12,443,32,5,500,27,200,64};
         int [][] br = {{12,443},{32,5,500},{27,200,64}};//定义二维数组
-        array a = new array(ar);//创建一个实例a
-        System.out.println(a.maximum());
+        array a = new array(ar,"Hello array!");//创建一个实例a
+        a.loopArray();
+        a.selectSort();
+        a.loopArray();
     }
 }
