@@ -10,7 +10,7 @@ class Array//类名首字母大写
 
     Array(int[] arr,String inf)
     {//构造函数重载
-        this.data = arr;
+        this(arr);
         System.out.println(inf);
     }
 
