@@ -8,7 +8,7 @@ Version: v1.0
 ##################################
 ar = [12,443,32,5,500,27,200,64]
 
-class array:
+class Array:
     """用于处理数组对象"""
     dt = 5 #类变量，各实例对象共享
 
@@ -114,7 +114,7 @@ def arrayZip(arx,ary):
         print '{0} {1} 的约数'.format(x,y)
 
 if __name__ == '__main__':
-    a = array()
+    a = Array()
     a.rangeArray()
     a.bubbleSort()
     a.rangeArray()

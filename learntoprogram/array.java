@@ -1,14 +1,14 @@
 /*数组&类*/
-class array
+class Array//类名首字母大写
 {
     private int[] data;//封装实例变量
     
-    array(int[] arr)
-    {//构造函数，初始化实例变量
+    Array(int[] arr)
+    {//构造函数，初始化实例变量,首字母大写
         this.data = arr;
     }
 
-    array(int[] arr,String inf)
+    Array(int[] arr,String inf)
     {//构造函数重载
         this.data = arr;
         System.out.println(inf);
@@ -148,7 +148,7 @@ class array
         int [] ara = new int[3];//定义一维数组
         int [] ar = {12,443,32,5,500,27,200,64};
         int [][] br = {{12,443},{32,5,500},{27,200,64}};//定义二维数组
-        array a = new array(ar,"Hello array!");//创建一个实例a
+        Array a = new Array(ar,"Hello array!");//创建一个实例a
         a.loopArray();
         a.selectSort();
         a.loopArray();
