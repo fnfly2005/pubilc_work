@@ -10,7 +10,7 @@ ar = [12,443,32,5,500,27,200,64]
 
 class Array:
     """用于处理数组对象"""
-    dt = 5 #类变量，各实例对象共享
+    __dt = 5 #类变量，各实例对象共享
 
     def __init__(self,arr=[]):
         """构造函数，用于初始化数组对象,并封装变量"""
@@ -19,6 +19,10 @@ class Array:
         else:
             self.__data = arr
 
+    def getClassData(cls):
+        """类函数，可以访问类变量"""
+        print cls.__dt
+    
     def setData(self,arr):
         """修改数据值"""
         self.__data = arr
@@ -119,3 +123,4 @@ if __name__ == '__main__':
     a.bubbleSort()
     a.rangeArray()
     print a.getData()
+    a.getClassData()

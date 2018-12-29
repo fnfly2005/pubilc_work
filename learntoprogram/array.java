@@ -2,6 +2,7 @@
 class Array//类名首字母大写
 {
     private int[] data;//封装实例变量
+    static int dt = 5;//类变量，各实例对象共享，直接被类所引用-Array.dt,同样的概念有类函数、类代码块
     
     Array(int[] arr)
     {//构造函数，初始化实例变量,首字母大写
@@ -148,6 +149,7 @@ class Array//类名首字母大写
         int [] ara = new int[3];//定义一维数组
         int [] ar = {12,443,32,5,500,27,200,64};
         int [][] br = {{12,443},{32,5,500},{27,200,64}};//定义二维数组
+        System.out.println(Array.dt);
         Array a = new Array(ar,"Hello array!");//创建一个实例a
         a.loopArray();
         a.selectSort();
