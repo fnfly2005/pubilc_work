@@ -57,15 +57,21 @@ public class Array//类名首字母大写
         return max;
     }
 
+    /**
+     * 实现数组中两个值的位置互换
+    */
     private void swap(int[] array,int a1,int a2)
-    {/**实现数组中两个值的位置互换*/
+    {
         int tmp = array[a1];
         array[a1] = array[a2];
         array[a2] = tmp;
     }
 
+    /**
+     * 通过选择排序算法实现顺序排列
+     */
     public void selectSort()
-    {/**通过选择排序算法实现顺序排列*/
+    {
         for(int x=0;x<this.data.length-1;x++)
         {
             for(int y=x+1;y<this.data.length;y++)
@@ -78,8 +84,11 @@ public class Array//类名首字母大写
         }
     }
 
+    /**
+     * 通过冒泡排序算法实现顺序排列
+     */
     public void bubbleSort()
-    {/**通过冒泡排序算法实现顺序排列*/
+    {
         for (int x=1;x<this.data.length-1;x++)
         {
             for (int y=0;y<this.data.length-x;y++)
@@ -92,8 +101,11 @@ public class Array//类名首字母大写
         }
     }
 
+    /**
+     * 通过冒泡排序算法实现顺序排列,利用中间变量提高性能
+     */
     public void bubbleSortPro()
-    {/**通过冒泡排序算法实现顺序排列,利用中间变量提高性能*/
+    {
         for (int x=1;x<this.data.length;x++)
         {
             int tmp = 0;
@@ -115,8 +127,13 @@ public class Array//类名首字母大写
         }
     }
 
+    /**
+     * 在指定数组中循环查找给定值
+     * @param v 所需查找值
+     * @return 查找值所在角标
+     */
     public int search(int v)
-    {/**在指定数组中循环查找给定值,并返回值所在角标*/
+    {
         for (int x=0;x<this.data.length;x++)
         {
             if(this.data[x] == v)
@@ -127,8 +144,13 @@ public class Array//类名首字母大写
         return -1;
     }
 
+    /**
+     * 在指定数组中通过折半查找算法查找给定值
+     * @param v 所需查找值
+     * @return 查找值所在角标
+     */
     public int binarySearch(int v)
-    {/**在指定数组中通过折半查找算法查找给定值,并返回值所在角标*/
+    {
         int min = 0,max = this.data.length-1,mid;
         while (min <= max)
         {    
@@ -149,8 +171,11 @@ public class Array//类名首字母大写
         return -1;
     }
 
+    /**
+     * 遍历并打印数组
+     */
     public void loopArray()
-    {/**遍历并打印数组*/
+    {
         System.out.print('[');
         for(int a=0;a<this.data.length;a++)
         {
