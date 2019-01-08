@@ -9,6 +9,11 @@ class Persion
     int age = 0;
     String name = "fnfly2005";
 
+    Persion()
+    {
+        System.out.println("哇哇");
+    }
+
     void show()
     {
         System.out.println(this.age+"..fu.."+this.age);
@@ -18,6 +23,11 @@ class Persion
 class Student extends Persion
 {
     int age = 10;
+
+    Student()
+    {
+        //省略父类的空参数构造函数super(),父类构造函数不可被覆盖
+    }
 
     /**
         this代表一个本类对象的引用，super代表父类空间
