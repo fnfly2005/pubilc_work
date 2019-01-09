@@ -7,6 +7,8 @@
 class Persion
 {
     int age = 0;
+    final String COUNTRY = "CN";//final 关键词修饰的变量、方法、类具有只读属性，不可被修改、继承、覆盖
+
     String name = "fnfly2005";
 
     Persion()
@@ -18,6 +20,7 @@ class Persion
     {
         System.out.println(this.age+"..fu.."+this.age);
     }
+
 }
 
 class Student extends Persion
@@ -36,7 +39,7 @@ class Student extends Persion
     void show()
     {
         super.show();//保留原有功能
-        System.out.println(this.age+"..zi.."+this.age);//新增扩展功能
+        System.out.println(this.age+"..zi.."+super.age);//新增扩展功能
     }
 
     void study()
