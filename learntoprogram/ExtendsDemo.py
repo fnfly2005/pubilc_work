@@ -4,7 +4,8 @@
 Description:继承
 Version: v1.0
 '''
-class Persion():
+#新式类解决经典类的菱形继承BUG
+class Persion(object):
 
     def __init__(self):
         self.age = 20
