@@ -1,7 +1,7 @@
 /**
 * Description:
 * 抽象类 对程序员、经理、雇员、公司进行数据建模，抽取同类事物间共性，抽象出一层对象
-* 接口 区别于抽象类-抽取非同类事物间共性，抽象出一层功能
+* 接口 多实现 区别于抽象类-抽取非同类事物间共性，抽象出一层功能
 * @author fnfly2005
 * @version 1.0
 */
@@ -23,7 +23,7 @@ abstract class Employee
 
     public abstract void work();//抽象方法
 
-    public void showinfo()//抽象类可以用非抽象方法
+    public void showInfo()//抽象类可以用非抽象方法
     {
         System.out.println("name is "+name);
         System.out.println("id is "+id);
@@ -37,10 +37,16 @@ interface Learning
     public void test();
 }
 
+interface Entertainment
+{
+    public void watchMovie();
+    public void playGame();
+}
+
 /*
-* 继承雇员类并实现学习的接口
+* 继承雇员类并实现学习的接口,多实现娱乐接口
 */
-class Programmer extends Employee implements Learning
+class Programmer extends Employee implements Learning,Entertainment
 {
     Programmer(String name,String id,double pay)
     {
@@ -60,6 +66,16 @@ class Programmer extends Employee implements Learning
     public void test()
     {
         System.out.println("write..run..code..");
+    }
+
+    public void watchMovie()
+    {
+        System.out.println("go..to..cinema");
+    }
+
+    public void playGame()
+    {
+        System.out.println("lol..pk..");
     }
 }
 
@@ -95,9 +111,9 @@ class Manager extends Employee
         System.out.println("..manager..");
     }
 
-    public void showinfo()
+    public void showInfo()
     {
-        super.showinfo();
+        super.showInfo();
         System.out.println("bonus is "+bonus);
     }
 }
@@ -112,9 +128,10 @@ class AbstractDemo
         Learning p1 = p;//多态-自动类型提升
         Learning a = new Ai();//多态-自动类型提升
 
-        p.showinfo();
+        p.showInfo();
         p.work();
-        m.showinfo();
+        p.playGame();
+        m.showInfo();
         m.work();
 
         a.read();
