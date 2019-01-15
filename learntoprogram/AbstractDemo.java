@@ -2,6 +2,7 @@
 * Description:
 * 抽象类 对程序员、经理、雇员、公司进行数据建模，抽取同类事物间共性，抽象出一层对象
 * 接口 多实现 区别于抽象类-抽取非同类事物间共性，抽象出一层功能
+* 多态 上下转型
 * @author fnfly2005
 * @version 1.0
 */
@@ -122,21 +123,29 @@ class AbstractDemo
 {
     public static void main(String[] args)
     {
-        Programmer p = new Programmer("fnfly2005","001",10000);
-        Manager m = new Manager("fnfly2005","002",20000,5000);
+        Employee e1 = new Programmer("fnfly2005","001",10000);//类多态-自动类型提升
+        Employee e2 = new Manager("fnfly2005","002",20000,5000);//类多态-自动类型提升
 
-        Learning p1 = p;//多态-自动类型提升
-        Learning a = new Ai();//多态-自动类型提升
+        //向下转型先判断类型
+        if (e1 instanceof Programmer)
+        {
+            Programmer p = (Programmer)e1;//类型向下转型
+            Learning p1 = p;//接口多态-自动类型提升
+            Learning a = new Ai();//接口多态-自动类型提升
+            p.showInfo();
+            p.work();
+            p.playGame();
+            a.read();
+            a.test();
+            p1.read();
+            p1.test();
+        }
 
-        p.showInfo();
-        p.work();
-        p.playGame();
-        m.showInfo();
-        m.work();
-
-        a.read();
-        a.test();
-        p1.read();
-        p1.test();
+        if (e2 instanceof Manager)
+        {
+            Manager m = (Manager)e2;//类型向下转型
+            m.showInfo();
+            m.work();
+        }
     }
 }
