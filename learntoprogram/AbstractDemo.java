@@ -14,6 +14,7 @@ abstract class Employee
     private String name;
     private String id;
     private double pay;
+    public int num = 10;
 
     Employee(String name,String id,double pay)
     {
@@ -100,6 +101,7 @@ class Ai implements Learning
 class Manager extends Employee
 {
     private int bonus;
+    public int num = 1;
 
     Manager(String name,String id,double pay,int bonus)
     {
@@ -126,26 +128,37 @@ class AbstractDemo
         Employee e1 = new Programmer("fnfly2005","001",10000);//类多态-自动类型提升
         Employee e2 = new Manager("fnfly2005","002",20000,5000);//类多态-自动类型提升
 
+        e1.showInfo();
+        e2.showInfo();//多态-父类成员函数被子类覆盖，调用看父类，执行看子类
+
+        System.out.println(e2.num);//多态-同名成员变量，调用和执行都看父类
+
         //向下转型先判断类型
         if (e1 instanceof Programmer)
         {
             Programmer p = (Programmer)e1;//类型向下转型
             Learning p1 = p;//接口多态-自动类型提升
             Learning a = new Ai();//接口多态-自动类型提升
-            p.showInfo();
             p.work();
             p.playGame();
-            a.read();
-            a.test();
-            p1.read();
-            p1.test();
+            learn(a);//多态的应用
+            learn(p1);
         }
 
         if (e2 instanceof Manager)
         {
             Manager m = (Manager)e2;//类型向下转型
-            m.showInfo();
             m.work();
         }
+    }
+
+    /**开闭原则
+       对扩展开放：允许新增实现learning接口类
+       对修改封闭：不需要修改依赖learning接口类型的learn()等函数
+    */
+    public static void learn(Learning l) 
+    {
+        l.read();
+        l.test();
     }
 }
