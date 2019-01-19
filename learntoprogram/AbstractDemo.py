@@ -1,7 +1,9 @@
 #!/usr/bin/python
 #coding:utf-8
 '''
-Description:抽象类和多继承-不推荐,无需接口来进行多实现 对程序员、经理、雇员、公司进行数据建模
+Description:
+* 抽象类和多继承-不推荐,无需接口来进行多实现 对程序员、经理、雇员、公司进行数据建模
+* 开闭原则和类型检查
 Version: v1.0
 '''
 import abc
@@ -65,17 +67,21 @@ class Ai(Learning):
     def test(self):
         print ("training..")
 
+#开闭原则函数
+def learn(l):
+    l.read()
+    l.test()
+
 if __name__ == '__main__':
-   p = Programmer("fnfly2005","001",10000)
-   m = Manager("fnfly2005","002",20000,5000)
-   a = Ai()
-   p.showInfo()
-   p.work()
-   p.read()
-   p.test()
+    p = Programmer("fnfly2005","001",10000)
+    m = Manager("fnfly2005","002",20000,5000)
+    a = Ai()
+    p.showInfo()
+    p.work()
 
-   a.read()
-   a.test()
-
-   m.showInfo()
-   m.work()
+    if isinstance(p,Employee):#类型检查
+        learn(p)
+    learn(a)
+    
+    m.showInfo()
+    m.work()
