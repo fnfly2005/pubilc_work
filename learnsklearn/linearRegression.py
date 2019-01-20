@@ -4,6 +4,13 @@ from sklearn import datasets #数据集模块
 from sklearn import preprocessing #特征处理模块
 from sklearn import linear_model #广义线性模块
 from sklearn import model_selection #模型选择模块
+import pandas as pd
+import matplotlib.pyplot as plt
+
+#支持外部导入数据，返回的数列可直接应用train_test_split函数
+def loadData(datefile):
+    df = pd.read_csv(datefile,sep='\t')# 读取数据
+    return df[["日期","订单量"]] #组合两个数据列
 
 def boston():
     boston = datasets.load_boston()#导入数据集,波士顿房价数据
@@ -18,4 +25,5 @@ def boston():
     print y_test
 
 if __name__ == '__main__':
-    boston()
+    X = loadData('/home/fannian/downloads/dailysale.txt') 
+    print X.head()
