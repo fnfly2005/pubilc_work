@@ -1,5 +1,5 @@
 /**
-* Description: 内部类、静态内部类
+* Description: 内部类、静态内部类、局部内部类
 */
 
 class Outer
@@ -24,6 +24,19 @@ class Outer
             System.out.println("show...static");
         }
     }
+
+    void method(final int x) //局部内部类引用局部变量应添加final关键字
+    {
+        class InnerLocal//局部内部类只能在局部函数中使用
+        {
+            void show()
+            {
+                System.out.println("show...InnerLocal" + x + Outer.this.x);
+            }
+        }
+        InnerLocal il = new InnerLocal();
+        il.show();
+    }
 }
 
 class InnerClass
@@ -38,5 +51,7 @@ class InnerClass
         //静态内部类可以单独初始化,但不能访问非静态资源
         Outer.InnerStatic si = new Outer.InnerStatic();
         si.show();
+
+        o.method(10);
     }
 }
