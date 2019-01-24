@@ -1,5 +1,5 @@
 /**
-* Description: 内部类、静态内部类、局部内部类
+* Description: 内部类、静态内部类、局部内部类、匿名内部类
 */
 
 class Outer
@@ -37,6 +37,13 @@ class Outer
         InnerLocal il = new InnerLocal();
         il.show();
     }
+
+}
+
+interface innerDemo
+{
+    public void show1();
+    public void show2();
 }
 
 class InnerClass
@@ -53,5 +60,21 @@ class InnerClass
         si.show();
 
         o.method(10);
+
+        //匿名内部类必须是另一个类或接口的子类,向上转型后只能使用父类方法
+        innerDemo l = new innerDemo(){
+            int x = 11;
+            public void show1()
+            {
+                System.out.println("anonymous...class...run");
+            }
+            public void show2()
+            {
+                System.out.println("anonymous...class...run" + x);
+            }
+        };
+
+        l.show1();
+        l.show2();
     }
 }
