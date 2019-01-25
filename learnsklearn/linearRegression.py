@@ -15,10 +15,15 @@ def loadData(datefile):
 
 #输入特征和特征标签，输出线性分类器评估值
 def linearMethod(train_data,train_target):
-    X_train,X_test, y_train, y_test = model_selection.train_test_split(train_data,train_target,test_size=0.2)#切分数据集
+    X_train, X_test, y_train, y_test = model_selection.train_test_split(train_data,train_target,test_size=0.1)#切分数据集
 
+    reg = linear_model.RidgeCV(alphas = [0.001,0.01,0.1,1.0],normalize=True)#岭回归交叉验证，对惩罚系数进行调优
+    #las = linear_model.LassoCV(alphas = [0.001,0.01,0.1,1.0],normalize=True)#套索回归交叉验证，对惩罚系数进行调优
+    reg.fit(train_data,train_target)#训练调优器
+    print "reg.alpha: ",reg.alpha_ #获取最佳惩罚系数
+    
+    linear = linear_model.Ridge(alpha = reg.alpha_,normalize=True)#岭回归，设置normalize参数对特征进行缩放，设置alpha惩罚系数
     #linear=linear_model.LinearRegression(normalize=True)#最小二乘法，设置normalize参数对特征进行缩放
-    linear=linear_model.Ridge(alpha= 0.1,normalize=True)#岭回归，设置normalize参数对特征进行缩放，设置alpha惩罚系数-默认0.5
 
     linear.fit(X_train,y_train)#训练模型参数
 
