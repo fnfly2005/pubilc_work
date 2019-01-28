@@ -18,14 +18,14 @@ def linearMethod(train_data,train_target):
     X_train, X_test, y_train, y_test = model_selection.train_test_split(train_data,train_target,test_size=0.1)#切分数据集
 
     #reg = linear_model.ElasticNetCV(normalize=True)#弹性网络回归交叉验证，对惩罚系数进行调优
-    #reg = linear_model.RidgeCV(normalize=True)#岭回归交叉验证，对惩罚系数进行调优
-    reg = linear_model.LassoCV(alphas = [0.001,0.01,0.1,1.0],normalize=True)#套索回归交叉验证，对惩罚系数进行调优
+    reg = linear_model.RidgeCV(normalize=True)#岭回归交叉验证，对惩罚系数进行调优
+    #reg = linear_model.LassoCV(alphas = [0.001,0.01,0.1,1.0],normalize=True)#套索回归交叉验证，对惩罚系数进行调优
     reg.fit(train_data,train_target)#训练调优器
     print "reg.alpha: ",reg.alpha_ #获取最佳惩罚系数
     
     #linear = linear_model.ElasticNet(alpha = reg.alpha_,normalize=True)#弹性网络回归，设置normalize参数对特征进行缩放，设置alpha惩罚系数
-    #linear = linear_model.Ridge(alpha = reg.alpha_,normalize=True)#岭回归，设置normalize参数对特征进行缩放，设置alpha惩罚系数
-    linear = linear_model.Lasso(alpha = reg.alpha_,normalize=True)#套索回归，设置normalize参数对特征进行缩放，设置alpha惩罚系数
+    linear = linear_model.Ridge(alpha = reg.alpha_,normalize=True)#岭回归，设置normalize参数对特征进行缩放，设置alpha惩罚系数
+    #linear = linear_model.Lasso(alpha = reg.alpha_,normalize=True)#套索回归，设置normalize参数对特征进行缩放，设置alpha惩罚系数
     #linear=linear_model.LinearRegression(normalize=True)#最小二乘法，设置normalize参数对特征进行缩放
 
     linear.fit(X_train,y_train)#训练模型参数
@@ -43,8 +43,14 @@ def logisticMethod(train_data,train_target):
     print "predict: ",linear.predict(X_test)#分类器应用
     print y_test
 
+#特征多项式化处理
+def polynomialMethod(trans_data,deg):
+    poly = preprocessing.PolynomialFeatures(degree = deg)#最高次方
+    return poly.fit_transform(trans_data)#转化特征
+
 if __name__ == '__main__':
-    #boston = datasets.load_boston()#导入数据集,波士顿房价数据
+    boston = datasets.load_boston()#导入数据集,波士顿房价数据
     #linearMethod(boston.data,boston.target)#获取特征向量,获得样本标签,应用至模型
-    iris = datasets.load_iris()
-    logisticMethod(iris.data,iris.target)
+    linearMethod(polynomialMethod(boston.data,2),boston.target)
+    #iris = datasets.load_iris()
+    #logisticMethod(iris.data,iris.target)
