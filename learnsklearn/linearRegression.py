@@ -6,12 +6,18 @@ from sklearn import linear_model #广义线性模块
 from sklearn import model_selection #模型选择模块
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
+path = '/Users/fannian/Documents/'
 #支持外部导入数据，返回的数列可直接应用train_test_split函数
 def loadData(datefile):
     df = pd.read_csv(datefile,sep='\t')# 读取数据
     df['日期']=pd.to_datetime(df['日期'],format='%Y-%m-%d')
     return df[["日期","订单量"]].sort_values(by='日期')
+
+#返回等差数组
+def arrayline(array):
+    return np.linspace(1,len(array),num=len(array)
 
 #输入特征和特征标签，输出线性分类器评估值
 def linearMethod(train_data,train_target):
@@ -30,9 +36,16 @@ def linearMethod(train_data,train_target):
 
     linear.fit(X_train,y_train)#训练模型参数
 
+    py_test=linear.predict(X_test)
     print "linear's score: ",linear.score(X_train,y_train)#评分函数，返回R方，拟合优度
-    print "predict: ",linear.predict(X_test)#分类器应用
-    print y_test
+
+    #测试集与预测数据绘图比较
+    fig = plt.figure()
+    fig.suptitle('no asxes on this figure')
+    fig,ax_lst = plt.subplots(1,1) #图形矩阵数量
+    ax_lst.plot(arrayline(y_test),y_test,label="sample")
+    ax_lst.plot(arrayline(py_test),py_test,label="predict")
+    fig.savefig(path + 'figure.png')#输出图片
 
 #逻辑回归函数
 def logisticMethod(train_data,train_target):
