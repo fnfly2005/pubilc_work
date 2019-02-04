@@ -1,5 +1,6 @@
 /**
 * Description:  object类常用方法
+* equals toString hashcode getclass
 * @author fnfly2005
 * @version 1.0
 */
@@ -43,15 +44,14 @@ class ObjectDemo
         
         //hashCode方法-返回10进制哈希值-内存地址
         System.out.println(p1);
-        System.out.println(Integer.toHexString(p1.hashCode()));//转16进制
+        System.out.println(Integer.toHexString(p1.hashCode())+"//转16进制");
 
         //getClass方法-获取类对象
         Class clazz1 = p1.getClass();
-        Class clazz2 = p1.getClass();
-        System.out.println(clazz1.getName());//获取类名
-        System.out.println(clazz1.equals(clazz2));//不同对象拥有同一个类
+        Class clazz2 = p2.getClass();
+        System.out.println(clazz1.getName()+"//获取类名");
+        System.out.println(clazz1.equals(clazz2)+"...不同对象拥有同一个类");
 
-        //toString方法-返回对象的字符串表示形式
-        System.out.println(p1.toString());
+        System.out.println(p1.toString()+"//toString方法-返回对象的字符串表示形式");
     }
 }
