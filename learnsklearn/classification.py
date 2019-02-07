@@ -3,22 +3,33 @@
 ##################################
 """
 Description: 分类算法
-逻辑回归
+逻辑回归、神经网络、SVM
 Version: v1.0
 """
 ##################################
-from sklearn import datasets
+from sklearn import datasets,metrics,svm
 from sklearn.linear_model import LogisticRegressionCV
+from sklearn.neural_network import MLPClassifier
+from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
-from sklearn import metrics
 
-#逻辑回归
-def logisticMethod(train_data,train_target):
+def classificationMethod(train_data,train_target,model):
     #切分数据集
     X_train, X_test, y_train, y_test = train_test_split(train_data,train_target,test_size=0.2)
 
-    #使用交叉验证进行训练
-    linear = LogisticRegressionCV(cv=5,random_state=0)
+    #对特征数据进行归一化处理
+    scaler = StandardScaler()
+    scaler.fit(X_train)
+    X_train = scaler.transform(X_train)
+    X_test = scaler.transform(X_test)
+
+    #模型选择
+    if model == 'logistic':
+        linear = LogisticRegressionCV(cv=5,random_state=0)
+    elif model == 'svm':
+        linear = svm.SVC(C=1.0,kernel='rbf',gamma=0.1)
+    elif model == 'neural_network':
+        linear = MLPClassifier(hidden_layer_sizes=(4,2),solver='lbfgs',activation='logistic')
     linear.fit(X_train,y_train)
 
     #评分
@@ -27,4 +38,4 @@ def logisticMethod(train_data,train_target):
 
 if __name__ == '__main__':
     iris = datasets.load_iris()
-    logisticMethod(iris.data,iris.target)
+    classificationMethod(iris.data,iris.target,'neural_network')
