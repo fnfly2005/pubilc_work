@@ -2,8 +2,9 @@
 #coding:utf-8
 ##################################
 """
-Description: 分类算法
+Description: 分类算法、降维
 逻辑回归、神经网络、SVM
+降维：PCA 
 Version: v1.0
 """
 ##################################
@@ -12,6 +13,7 @@ from sklearn.linear_model import LogisticRegressionCV
 from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
+from sklearn.decomposition import PCA
 
 def classificationMethod(train_data,train_target,model):
     #切分数据集
@@ -22,6 +24,12 @@ def classificationMethod(train_data,train_target,model):
     scaler.fit(X_train)
     X_train = scaler.transform(X_train)
     X_test = scaler.transform(X_test)
+
+    #PCA压缩数据
+    pca = PCA(n_components=0.99) #保留99%的信息
+    pca.fit(X_train)
+    X_train = pca.transform(X_train)
+    X_test = pca.transform(X_test)
 
     #模型选择
     if model == 'logistic':
