@@ -8,7 +8,7 @@ Description: 多线程技术
 
 多线程应用一：继承threading.Thread并覆盖run方法
 线程名称的获取和修改
-多线程应用二：函数式-传递函数给thread
+多线程应用二：传递函数给threading.Thread类
 """
 import threading
 
@@ -23,9 +23,21 @@ class ThreadMain(threading.Thread):
     def run(self):
         self.show() #覆盖run方法
 
+def show():
+    for x in range(10):
+        print str(x) + " on " + threading.currentThread().name
+
 if __name__ == '__main__':
-    d1 = ThreadMain("xiaoqiang") #建立一个线程对象
-    d2 = ThreadMain("旺财")
-    d1.start() #启动线程
-    d2.start()
+    states = 2
+    #应用一及应用二
+    if states == 1:
+        t1 = ThreadMain("xiaoqiang") #建立一个线程对象
+        t2 = ThreadMain("旺财")
+    else:
+        t1 = threading.Thread(target=show,args=())#target函数名,args函数参数
+        t2 = threading.Thread(target=show,args=())
+
+    t1.start() #启动线程
+    t2.start()
+
     print threading.currentThread().name
