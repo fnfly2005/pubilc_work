@@ -5,7 +5,10 @@ Description: 感知器算法-分类
 """
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 from sklearn.datasets import load_iris
+plt.switch_backend('agg')
+path ='/Users/fannian/Downloads/figure.png'
 
 class Perceptron(object):
     """感知器分类
@@ -77,7 +80,14 @@ def npToPd(npdata):
 if __name__ == '__main__':
     #生成鸢尾花数据-二分类
     df = npToPd(load_iris()) #生成dataframe
-    y = df.iloc[0:100,4].values #取前100行类表数据
+    y = df.iloc[0:100,4].values #取前100行类标数据
     y = np.where(y == 0, -1 , 1) #将0类标改为-1
     X = df.iloc[0:100,[0,2]].values #取前100行特征数据
-    print X.shape[1]
+
+    #输出迭代次数与错误分析
+    ppn = Perceptron(eta = 0.1, n_iter =10)
+    ppn.fit(X,y)
+    plt.plot(range(1,len(ppn.errors_) + 1), ppn.errors_,marker='o') #marker='o' 小圆点
+    plt.xlabel('Epochs')
+    plt.ylabel('Number of misclassifications')
+    plt.savefig(path)
