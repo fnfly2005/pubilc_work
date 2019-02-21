@@ -2,14 +2,16 @@
 #coding:utf-8
 ##################################
 """
-Description: 分类算法、降维
+Description: 分类算法、降维、求解器
 逻辑回归、神经网络、SVM
 降维：PCA 
+求解器：随机梯度下降
 Version: v1.0
 """
 ##################################
 from sklearn import datasets,metrics,svm
 from sklearn.linear_model import LogisticRegressionCV
+from sklearn.linear_model import SGDClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
@@ -38,6 +40,8 @@ def classificationMethod(train_data,train_target,model):
         linear = svm.SVC(C=1.0,kernel='rbf',gamma=0.1)
     elif model == 'neural_network':
         linear = MLPClassifier(hidden_layer_sizes=(4,2),solver='lbfgs',activation='logistic')
+    elif model == 'SGD':
+        linear = SGDClassifier(loss='log',penalty='l1',l1_ratio=0.1) #log=逻辑回归
     linear.fit(X_train,y_train)
 
     #评分
@@ -46,4 +50,4 @@ def classificationMethod(train_data,train_target,model):
 
 if __name__ == '__main__':
     iris = datasets.load_iris()
-    classificationMethod(iris.data,iris.target,'neural_network')
+    classificationMethod(iris.data,iris.target,'SGD')
