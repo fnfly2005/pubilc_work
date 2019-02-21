@@ -5,7 +5,7 @@
 Description: 分类算法、降维、求解器
 逻辑回归、神经网络、SVM
 降维：PCA 
-求解器：随机梯度下降
+求解器：随机梯度下降、平均梯度下降
 Version: v1.0
 """
 ##################################
@@ -41,7 +41,7 @@ def classificationMethod(train_data,train_target,model):
     elif model == 'neural_network':
         linear = MLPClassifier(hidden_layer_sizes=(4,2),solver='lbfgs',activation='logistic')
     elif model == 'SGD':
-        linear = SGDClassifier(loss='log',penalty='l1',l1_ratio=0.1) #log=逻辑回归
+        linear = SGDClassifier(loss='log',penalty='l1',l1_ratio=0.1,average=5) #average设置为int，则为平均梯度下降
     linear.fit(X_train,y_train)
 
     #评分
