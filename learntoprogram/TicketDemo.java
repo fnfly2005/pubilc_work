@@ -1,5 +1,5 @@
 /**
-* Description: 线程共享数据及线程不安全
+* Description: 线程共享数据、线程安全问题、同步锁、同步函数、静态同步函数
 * 卖票示例
 * @author fnfly2005
 */
@@ -7,6 +7,7 @@
 class Ticket implements Runnable
 {
     private int num;
+    boolean flag = true;
 
     Ticket(int num)
     {
@@ -15,22 +16,52 @@ class Ticket implements Runnable
 
     public void run()
     {
-        while(true)
+        if(flag)
         {
-            if(num>0)
+            while(true)
             {
-                try
+                synchronized(this) //同步锁
                 {
-                    Thread.sleep(2); //冻结进程
+                    if(num>0)
+                    {
+                        try
+                        {
+                            Thread.sleep(2); //冻结进程
+                        }
+                        catch (InterruptedException e) //必须捕捉异常
+                        {
+                        }
+                        System.out.println(Thread.currentThread().getName() + "..ticket.." + num);
+                        num--;
+                    }
                 }
-                catch (InterruptedException e) //必须捕捉异常
-                {
-                }
-                System.out.println(Thread.currentThread().getName() + "..sale.." + num);
-                num--;
+            }
+        }
+        else
+        {
+            while(true)
+            {
+                this.show();
             }
         }
     }
+
+    public synchronized void show()  //同步函数用的锁是this,静态同步函数用的锁是this.getClass()或ticket.class
+    {
+        if(num>0)
+        {
+            try
+            {
+                Thread.sleep(2); //冻结进程
+            }
+            catch (InterruptedException e) //必须捕捉异常
+            {
+            }
+            System.out.println(Thread.currentThread().getName() + "..sale.." + num);
+            num--;
+        }
+    }
+
 }
 
 class TicketDemo
@@ -46,6 +77,14 @@ class TicketDemo
 
         t1.start();
         t2.start();
+        t.flag = false;
+        try
+        {
+            Thread.sleep(10); //冻结进程
+        }
+        catch (InterruptedException e) //必须捕捉异常
+        {
+        }
         t3.start();
         t4.start();
     }
