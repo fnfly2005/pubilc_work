@@ -1,6 +1,7 @@
 /**
 * Description:
 * 单例模式-保证一个类在内存中的对象唯一性,必须对于多个程序使用同一个配置信息对象时，就需要保证该对象的唯一性
+* 懒汉式加同步锁保证线程安全，加二次判断解决效率问题
 * @version 1.0
 * @author fnfly2005
 */
@@ -36,8 +37,13 @@ class SingleLazy
     //开放一个对外方法把返回对象
         if (s == null)
         {
-        //当s为空时新建对象，延迟加载，线程不安全
-            SingleLazy s = new SingleLazy();
+            synchronized(SingleLazy.class)
+            {
+                if (s == null)
+                {
+                    SingleLazy s = new SingleLazy();
+                }
+            }
         }
         return s; 
     }
