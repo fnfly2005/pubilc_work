@@ -83,7 +83,7 @@ class AdlineSGD(object):
             if self.shuffle:
                 X, y = self._shuffle(X, y) #返回洗牌后的矩阵
 
-            #存储代价函数
+            #存储代价函数,并更新权重
             cost = []
             for xi, target in zip(X,y):
                 cost.append(self._update_weights(xi,target))
@@ -92,8 +92,16 @@ class AdlineSGD(object):
         return self
 
     def partial_fit(self,X,y):
-        """无初始化权重训练函数"""
-        pass
+        """流数据-训练函数"""
+        if not self.w_initialized:
+            self._initialize_weights(X.shape[1])
+        #更新权重
+        if y.ravel().shape[0] > 1: 
+            for xi, target in zip(X,y):
+                self._update_weights(xi,target)
+        else:
+            self._update_weights(xi,target)
+        return self
             
     def net_input(self, X):
         """计算输入函数"""
@@ -115,6 +123,10 @@ def npToPd(npdata):
     columns = npdata['feature_names'] + ['target']#获取特征名称的数组
     return pd.DataFrame(data = data,columns = columns) #通过np矩阵生成dataframe
     
+#特征数据标准化
+def npStd(ar):
+    return (ar - ar.mean())/ar.std()
+
 if __name__ == '__main__':
     #path ='/home/fannian/downloads/'
     path ='/Users/fannian/Downloads/'
@@ -124,10 +136,14 @@ if __name__ == '__main__':
     y = df.iloc[0:100,4].values #取前100行类标数据
     y = np.where(y == 0, -1 , 1) #将0类标改为-1
     X = df.iloc[0:100,[0,2]].values #取前100行特征数据
+    #对特征进行标准化处理
+    X_std = np.copy(X)
+    X_std[:,0] = npStd(X[:,0])
+    X_std[:,1] = npStd(X[:,1])
 
     #输出迭代次数与错误分析
-    ppn = AdlineSGD(eta = 0.0001, n_iter =10) #调小学习速率，直到代价函数收敛
-    ppn.fit(X,y)
+    ppn = AdlineSGD(eta = 0.01, n_iter =20) #标准化处理后，学习速率调节较少
+    ppn.fit(X_std,y)
     plt.plot(range(1,len(ppn.cost_) + 1), ppn.cost_,marker='o') #marker='o' 小圆点
     plt.xlabel('Epochs')
     plt.ylabel('Number of misclassifications')
