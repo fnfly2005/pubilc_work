@@ -73,7 +73,7 @@ class AdlineGD(object):
 
     def predict(self, X):
         """返回数据类标"""
-        return np.where(self.net_input(X) >= 0.0, 1, -1)
+        return np.where(self.activation(X) >= 0.0, 1, -1)
 
 #转化datasets为dataframe
 def npToPd(npdata):
