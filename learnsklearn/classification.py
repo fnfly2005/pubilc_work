@@ -1,23 +1,21 @@
 #!/usr/bin/python
 #coding:utf-8
-##################################
 """
 Description: 分类算法、降维、求解器
-逻辑回归、神经网络、SVM
+逻辑回归、神经网络、SVM、感知器
 降维：PCA 
 求解器：随机梯度下降、平均梯度下降
-Version: v1.0
 """
-##################################
 from sklearn import datasets,metrics,svm
 from sklearn.linear_model import LogisticRegressionCV
 from sklearn.linear_model import SGDClassifier
+from sklearn.linear_model import Perceptron
 from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.decomposition import PCA
 
-def classificationMethod(train_data,train_target,model):
+def classificationMethod(train_data,train_target,linear):
     #切分数据集
     X_train, X_test, y_train, y_test = train_test_split(train_data,train_target,test_size=0.2)
 
@@ -33,21 +31,20 @@ def classificationMethod(train_data,train_target,model):
     X_train = pca.transform(X_train)
     X_test = pca.transform(X_test)
 
-    #模型选择
-    if model == 'logistic':
-        linear = LogisticRegressionCV(cv=5,random_state=0)
-    elif model == 'svm':
-        linear = svm.SVC(C=1.0,kernel='rbf',gamma=0.1)
-    elif model == 'neural_network':
-        linear = MLPClassifier(hidden_layer_sizes=(4,2),solver='lbfgs',activation='logistic')
-    elif model == 'SGD':
-        linear = SGDClassifier(loss='log',penalty='l1',l1_ratio=0.1,average=5) #average设置为int，则为平均梯度下降
+    #训练评分
     linear.fit(X_train,y_train)
-
-    #评分
     print "train's score: ",linear.score(X_train,y_train)
     print "test's score: ",linear.score(X_test,y_test)
 
 if __name__ == '__main__':
     iris = datasets.load_iris()
-    classificationMethod(iris.data,iris.target,'SGD')
+
+    ppn = Perceptron(max_iter=40, eta0=0.001)#感知器-数据必须严格的线性可分，不然无法收敛
+    logistic = LogisticRegressionCV(cv=5,random_state=0)#逻辑回归-输出概率值，对离群点数据有较好效果
+    lsvm = svm.LinearSVC()#svm-线性SVM，输出类标，对临界点有较好的区分
+    svm = svm.SVC(C=1.0,kernel='rbf',gamma=0.1)#svm-基于高斯核函数的SVM，对线性不可分的数据集有效
+    neural_network = MLPClassifier(hidden_layer_sizes=(4,2),solver='lbfgs',activation='logistic') #bp神经网络-适用于复杂逻辑判断
+    SGD = SGDClassifier(loss='log',penalty='l2',max_iter=1000) #随机梯度下降-求解器，适合大规模数据集
+    SAG = SGDClassifier(loss='log',l1_ratio=0.15,average=5,max_iter=1000) #平均梯度下降-求解器，适合中大规模数据集
+
+    classificationMethod(iris.data,iris.target,linear=SAG)
