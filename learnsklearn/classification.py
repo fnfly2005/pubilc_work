@@ -40,11 +40,11 @@ if __name__ == '__main__':
     iris = datasets.load_iris()
 
     ppn = Perceptron(max_iter=40, eta0=0.001)#感知器-数据必须严格的线性可分，不然无法收敛
-    logistic = LogisticRegressionCV(cv=5,random_state=0)#逻辑回归-输出概率值，对离群点数据有较好效果
-    lsvm = svm.LinearSVC()#svm-线性SVM，输出类标，对临界点有较好的区分
+    log = LogisticRegressionCV(cv=5,random_state=0)#逻辑回归-输出概率值，对离群点数据有较好效果
+    lsvm = svm.LinearSVC()#svm-线性SVM，输出类标，对临界点有较好的区分;该函数支持正则化和损失函数，SVC(kernel='linear')采用默认设置
     svm = svm.SVC(C=1.0,kernel='rbf',gamma=0.1)#svm-基于高斯核函数的SVM，对线性不可分的数据集有效
     neural_network = MLPClassifier(hidden_layer_sizes=(4,2),solver='lbfgs',activation='logistic') #bp神经网络-适用于复杂逻辑判断
-    SGD = SGDClassifier(loss='log',penalty='l2',max_iter=1000) #随机梯度下降-求解器，适合大规模数据集
-    SAG = SGDClassifier(loss='log',l1_ratio=0.15,average=5,max_iter=1000) #平均梯度下降-求解器，适合中大规模数据集
+    SGDlog = SGDClassifier(loss='log',penalty='l2',max_iter=1000) #随机梯度下降-求解器，适合大规模数据集,partial_fit支持在线学习
+    SAGlsvm = SGDClassifier(loss='hinge',l1_ratio=0.15,average=5,max_iter=1000) #平均梯度下降-求解器，适合中大规模数据集
 
-    classificationMethod(iris.data,iris.target,linear=SAG)
+    classificationMethod(iris.data,iris.target,linear=lsvm)
