@@ -26,6 +26,4 @@ if __name__ == '__main__':
     svm = svm.SVC(C=10,kernel='rbf',gamma=1)
     svm.fit(s.X,s.y)
     
-    db.plot_decision_regions(s.X,s.y,classifier=svm)
-    plt.legend(loc='upper left')
-    plt.savefig(path + 'decision_figure.png')
+    db.plot_decision_regions(s.X,s.y,classifier=svm,path_file = path + 'decision_figure.png')
