@@ -6,29 +6,21 @@ Description: 决策边界可视化
 import numpy as np
 from matplotlib.colors import ListedColormap
 import matplotlib.pyplot as plt
+import LinearClassifier as lc
 plt.switch_backend('agg')
 
-class fitScore(object):
+class fitScore(lc.ClassifyPipeline):
     '''模型训练'''
-    def __init__(self,X,y,model):
-        from sklearn.preprocessing import StandardScaler
-        from sklearn.model_selection import train_test_split
+    def __init__(self,X,y,model,n_com = 2):
+        lc.ClassifyPipeline.__init__(self,train_data=X,train_target=y,linear=model,n_com=n_com)
+        self.X_combined_std = np.vstack((self.X_train,self.X_test))
+        self.y_combined = np.hstack((self.y_train,self.y_test))
+
+    def getScore(self):
         from sklearn.metrics import accuracy_score
-        X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.3)
-
-        sc = StandardScaler()
-        sc.fit(X_train)
-        X_train_std = sc.transform(X_train)
-        X_test_std = sc.transform(X_test)
-
-        self.X_combined_std = np.vstack((X_train_std,X_test_std))
-        self.y_combined = np.hstack((y_train,y_test))
-        self.model = model
-        self.model.fit(X_train_std,y_train)
-
-        y_pred = self.model.predict(X_test_std)
-        print (y_test != y_pred).sum() #返回错误的样本数
-        print '%.2f' % accuracy_score(y_test,y_pred) #分类准确率
+        y_pred = self.linear.predict(self.X_test)
+        print (self.y_test != y_pred).sum() #返回错误的样本数
+        print '%.2f' % accuracy_score(self.y_test,y_pred) #分类准确率
 
 def plot_decision_regions(X,y,classifier,path_file,test_idx=None,resolution=0.02):#注意无默认参数需置于有默认参数之前
     '''绘出决策边界'''
@@ -67,5 +59,6 @@ if __name__ == '__main__':
     ppn = Perceptron(max_iter=40, eta0=0.001)
     lr = LogisticRegression(C=1000)
     f = fitScore(X=X,y=y,model=lr)
+    f.getScore()
 
-    plot_decision_regions(X=f.X_combined_std,y=f.y_combined,classifier=f.model,test_idx=range(105,150),path_file = path + 'decision_figure.png')
+    plot_decision_regions(X=f.X_combined_std,y=f.y_combined,classifier=f.linear,test_idx=range(105,150),path_file = path + 'decision_figure.png')
