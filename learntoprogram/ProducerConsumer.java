@@ -1,6 +1,7 @@
 /**
 * Description: 多线程技术之经典生产者消费者问题
 * jdk1.5之后新增同步对象、监视器对象,支持同一个锁对象拥有多个监视器对象
+* 线程停止方式一:run方法停止
 * @author fnfly2005
 * 构建一个存放烤鸭的餐厅，用多线程技术实现厨师往餐厅里放烤鸭，客人从餐厅里取烤鸭
 */
@@ -71,6 +72,7 @@ class Restaurant
 class Cooker implements Runnable
 {
     Restaurant r;
+    private boolean flag = true;
     Cooker(Restaurant r)
     {
         this.r = r;
@@ -78,16 +80,22 @@ class Cooker implements Runnable
 
     public void run()
     {
-        while(true)
+        while(flag)
         {
             this.r.putDuck("烤鸭");
         }
+    }
+
+    public void setFlag()
+    {
+        this.flag = false;
     }
 }
 
 class Epicure implements Runnable
 {
     Restaurant r;
+    private boolean flag = true;
     Epicure(Restaurant r)
     {
         this.r = r;
@@ -95,11 +103,12 @@ class Epicure implements Runnable
 
     public void run()
     {
-        while(true)
+        while(flag)
         {
             this.r.takeDuck();
         }
     }
+
 }
 
 class ProducerConsumer
@@ -119,5 +128,18 @@ class ProducerConsumer
         t2.start();
         t3.start();
         t4.start();
+
+        int num = 1;
+        for(;;)
+        {
+            if(++num==50)
+            {
+                c.setFlag();
+                e.setFlag();
+                break;
+            }
+            System.out.println("main.."+num);
+        }
+        System.out.println("over");
     }
 }
