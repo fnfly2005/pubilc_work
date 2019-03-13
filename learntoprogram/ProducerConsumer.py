@@ -3,6 +3,7 @@
 """
 Description: 多线程技术之经典生产者消费者问题
 构建一个存放烤鸭的餐厅，用多线程技术实现厨师往餐厅里放烤鸭，客人从餐厅里取烤鸭
+线程停止、守护线程
 """
 import threading
 
@@ -37,19 +38,28 @@ class Cooker(threading.Thread):
     def __init__(self,r):
         threading.Thread.__init__(self)
         self.r = r
+        self.flag = True
 
     def run(self):
-        while True:
+        while self.flag:
             self.r.putDuck("鸭子")
+
+    def setFlag(self):
+        self.flag = False
+
 
 class Epicure(threading.Thread):
     def __init__(self,r):
         threading.Thread.__init__(self)
         self.r = r
+        self.flag = True
 
     def run(self):
-        while True:
+        while self.flag:
             self.r.takeDuck()
+
+    def setFlag(self):
+        self.flag = False
 
 if __name__ == '__main__':
     r = Restaurant()
@@ -58,7 +68,20 @@ if __name__ == '__main__':
     e1 = Epicure(r)
     e2 = Epicure(r)
     
+    c2.setDaemon(True) #守护进程，需置于start之前
+    e2.setDaemon(True)
+
     c1.start()
-    c2.start()
     e1.start()
+    c2.start()
     e2.start()
+
+    i = 0
+    while True:
+        if i == 50:
+            c1.setFlag() #标记停止
+            e1.setFlag()
+            break
+        print "main.." + str(i)
+        i = i + 1
+    print "over"
