@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #coding:utf-8
 """
-Description: 分类算法、降维、求解器
+Description: 分类算法、降维、求解器、管道流水线
 逻辑回归、神经网络、SVM、感知器
 降维：PCA 
 求解器：随机梯度下降、平均梯度下降
@@ -9,24 +9,15 @@ Description: 分类算法、降维、求解器
 
 class ClassifyPipeline(object):
     def __init__(self,train_data,train_target,linear,n_com=0.99):
+        from sklearn.pipeline import Pipeline
         from sklearn.preprocessing import StandardScaler
         from sklearn.model_selection import train_test_split
         from sklearn.decomposition import PCA
-        #切分数据集
-        X_train, X_test, self.y_train, self.y_test = train_test_split(train_data,train_target,test_size=0.3)
-        #对特征数据进行归一化处理
-        scaler = StandardScaler()
-        scaler.fit(X_train)
-        X_train = scaler.transform(X_train)
-        X_test = scaler.transform(X_test)
-        #PCA压缩数据
-        pca = PCA(n_components=n_com) #保留n_com%的信息或n_com个维度
-        pca.fit(X_train)
-        self.X_train = pca.transform(X_train)
-        self.X_test = pca.transform(X_test)
-        #训练模型
-        self.linear = linear
-        self.linear.fit(self.X_train,self.y_train)
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(train_data,train_target,test_size=0.3)#切分数据集
+        scaler = StandardScaler()#对特征数据进行归一化处理
+        pcaer = PCA(n_components=n_com) #PCA压缩数据-保留n_com%的信息或n_com个维度
+        self.linear = Pipeline([('scl',scaler),('pca',pcaer),('clf',linear)])#流水线整合各个模型,可通过标识符访问其中各个元素
+        self.linear.fit(self.X_train,self.y_train)#训练模型
 
     def getScore(self):
         print "train's score: ",self.linear.score(self.X_train,self.y_train)
