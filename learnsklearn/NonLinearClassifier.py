@@ -9,6 +9,7 @@ from sklearn import svm
 import DecisionBoundary as db
 import matplotlib.pyplot as plt
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.model_selection import GridSearchCV
 
 class XorSample(object):
     def __init__(self,num,classifier):
@@ -30,7 +31,11 @@ if __name__ == '__main__':
     Rsvm = svm.SVC(C = 10,kernel = 'rbf',gamma = 1)
 
     '''n_neighbors近邻个数,metric距离度量'''
-    knn = KNeighborsClassifier(n_neighbors=5, p=2, metric='minkowski')
+    knn = KNeighborsClassifier(p=2, metric='minkowski')
+    param_grid = [{'n_neighbors':[2,3,4,5,6]}]
+    gsc = GridSearchCV(estimator = knn, param_grid = param_grid,\
+        cv = 10, n_jobs=-1)
     
-    s = XorSample(200,classifier = knn)
+    s = XorSample(200,classifier = gsc)
     db.plot_decision_regions(s.X,s.y,classifier = s.classifier,path_file = path + 'decision_figure.png')
+    print s.classifier.best_params_
