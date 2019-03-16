@@ -23,13 +23,14 @@ class ClassifyPipeline(object):
         self.linear = GridSearchCV(estimator = pipe_cv,param_grid = param_grid,\
             scoring = 'accuracy',cv = 5,n_jobs=-1)#网格搜索实现半自动调参
         self.linear.fit(self.X_train,self.y_train)#训练模型
-        self.scores = cross_val_score(self.linear,train_data,train_target,\
+        self.scores = cross_val_score(self.linear,self.X_train,self.y_train,\
             scoring='accuracy',cv=5)#嵌套交叉验证比较不同模型之间的性能
 
     def getScore(self):
         print "best_score: ",self.linear.best_score_
         print "best_params: ",self.linear.best_params_
         print "CV accuracy: %.3f +/- %.3f" % (np.mean(self.scores), np.std(self.scores))
+        print "test_score: ",self.linear.score(self.X_test,self.y_test)
 
 if __name__ == '__main__':
     from sklearn.linear_model import LogisticRegression
