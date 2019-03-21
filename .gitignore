@@ -3,3 +3,4 @@ test*
 *.swp
 *.pyc
 *.class
+.ipynb_checkpoints
