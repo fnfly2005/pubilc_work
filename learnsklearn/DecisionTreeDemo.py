@@ -1,15 +1,14 @@
 #!/usr/bin/python
 #coding:utf-8
 """
-Description: 决策树及其可视化,随机森林
+Description: 决策树及其可视化
 """
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier
 import DecisionBoundary as db
+from sklearn import datasets
+from sklearn.tree import export_graphviz
 
 if __name__ == '__main__':
-    from sklearn import datasets
-    from sklearn.tree import export_graphviz
     #path = '/Users/fannian/Downloads/'
     path = '/home/fannian/downloads/'
     iris = datasets.load_iris()
@@ -18,8 +17,6 @@ if __name__ == '__main__':
 
     param_grid = [{'clf__max_depth':[2,3,4]}]
     tree = DecisionTreeClassifier()
-
-    forest = RandomForestClassifier(n_estimators=10,n_jobs=2)
 
     f = db.fitScore(X=X,y=y,model=tree,param_grid=param_grid)
     f.getScore()
