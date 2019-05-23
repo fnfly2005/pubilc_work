@@ -7,7 +7,7 @@ import os
 import pickle
 
 cur_dir = os.path.dirname(__file__)
-stop = pickle.load(open(os.path.join(cu_dir,'pkl_objects','stopwords.pkl'),'rb'))
+stop = pickle.load(open(os.path.join(cur_dir,'pkl_objects','stopwords.pkl'),'rb'))
 
 def tokenizer(text):
     '''清洗数据，过滤停用词,返回分词列表'''
