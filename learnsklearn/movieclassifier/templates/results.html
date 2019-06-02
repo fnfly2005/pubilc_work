@@ -11,11 +11,11 @@
 <div>This movie review is <strong>{{ prediction }}</strong>
     (probability: {{ probability }}%).</div>
 <div id='button'>
-    <form action="/thanks" method="post">
-    <input type=submit value='Correct' name='feedback_button'>
-    <input type=submit value='Incorrect' name='feedback_button'>
-    <input type=hidden value='{{ prediction }}' name='prediction'>
-    <input type=hidden value='{{ Correct }}' name='review'>
+    <form action="/thanks" method=post>
+        <input type=submit value='Correct' name='feedback_button'>
+        <input type=submit value='Incorrect' name='feedback_button'>
+        <input type=hidden value='{{ prediction }}' name='prediction'>
+        <input type=hidden value='{{ content }}' name='review'>
     </form>
 </div>
 
