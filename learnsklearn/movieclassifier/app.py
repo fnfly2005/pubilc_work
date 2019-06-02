@@ -56,7 +56,7 @@ def results():
         return render_template('results.html',
                                 content=review,
                                 prediction=y,
-                                probability=round(proba*100,2))
+                                probability=round(proba*100,2))#模版渲染
     return render_template('reviewform.html',form=form)
 
 @app.route('/thanks',methods=['POST'])
