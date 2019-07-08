@@ -49,10 +49,10 @@ class NeuralNetMLP(object):
     def _add_bias_unit(self,X,how='column'):
         if how == 'column':
             X_new = np.ones((X.shape[0],X.shape[1]+1))
-            X_new [:,1:]=X
+            X_new[:,1:]=X
         elif how == 'row':
-            X_new = np.ones((X.shape[0],X.shape[1]))
-            X_new [1:,:]=X
+            X_new = np.ones((X.shape[0]+1,X.shape[1]))
+            X_new[1:,:]=X
         else:
             raise AttributeError('`how` must be `column` or `row`')
         return X_new
@@ -118,7 +118,7 @@ class NeuralNetMLP(object):
                 sys.stderr.flush()
 
             if self.shuffle:
-                idx = np.random.permutation(y_data,shape[0])
+                idx = np.random.permutation(y_data.shape[0])
                 X_data,y_data = X_data[idx],y_data[idx]
 
             mini = np.array_split(range(y_data.shape[0]),self.minibatches)
