@@ -42,7 +42,7 @@ class NeuralNetMLP(object):
     def _sigmoid(self,z):
         return expit(z)
 
-    def _sigmoid_gradient(selfmz):
+    def _sigmoid_gradient(self,z):
         sg = self._sigmoid(z)
         return sg * (1-sg)
 
@@ -52,6 +52,7 @@ class NeuralNetMLP(object):
             X_new [:,1:]=X
         elif how == 'row':
             X_new = np.ones((X.shape[0],X.shape[1]))
+            X_new [1:,:]=X
         else:
             raise AttributeError('`how` must be `column` or `row`')
         return X_new
@@ -114,7 +115,7 @@ class NeuralNetMLP(object):
 
             if print_progress:
                 sys.stderr.write('\rEpoch: %d/%d' % (i+1,self.epochs))
-                sys.stderr.flush
+                sys.stderr.flush()
 
             if self.shuffle:
                 idx = np.random.permutation(y_data,shape[0])
